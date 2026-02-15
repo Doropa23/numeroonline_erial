@@ -1,0 +1,2869 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUMBERING DATA MERGE 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --azul-claro: #e6f2ff; --azul-escuro: #0077cc; --azul-hover: #0066b3;
+            --verde: #4CAF50; --verde-escuro: #3e8e41; --verde-hover: #3e8e41;
+            --branco: #ffffff; --cinza-claro: #f5f5f5; --cinza-medio: #e0e0e0;
+            --cinza-escuro: #333333; --sombra: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --sombra-botao: 0 2px 5px rgba(0, 0, 0, 0.2); --roxo: #8e44ad;
+            --roxo-escuro: #6c3483; --roxo-hover: #7d3c98; --laranja: #e67e22;
+            --laranja-escuro: #d35400; --laranja-hover: #e67e22; --vermelho: #e74c3c;
+            --vermelho-hover: #c0392b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            margin: 0; padding: 20px;
+            background-color: #f0f4f8; color: var(--cinza-escuro); line-height: 1.6;
+        }
+
+        /* LOGO NO HEADER */
+        .app-header {
+            max-width: 1400px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .app-header:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--azul-escuro), #0099ff);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,119,204,0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .logo-icon:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 6px 15px rgba(0,119,204,0.4);
+        }
+
+        .logo-text h1 {
+            color: white;
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text p {
+            color: #94a3b8;
+            margin: 5px 0 0 0;
+            font-size: 0.85em;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: white;
+        }
+
+        .user-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .user-badge:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.02);
+        }
+
+        .user-badge i {
+            color: var(--azul-escuro);
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* LAYOUT PRINCIPAL COM 2 COLUNAS */
+        .app-layout {
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .main-content {
+            flex: 2;
+            min-width: 0;
+        }
+
+        .preview-sidebar {
+            flex: 1;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            max-width: 380px;
+        }
+
+        .container {
+            padding: 25px;
+            background-color: var(--branco); 
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); 
+            position: relative; 
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .container::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 4px;
+            background: linear-gradient(90deg, var(--azul-escuro), #0099ff);
+            transition: height 0.3s ease;
+        }
+        
+        .container:hover::before {
+            height: 6px;
+        }
+
+        h1, h2, h3 { 
+            color: #1e293b; 
+            margin-top: 0; 
+            font-weight: 600; 
+            letter-spacing: -0.02em; 
+        }
+        
+        h2, h3 { 
+            margin-bottom: 20px; 
+            display: flex; 
+            align-items: center; 
+            font-weight: 600; 
+            font-size: 1.2em; 
+            transition: transform 0.2s ease;
+        }
+        
+        h2:hover, h3:hover {
+            transform: translateX(3px);
+        }
+        
+        h2 i, h3 i { 
+            margin-right: 10px; 
+            font-size: 1.1em; 
+            color: var(--azul-escuro); 
+        }
+
+        .form-section {
+            background-color: var(--branco); 
+            border-radius: 10px; 
+            padding: 24px;
+            margin-bottom: 24px; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #edf2f7; 
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .form-section:hover { 
+            border-color: var(--azul-escuro);
+            box-shadow: 0 8px 20px rgba(0, 119, 204, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        label {
+            display: inline-block; 
+            width: 180px; 
+            font-weight: 500;
+            color: #334155; 
+            margin-bottom: 0; 
+            font-size: 0.95em;
+        }
+        
+        input, select {
+            padding: 10px 14px; 
+            width: 200px; 
+            border: 1px solid #e2e8f0;
+            border-radius: 8px; 
+            font-size: 0.95em; 
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Inter', 'Poppins', sans-serif; 
+            background-color: #fafcfc;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--azul-escuro); 
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.1); 
+            background-color: white;
+            transform: scale(1.02);
+        }
+        
+        input:hover, select:hover {
+            border-color: #94a3b8;
+        }
+
+        .radio-group, .checkbox-group {
+            margin-left: 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .radio-option, .checkbox-option {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            height: 38px;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9em;
+        }
+
+        .radio-option input[type="radio"], 
+        .checkbox-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            margin-top: 0;
+            margin-bottom: 0;
+            cursor: pointer;
+            align-self: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .radio-option input[type="radio"]:checked, 
+        .checkbox-option input[type="checkbox"]:checked {
+            transform: scale(1.2);
+        }
+
+        .radio-option label, 
+        .checkbox-option label {
+            width: auto;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-bottom: 0;
+            line-height: 1;
+            white-space: nowrap;
+            color: #334155;
+        }
+
+        .radio-option:hover, .checkbox-option:hover { 
+            background-color: #f8fafc;
+            border-color: var(--azul-escuro);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 119, 204, 0.1);
+        }
+        
+        .radio-option input:checked + label,
+        .checkbox-option input:checked + label {
+            font-weight: 600;
+            color: var(--azul-escuro);
+        }
+        
+        .radio-option:has(input:checked), .checkbox-option:has(input:checked) {
+            background-color: #f0f7ff;
+            border-color: var(--azul-escuro);
+        }
+
+        /* BOTÕES */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .relatorios-container {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            height: 40px;
+            letter-spacing: 0.3px;
+        }
+        
+        button i { 
+            font-size: 1em; 
+            transition: transform 0.3s ease;
+        }
+        
+        button:hover i { 
+            transform: scale(1.1);
+        }
+        
+        button:hover { 
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); 
+        }
+        button:active { transform: translateY(1px) scale(0.98); }
+
+        .btn-primary { background-color: var(--azul-escuro); color: white; }
+        .btn-primary:hover { background-color: var(--azul-hover); }
+        .btn-secondary { background-color: #2c3e50; color: white; }
+        .btn-secondary:hover { background-color: #1e2b37; }
+        .btn-tertiary { background-color: white; color: #334155; border: 1px solid #e2e8f0; box-shadow: none; }
+        .btn-tertiary:hover { background-color: #f8fafc; }
+        .btn-quaternary { background-color: var(--roxo); color: white; }
+        .btn-quaternary:hover { background-color: var(--roxo-hover); }
+        .btn-quinary { background-color: var(--laranja); color: white; }
+        .btn-quinary:hover { background-color: var(--laranja-hover); }
+        .btn-danger { background-color: #ef4444; color: white; }
+        .btn-danger:hover { background-color: #dc2626; }
+        .btn-success { background-color: #10b981; color: white; }
+        .btn-success:hover { background-color: #059669; }
+        .btn-sm { padding: 6px 12px; font-size: 0.8em; height: 36px; }
+
+        .badge {
+            display: inline-block; 
+            padding: 2px 8px;
+            border-radius: 12px; 
+            font-size: 0.7em;
+            font-weight: 600; 
+            margin-left: 6px;
+            background-color: rgba(255,255,255,0.2); 
+            color: white;
+            transition: all 0.2s ease;
+        }
+        
+        button:hover .badge {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        /* PREVIEW PROFISSIONAL */
+        .preview-panel {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .preview-panel:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: linear-gradient(to right, #f8fafc, white);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .preview-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .preview-title i {
+            color: var(--azul-escuro);
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-panel:hover .preview-title i {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .preview-badge {
+            background: #e2e8f0;
+            color: #334155;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preview-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-format-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .preview-format-label {
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .preview-format-value {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            font-size: 1em;
+            font-weight: 500;
+            color: #0f172a;
+            background: #f1f5f9;
+            padding: 10px 16px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            border: 1px solid #e2e8f0;
+            word-break: break-all;
+            transition: all 0.3s ease;
+        }
+        
+        .preview-format-value:hover {
+            background: #e2e8f0;
+            transform: scale(1.02);
+        }
+
+        .preview-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .preview-subtitle {
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .preview-code-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .preview-code-item {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            word-break: break-all;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .preview-code-item:hover {
+            transform: translateX(5px);
+            border-color: var(--azul-escuro);
+            box-shadow: 0 4px 12px rgba(0, 119, 204, 0.1);
+        }
+
+        .preview-code-item.qr {
+            border-left: 4px solid var(--roxo);
+        }
+        
+        .preview-code-item.qr:hover {
+            border-left-width: 6px;
+        }
+
+        .preview-code-item.barcode {
+            border-left: 4px solid var(--laranja);
+        }
+        
+        .preview-code-item.barcode:hover {
+            border-left-width: 6px;
+        }
+
+        .preview-code-item i {
+            color: #64748b;
+            font-size: 1em;
+            min-width: 16px;
+        }
+
+        .preview-metadata {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .preview-metadata:hover {
+            background: #f1f5f9;
+        }
+
+        .preview-metadata-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            transition: transform 0.2s ease;
+        }
+        
+        .preview-metadata-item:hover {
+            transform: translateX(3px);
+        }
+
+        .preview-metadata-icon {
+            color: var(--azul-escuro);
+            font-size: 0.9em;
+            width: 16px;
+        }
+
+        .preview-metadata-label {
+            font-size: 0.8em;
+            color: #64748b;
+            font-weight: 500;
+            min-width: 60px;
+        }
+
+        .preview-metadata-value {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #0f172a;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+            flex: 1;
+            transition: all 0.2s ease;
+        }
+        
+        .preview-metadata-item:hover .preview-metadata-value {
+            border-color: var(--azul-escuro);
+        }
+
+        /* RESULTADO DA QUANTIDADE */
+        .quantidade-resultado {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 12px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .quantidade-resultado:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .quantidade-resultado i {
+            margin-right: 6px;
+            font-size: 0.9em;
+        }
+
+        .quantidade-resultado.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .quantidade-resultado.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        /* MODAL DE LOGIN */
+        .auth-modal {
+            display: flex;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-container {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            padding: 30px 30px 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .auth-header i {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 60px;
+            animation: pulseIcon 2s infinite ease-in-out;
+        }
+        
+        @keyframes pulseIcon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .auth-header h2 {
+            color: white;
+            margin: 10px 0 5px;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .auth-header p {
+            color: #94a3b8;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .auth-form {
+            padding: 30px;
+        }
+
+        .auth-field {
+            margin-bottom: 20px;
+        }
+
+        .auth-field label {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-field input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: #f8fafc;
+        }
+
+        .auth-field input:focus {
+            border-color: var(--azul-escuro);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0,119,204,0.05);
+            transform: scale(1.02);
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--azul-escuro), #0060a0);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 10px;
+            height: auto;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-button:hover {
+            background: linear-gradient(135deg, #0066b3, #005091);
+            transform: scale(1.02) translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(0,119,204,0.6);
+        }
+
+        .auth-error {
+            color: #ef4444;
+            font-size: 0.8em;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .auth-footer {
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9em;
+            color: #64748b;
+        }
+
+        .auth-footer a {
+            color: var(--azul-escuro);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .auth-footer a:hover {
+            color: #0060a0;
+            text-decoration: underline;
+            transform: translateX(3px);
+        }
+
+        /* TIMEOUT WARNING */
+        .timeout-warning {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10000;
+            animation: slideInUp 0.3s ease;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .timeout-warning i {
+            font-size: 1.2em;
+        }
+        
+        .timeout-warning button {
+            background: white;
+            color: #d97706;
+            border: none;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: auto;
+            font-size: 0.85em;
+        }
+        
+        .timeout-warning button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* MODAL PRINCIPAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: var(--branco);
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 80vh;
+            overflow: auto;
+            position: relative;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            animation: modalAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes modalAppear {
+            from { transform: translateY(-50px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--cinza-medio);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--cinza-escuro);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .close-modal:hover {
+            color: var(--vermelho);
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        .modal-body {
+            overflow-x: auto;
+        }
+
+        #modalTabelaConteudo {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        #modalTabelaConteudo th {
+            background-color: var(--azul-escuro);
+            color: var(--branco);
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+        }
+        #modalTabelaConteudo td {
+            padding: 8px;
+            border: 1px solid var(--cinza-medio);
+            text-align: center;
+            transition: background-color 0.2s ease;
+        }
+        #modalTabelaConteudo tr:nth-child(even) { background-color: var(--azul-claro); }
+        #modalTabelaConteudo tr:hover td { background-color: #d4e6ff; }
+
+        .tamanho-parte-aleatoria {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tamanho-parte-aleatoria input {
+            width: 80px;
+        }
+
+        /* NOTIFICAÇÃO */
+        .notification {
+            position: fixed; top: 15px; right: 15px; padding: 14px 20px;
+            border-radius: 10px; color: white; font-weight: 500;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); display: flex;
+            align-items: center; z-index: 2000; transform: translateX(200%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 0.9em;
+            backdrop-filter: blur(10px);
+        }
+        .notification.show { transform: translateX(0); }
+        .notification i { margin-right: 10px; font-size: 1.1em; }
+        .notification.success { background-color: #10b981; }
+        .notification.error { background-color: #ef4444; }
+        .notification.warning { background-color: #f59e0b; }
+
+        /* LOG */
+        #logOperacoes {
+            margin-top: 30px; padding: 20px;
+            background-color: white; border-radius: 12px;
+            max-height: 200px; overflow-y: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #edf2f7;
+            transition: all 0.3s ease;
+        }
+        
+        #logOperacoes:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .log-entry {
+            margin-bottom: 8px; padding-bottom: 8px;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex; align-items: flex-start; font-size: 0.85em;
+            transition: transform 0.2s ease;
+        }
+        
+        .log-entry:hover {
+            transform: translateX(3px);
+            background-color: #f8fafc;
+        }
+        .log-timestamp { color: #64748b; font-weight: 600; margin-right: 10px; flex-shrink: 0; }
+        .log-message { color: #1e293b; flex-grow: 1; }
+
+        .campo-obrigatorio { border-color: #ef4444 !important; }
+        .mensagem-erro { color: #ef4444; font-size: 0.7em; margin-top: 5px; width: 100%; }
+
+        .app-content {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .app-layout {
+                flex-direction: column;
+            }
+            
+            .preview-sidebar {
+                position: static;
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .button-container { 
+                flex-direction: column; 
+            }
+            
+            .button-group { 
+                width: 100%; 
+                justify-content: center; 
+            }
+            
+            .relatorios-container { 
+                width: 100%; 
+                justify-content: center; 
+                margin-left: 0; 
+            }
+            
+            button { 
+                flex: 1; 
+            }
+            
+            .radio-option label { 
+                white-space: normal; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- MODAL DE LOGIN (APENAS LOGIN, SEM CADASTRO) -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-container">
+            <div class="auth-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2 id="authTitle">NUMBERING DATA MERGE 2</h2>
+                <p id="authSubtitle">Sistema de Numeração Automatizada</p>
+            </div>
+            
+            <!-- FORMULÁRIO DE LOGIN -->
+            <div id="loginForm" class="auth-form">
+                <div class="auth-field">
+                    <label><i class="fas fa-user" style="margin-right: 5px;"></i> Username</label>
+                    <input type="text" id="loginUsername" placeholder="Digite seu usuário" autocomplete="off" value="">
+                </div>
+                <div class="auth-field">
+                    <label><i class="fas fa-lock" style="margin-right: 5px;"></i> Password</label>
+                    <input type="password" id="loginPassword" placeholder="Digite sua senha" autocomplete="off" value="">
+                </div>
+                <button id="loginButton" class="auth-button">
+                    <i class="fas fa-sign-in-alt"></i> ACESSAR SISTEMA
+                </button>
+                <div id="loginErrorMessage" class="auth-error">
+                    <i class="fas fa-exclamation-circle"></i> Usuário ou senha incorretos
+                </div>
+            </div>
+
+            <div class="auth-footer">
+                <span id="loginFooter">
+                    Digite suas credenciais para acessar
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL (PROTEGIDO) -->
+    <div id="appContent" class="app-content">
+        <!-- HEADER COM LOGO -->
+        <div class="app-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-table"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>NUMBERING DATA MERGE 2</h1>
+                    <p>Sistema Profissional de Numeração Automatizada</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-badge">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUserDisplay">admin</span>
+                </div>
+                <button id="btnLogout" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+
+        <div class="app-layout">
+            <!-- COLUNA ESQUERDA - CONFIGURAÇÕES -->
+            <div class="main-content">
+                <div class="container">
+                    <section class="form-section">
+                        <h2><i class="fas fa-cog"></i> Configurações Básicas</h2>
+                        
+                        <div class="form-group">
+                            <label for="txtNomeColunas">Nome da Coluna</label>
+                            <input type="text" id="txtNomeColunas" value="" placeholder="Digite o nome">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="txtPrefixo">Prefixo Global</label>
+                            <input type="text" id="txtPrefixo" placeholder="Exemplo: A000">
+                            <div class="radio-group">
+                                <span class="radio-option">
+                                    <input type="radio" id="rbPrefixoComEspaco" name="prefixoEspaco" checked>
+                                    <label for="rbPrefixoComEspaco">Espaço</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbPrefixoSemEspaco" name="prefixoEspaco">
+                                    <label for="rbPrefixoSemEspaco">Sem Espaço</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="txtSufixo">Sufixo Global</label>
+                            <input type="text" id="txtSufixo" placeholder="Exemplo: /2024">
+                            <div class="radio-group">
+                                <span class="radio-option">
+                                    <input type="radio" id="rbSufixoComEspaco" name="sufixoEspaco">
+                                    <label for="rbSufixoComEspaco">Espaço</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbSufixoSemEspaco" name="sufixoEspaco" checked>
+                                    <label for="rbSufixoSemEspaco">Sem Espaço</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="txtColunas">Número de Colunas</label>
+                            <input type="number" id="txtColunas" value="1" min="1" max="10" style="width: 80px;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Códigos Adicionais</label>
+                            <div class="checkbox-group">
+                                <span class="checkbox-option">
+                                    <input type="checkbox" id="cbQRCode" checked>
+                                    <label for="cbQRCode"><i class="fas fa-qrcode"></i> QR Code</label>
+                                </span>
+                                <span class="checkbox-option">
+                                    <input type="checkbox" id="cbCodigoBarras" checked>
+                                    <label for="cbCodigoBarras"><i class="fas fa-barcode"></i> Código de Barras</label>
+                                </span>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="form-section">
+                        <h2><i class="fas fa-sliders-h"></i> Configurações de Numeração</h2>
+                        
+                        <!-- TIPO DE GERAÇÃO -->
+                        <div class="form-group">
+                            <label>Tipo de Geração</label>
+                            <div class="radio-group">
+                                <span class="radio-option">
+                                    <input type="radio" id="rbTipoSequencial" name="tipoGeracao">
+                                    <label for="rbTipoSequencial"><i class="fas fa-sort-numeric-up"></i> Sequencial</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbTipoAleatorio" name="tipoGeracao">
+                                    <label for="rbTipoAleatorio"><i class="fas fa-random"></i> Aleatório</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbTipoHibrido" name="tipoGeracao" checked>
+                                    <label for="rbTipoHibrido"><i class="fas fa-code-branch"></i> Híbrido</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- TOGGLE PARA ATIVAR/DESATIVAR NUMERAÇÃO SEQUENCIAL ACOPLADA -->
+                        <div id="configSequencialToggle" style="display: none;" class="form-group">
+                            <label>Numeração Sequencial</label>
+                            <div class="toggle-sequencial">
+                                <button id="btnSeqAtivo" class="toggle-sequencial-btn active">
+                                    <i class="fas fa-check-circle"></i> Ativo
+                                </button>
+                                <button id="btnSeqInativo" class="toggle-sequencial-btn">
+                                    <i class="fas fa-times-circle"></i> Inativo
+                                </button>
+                            </div>
+                            <span id="seqInfoMessage" style="margin-left: 12px; background: #f0f9ff; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-info-circle" style="color: var(--azul-escuro);"></i> Sequencial ativo - números incrementam
+                            </span>
+                        </div>
+
+                        <!-- CONFIGURAÇÕES SEQUENCIAIS -->
+                        <div id="configSequencial">
+                            <div class="form-group">
+                                <label for="txtDigitos">Dígitos da Parte Sequencial</label>
+                                <input type="number" id="txtDigitos" value="4" min="1" max="10" style="width: 80px;">
+                                <span style="color: #64748b; font-size: 0.85em;">dígitos (ex: 0001)</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="txtInicial">Número Inicial</label>
+                                <input type="number" id="txtInicial" value="1" min="1" style="width: 100px;">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="txtIntervalo">Intervalo</label>
+                                <input type="number" id="txtIntervalo" value="1" min="1" style="width: 100px;">
+                            </div>
+                        </div>
+
+                        <!-- CONFIGURAÇÕES HÍBRIDAS E ALEATÓRIAS -->
+                        <div id="configHibridoAleatorio">
+                            <div class="form-group">
+                                <label>Tipo de Caractere</label>
+                                <div class="radio-group">
+                                    <span class="radio-option">
+                                        <input type="radio" id="rbApenasNumeros" name="tipoCaractere" checked>
+                                        <label for="rbApenasNumeros"><i class="fas fa-calculator"></i> Apenas Números</label>
+                                    </span>
+                                    <span class="radio-option">
+                                        <input type="radio" id="rbApenasLetras" name="tipoCaractere">
+                                        <label for="rbApenasLetras"><i class="fas fa-font"></i> Apenas Letras</label>
+                                    </span>
+                                    <span class="radio-option">
+                                        <input type="radio" id="rbNumeroLetra" name="tipoCaractere">
+                                        <label for="rbNumeroLetra"><i class="fas fa-font"></i> Números e Letras</label>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group tamanho-parte-aleatoria">
+                                <label for="txtTamanhoAleatorio">Tamanho da Parte Aleatória</label>
+                                <input type="number" id="txtTamanhoAleatorio" value="8" min="1" max="20" style="width: 80px;">
+                                <span style="color: #64748b; font-size: 0.85em;">caracteres</span>
+                            </div>
+                        </div>
+
+                        <!-- OPÇÕES DE QUANTIDADE COM RESULTADO EM TEMPO REAL -->
+                        <div class="form-group">
+                            <label>Opção de Quantidade</label>
+                            <div class="radio-group">
+                                <span class="radio-option">
+                                    <input type="radio" id="rbQuantidade" name="opcao" checked>
+                                    <label for="rbQuantidade"><i class="fas fa-hashtag"></i> Quantidade</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbNumeroFinal" name="opcao">
+                                    <label for="rbNumeroFinal"><i class="fas fa-flag-checkered"></i> Número Final</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbFolhas" name="opcao">
+                                    <label for="rbFolhas"><i class="fas fa-file-alt"></i> Folhas</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="divFinalOuQuantidade">
+                            <label for="txtFinalOuQuantidade" id="lblFinalOuQuantidade">Quantidade de Códigos</label>
+                            <input type="text" id="txtFinalOuQuantidade" value="10" placeholder="Exemplo: 100" style="width: 120px;">
+                            <span id="resultadoQuantidade" class="quantidade-resultado">
+                                <i class="fas fa-calculator"></i> 10 códigos
+                            </span>
+                        </div>
+                        
+                        <div class="form-group" id="divLinhasPorFolha" style="display: none;">
+                            <label for="txtLinhasPorFolha">Número de Folhas</label>
+                            <input type="text" id="txtLinhasPorFolha" value="10" placeholder="Exemplo: 10" style="width: 120px;">
+                            <span id="resultadoFolhas" class="quantidade-resultado">
+                                <i class="fas fa-calculator"></i> 10 códigos
+                            </span>
+                        </div>
+                    </section>
+                    
+                    <section class="form-section">
+                        <h2><i class="fas fa-layer-group"></i> Configurações de Layout</h2>
+                        
+                        <div class="form-group">
+                            <label>Direção de Preenchimento</label>
+                            <div class="radio-group">
+                                <span class="radio-option">
+                                    <input type="radio" id="rbVertical" name="preenchimento" checked>
+                                    <label for="rbVertical"><i class="fas fa-arrows-alt-v"></i> Vertical</label>
+                                </span>
+                                <span class="radio-option">
+                                    <input type="radio" id="rbHorizontal" name="preenchimento">
+                                    <label for="rbHorizontal"><i class="fas fa-arrows-alt-h"></i> Horizontal</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- BOTÕES -->
+                        <div class="button-container">
+                            <div class="button-group">
+                                <button id="btnGerar" class="btn-primary" title="Gerar Números (F2)">
+                                    <i class="fas fa-table"></i> Gerar Números
+                                </button>
+                                <button id="btnVisualizarModal" class="btn-secondary" title="Visualizar Tabela">
+                                    <i class="fas fa-eye"></i> Visualizar
+                                </button>
+                                <button id="btnSalvarTXT" class="btn-secondary" title="Salvar como TXT">
+                                    <i class="fas fa-file-export"></i> Exportar TXT
+                                </button>
+                                <button id="btnLimparDados" class="btn-danger" title="Limpar Dados (F1)">
+                                    <i class="fas fa-trash-alt"></i> Limpar Dados
+                                    <span class="badge">F1</span>
+                                </button>
+                                <button id="btnSalvarConfig" class="btn-quaternary" title="Salvar Configuração">
+                                    <i class="fas fa-save"></i> Salvar Config
+                                </button>
+                                <button id="btnCarregarConfig" class="btn-quaternary" title="Carregar Configuração">
+                                    <i class="fas fa-folder-open"></i> Carregar Config
+                                </button>
+                            </div>
+                            
+                            <div class="relatorios-container">
+                                <button id="btnRelatorioCompleto" class="btn-quinary" title="Relatório Completo em PDF">
+                                    <i class="fas fa-file-pdf"></i> PDF Completo
+                                </button>
+                                <button id="btnRelatorioResumido" class="btn-quinary" title="Relatório Resumido em PDF">
+                                    <i class="fas fa-file-pdf"></i> PDF Resumido
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Área de log -->
+                    <div id="logOperacoes">
+                        <h3><i class="fas fa-clipboard-list"></i> Registro de Operações</h3>
+                        <div id="logEntries"></div>
+                        <div style="margin-top: 10px; display: flex; gap: 8px;">
+                            <button id="btnSalvarLog" class="btn-quaternary btn-sm">
+                                <i class="fas fa-save"></i> Salvar Log
+                            </button>
+                            <button id="btnLimparLog" class="btn-tertiary btn-sm">
+                                <i class="fas fa-trash-alt"></i> Limpar Log
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- COLUNA DIREITA - PREVIEW FIXO -->
+            <div class="preview-sidebar">
+                <div class="preview-panel">
+                    <div class="preview-header">
+                        <span class="preview-title">
+                            <i class="fas fa-eye"></i> VISUALIZAÇÃO ANTECIPADA
+                        </span>
+                        <span class="preview-badge">
+                            <i class="fas fa-sync-alt"></i> TEMPO REAL
+                        </span>
+                    </div>
+                    <div class="preview-body">
+                        <div class="preview-format-row">
+                            <span class="preview-format-label">Formato:</span>
+                            <span id="demoFormatText" class="preview-format-value">A000 12345678 0001 /2024</span>
+                        </div>
+                        
+                        <div class="preview-examples">
+                            <span class="preview-subtitle">Exemplos de Códigos</span>
+                            <div id="demoCodeGrid" class="preview-code-grid">
+                                <!-- Exemplos gerados dinamicamente -->
+                            </div>
+                        </div>
+                        
+                        <div id="demoMetadataContainer" class="preview-metadata">
+                            <!-- Metadados gerados dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODAL PARA VISUALIZAR TABELA -->
+        <div id="modalTabela" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-table"></i> Visualização da Tabela</h3>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <table id="modalTabelaConteudo"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification hidden">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message"></span>
+    </div>
+
+    <script>
+        // ==================== SISTEMA DE USUÁRIOS E TIMEOUT ====================
+        let currentUser = null;
+        let timeoutTimer = null;
+        let warningTimer = null;
+        const TIMEOUT_MINUTES = 10; // 10 minutos
+        const WARNING_SECONDS = 30; // Aviso 30 segundos antes
+
+        // ==================== VARIÁVEIS GLOBAIS ====================
+        let dadosTabela = [];
+        let valoresGerados = [];
+        let primeiroNumero = null;
+        let ultimoNumero = null;
+        let fileInput;
+        let sequencialAtivo = true;
+
+        // ==================== FUNÇÕES DE TIMEOUT ====================
+        function resetTimeout() {
+            if (!currentUser) return;
+            
+            // Limpar timers existentes
+            if (timeoutTimer) clearTimeout(timeoutTimer);
+            if (warningTimer) clearTimeout(warningTimer);
+            
+            // Remover aviso existente se houver
+            const existingWarning = document.querySelector('.timeout-warning');
+            if (existingWarning) existingWarning.remove();
+            
+            // Criar novo timer de aviso (9:30 minutos)
+            warningTimer = setTimeout(showTimeoutWarning, (TIMEOUT_MINUTES * 60 - WARNING_SECONDS) * 1000);
+            
+            // Criar novo timer de logout (10 minutos)
+            timeoutTimer = setTimeout(performLogout, TIMEOUT_MINUTES * 60 * 1000);
+        }
+
+        function showTimeoutWarning() {
+            if (!currentUser) return;
+            
+            // Remover aviso existente
+            const existingWarning = document.querySelector('.timeout-warning');
+            if (existingWarning) existingWarning.remove();
+            
+            // Criar novo aviso
+            const warning = document.createElement('div');
+            warning.className = 'timeout-warning';
+            warning.innerHTML = `
+                <i class="fas fa-hourglass-half"></i>
+                <span>Sessão expirará em ${WARNING_SECONDS} segundos por inatividade</span>
+                <button onclick="resetTimeout()">Continuar Sessão</button>
+            `;
+            document.body.appendChild(warning);
+            
+            // Remover após 25 segundos (5 segundos antes do logout)
+            setTimeout(() => {
+                if (warning.parentNode) warning.remove();
+            }, (WARNING_SECONDS - 5) * 1000);
+        }
+
+        function performLogout() {
+            if (!currentUser) return;
+            
+            // Limpar timers
+            if (timeoutTimer) clearTimeout(timeoutTimer);
+            if (warningTimer) clearTimeout(warningTimer);
+            
+            // Remover aviso
+            const existingWarning = document.querySelector('.timeout-warning');
+            if (existingWarning) existingWarning.remove();
+            
+            // Fazer logout
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            document.getElementById('appContent').style.display = 'none';
+            document.getElementById('authModal').style.display = 'flex';
+            
+            // Limpar campos de login (mantendo vazios)
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginErrorMessage').style.display = 'none';
+            
+            adicionarLog('Sessão expirada por inatividade (10 minutos)');
+            showNotification('Sessão expirada por inatividade', 'warning');
+        }
+
+        // ==================== FUNÇÕES DE AUTENTICAÇÃO ====================
+        function checkLogin() {
+            const loggedUser = sessionStorage.getItem('currentUser');
+            if (loggedUser) {
+                currentUser = JSON.parse(loggedUser);
+                document.getElementById('authModal').style.display = 'none';
+                document.getElementById('appContent').style.display = 'block';
+                document.getElementById('currentUserDisplay').textContent = currentUser.nome || currentUser.username;
+                adicionarLog(`Usuário ${currentUser.username} logado com sucesso`);
+                
+                // Iniciar timeout
+                resetTimeout();
+                return true;
+            } else {
+                document.getElementById('authModal').style.display = 'flex';
+                document.getElementById('appContent').style.display = 'none';
+                return false;
+            }
+        }
+
+        function attemptLogin() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorMsg = document.getElementById('loginErrorMessage');
+
+            // Usuário fixo: admin / admin123
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = {
+                    id: 1,
+                    nome: 'Administrador',
+                    username: 'admin',
+                    email: 'admin@system.com'
+                };
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                document.getElementById('authModal').style.display = 'none';
+                document.getElementById('appContent').style.display = 'block';
+                document.getElementById('currentUserDisplay').textContent = 'Administrador';
+                errorMsg.style.display = 'none';
+                
+                toggleConfiguracoes();
+                atualizarPreview();
+                atualizarResultadoQuantidade();
+                adicionarLog(`Login realizado com sucesso - Bem-vindo, admin`);
+                showNotification('Bem-vindo, Administrador!', 'success');
+                
+                // Iniciar timeout
+                resetTimeout();
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginPassword').focus();
+            }
+        }
+
+        function logout() {
+            // Limpar timers
+            if (timeoutTimer) clearTimeout(timeoutTimer);
+            if (warningTimer) clearTimeout(warningTimer);
+            
+            // Remover aviso
+            const existingWarning = document.querySelector('.timeout-warning');
+            if (existingWarning) existingWarning.remove();
+            
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            document.getElementById('appContent').style.display = 'none';
+            document.getElementById('authModal').style.display = 'flex';
+            
+            // Limpar campos de login (mantendo vazios)
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginErrorMessage').style.display = 'none';
+            
+            adicionarLog('Usuário desconectado');
+        }
+
+        // ==================== FUNÇÕES UTILITÁRIAS ====================
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notification-message');
+            
+            notification.className = `notification ${type}`;
+            notificationMessage.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        function adicionarLog(mensagem, isSummary = false) {
+            const logEntries = document.getElementById('logEntries');
+            const now = new Date();
+            const timestamp = now.toLocaleTimeString('pt-BR');
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `
+                <span class="log-timestamp">[${timestamp}]</span>
+                <span class="log-message">${mensagem}</span>
+            `;
+            
+            if (isSummary) {
+                logEntry.style.fontWeight = '600';
+                logEntry.style.backgroundColor = '#f8fafc';
+                logEntry.style.padding = '8px';
+                logEntry.style.borderRadius = '6px';
+            }
+            
+            logEntries.prepend(logEntry);
+            
+            const entries = logEntries.getElementsByClassName('log-entry');
+            if (entries.length > 50) {
+                logEntries.removeChild(entries[entries.length - 1]);
+            }
+            
+            localStorage.setItem('logOperacoes', logEntries.innerHTML);
+        }
+
+        function calcularExpressao(expressao) {
+            try {
+                expressao = expressao.replace(/\s+/g, '');
+                if (!/^[\d+\-*/().]+$/.test(expressao)) return NaN;
+                
+                const parentesesAbertos = (expressao.match(/\(/g) || []).length;
+                const parentesesFechados = (expressao.match(/\)/g) || []).length;
+                if (parentesesAbertos !== parentesesFechados) return NaN;
+                
+                expressao = expressao.replace(/,/g, '.');
+                if (/(\+|\*|\/){2,}/.test(expressao)) return NaN;
+                
+                const resultado = eval(expressao);
+                if (typeof resultado !== 'number' || isNaN(resultado) || !isFinite(resultado)) return NaN;
+                
+                return Math.floor(Math.abs(resultado));
+            } catch (e) {
+                return NaN;
+            }
+        }
+
+        // FUNÇÃO: Atualizar resultado da quantidade em tempo real
+        function atualizarResultadoQuantidade() {
+            const isQuantidade = document.getElementById('rbQuantidade').checked;
+            const isNumeroFinal = document.getElementById('rbNumeroFinal').checked;
+            const isFolhas = document.getElementById('rbFolhas').checked;
+            const numColunas = parseInt(document.getElementById('txtColunas').value) || 1;
+            const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            
+            let numInicial = 1, intervalo = 1;
+            if ((tipoGeracao === 'rbTipoSequencial' || tipoGeracao === 'rbTipoHibrido') && sequencialAtivo) {
+                numInicial = parseInt(document.getElementById('txtInicial').value) || 1;
+                intervalo = parseInt(document.getElementById('txtIntervalo').value) || 1;
+            }
+            
+            let resultado = 0;
+            let expressao = '';
+            
+            if (isQuantidade) {
+                expressao = document.getElementById('txtFinalOuQuantidade').value;
+                resultado = calcularExpressao(expressao);
+            } else if (isNumeroFinal) {
+                expressao = document.getElementById('txtFinalOuQuantidade').value;
+                const numFinal = calcularExpressao(expressao);
+                if (!isNaN(numFinal) && numFinal >= numInicial) {
+                    resultado = Math.floor((numFinal - numInicial) / intervalo) + 1;
+                } else {
+                    resultado = NaN;
+                }
+            } else if (isFolhas) {
+                expressao = document.getElementById('txtLinhasPorFolha').value;
+                const folhas = calcularExpressao(expressao);
+                if (!isNaN(folhas) && folhas > 0) {
+                    resultado = folhas * numColunas;
+                } else {
+                    resultado = NaN;
+                }
+            }
+            
+            // Atualizar label de resultado
+            const resultadoSpan = document.getElementById('resultadoQuantidade');
+            const resultadoFolhasSpan = document.getElementById('resultadoFolhas');
+            
+            if (isFolhas) {
+                resultadoFolhasSpan.style.display = 'inline-flex';
+                if (!isNaN(resultado) && resultado > 0 && resultado <= 100000) {
+                    resultadoFolhasSpan.className = 'quantidade-resultado';
+                    resultadoFolhasSpan.innerHTML = `<i class="fas fa-calculator"></i> ${resultado} códigos gerados`;
+                } else if (isNaN(resultado) || resultado <= 0) {
+                    resultadoFolhasSpan.className = 'quantidade-resultado error';
+                    resultadoFolhasSpan.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Expressão inválida`;
+                } else if (resultado > 100000) {
+                    resultadoFolhasSpan.className = 'quantidade-resultado warning';
+                    resultadoFolhasSpan.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Limite excedido (max 100.000)`;
+                }
+            } else {
+                resultadoSpan.style.display = 'inline-flex';
+                if (!isNaN(resultado) && resultado > 0 && resultado <= 100000) {
+                    resultadoSpan.className = 'quantidade-resultado';
+                    resultadoSpan.innerHTML = `<i class="fas fa-calculator"></i> ${resultado} códigos gerados`;
+                } else if (isNaN(resultado) || resultado <= 0) {
+                    resultadoSpan.className = 'quantidade-resultado error';
+                    resultadoSpan.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Expressão inválida`;
+                } else if (resultado > 100000) {
+                    resultadoSpan.className = 'quantidade-resultado warning';
+                    resultadoSpan.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Limite excedido (max 100.000)`;
+                }
+            }
+        }
+
+        function validarCampos() {
+            let valido = true;
+            
+            document.querySelectorAll('.mensagem-erro').forEach(el => el.remove());
+            document.querySelectorAll('.campo-obrigatorio').forEach(el => el.classList.remove('campo-obrigatorio'));
+            
+            const nomeColuna = document.getElementById('txtNomeColunas').value;
+            if (!nomeColuna.trim()) {
+                marcarCampoInvalido('txtNomeColunas', 'Informe o nome da coluna');
+                valido = false;
+            }
+            
+            const numColunas = parseInt(document.getElementById('txtColunas').value);
+            if (isNaN(numColunas) || numColunas < 1 || numColunas > 10) {
+                marcarCampoInvalido('txtColunas', 'Número de colunas entre 1 e 10');
+                valido = false;
+            }
+            
+            const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            
+            const numDigitos = parseInt(document.getElementById('txtDigitos').value);
+            if (isNaN(numDigitos) || numDigitos < 1 || numDigitos > 10) {
+                marcarCampoInvalido('txtDigitos', 'Dígitos entre 1 e 10');
+                valido = false;
+            }
+            
+            if ((tipoGeracao === 'rbTipoSequencial' || tipoGeracao === 'rbTipoHibrido') && sequencialAtivo) {
+                const numInicial = parseInt(document.getElementById('txtInicial').value);
+                if (isNaN(numInicial) || numInicial < 0) {
+                    marcarCampoInvalido('txtInicial', 'Número inicial inválido');
+                    valido = false;
+                }
+                
+                const intervalo = parseInt(document.getElementById('txtIntervalo').value);
+                if (isNaN(intervalo) || intervalo <= 0) {
+                    marcarCampoInvalido('txtIntervalo', 'Intervalo deve ser maior que 0');
+                    valido = false;
+                }
+            }
+            
+            if (tipoGeracao === 'rbTipoHibrido' || tipoGeracao === 'rbTipoAleatorio') {
+                const tamanhoAleatorio = parseInt(document.getElementById('txtTamanhoAleatorio').value);
+                if (isNaN(tamanhoAleatorio) || tamanhoAleatorio < 1 || tamanhoAleatorio > 20) {
+                    marcarCampoInvalido('txtTamanhoAleatorio', 'Tamanho entre 1 e 20 caracteres');
+                    valido = false;
+                }
+            }
+            
+            const isQuantidade = document.getElementById('rbQuantidade').checked;
+            const isNumeroFinal = document.getElementById('rbNumeroFinal').checked;
+            const isFolhas = document.getElementById('rbFolhas').checked;
+            
+            if (isQuantidade || isNumeroFinal) {
+                const expressao = document.getElementById('txtFinalOuQuantidade').value.trim();
+                if (!expressao) {
+                    marcarCampoInvalido('txtFinalOuQuantidade', 'Campo obrigatório');
+                    valido = false;
+                } else {
+                    const resultado = calcularExpressao(expressao);
+                    if (isNaN(resultado) || resultado <= 0) {
+                        marcarCampoInvalido('txtFinalOuQuantidade', 'Expressão inválida');
+                        valido = false;
+                    } else if (resultado > 100000) {
+                        marcarCampoInvalido('txtFinalOuQuantidade', 'Máximo de 10.000 códigos');
+                        valido = false;
+                    }
+                }
+            }
+            
+            if (isFolhas) {
+                const expressaoFolhas = document.getElementById('txtLinhasPorFolha').value.trim();
+                if (!expressaoFolhas) {
+                    marcarCampoInvalido('txtLinhasPorFolha', 'Campo obrigatório');
+                    valido = false;
+                } else {
+                    const resultado = calcularExpressao(expressaoFolhas);
+                    if (isNaN(resultado) || resultado <= 0) {
+                        marcarCampoInvalido('txtLinhasPorFolha', 'Expressão inválida');
+                        valido = false;
+                    } else {
+                        const totalCodigos = resultado * numColunas;
+                        if (totalCodigos > 100000) {
+                            marcarCampoInvalido('txtLinhasPorFolha', 'Limite de 10.000 códigos excedido');
+                            valido = false;
+                        }
+                    }
+                }
+            }
+            
+            return valido;
+        }
+
+        function marcarCampoInvalido(idCampo, mensagem) {
+            const campo = document.getElementById(idCampo);
+            campo.classList.add('campo-obrigatorio');
+            
+            const divMensagem = document.createElement('div');
+            divMensagem.className = 'mensagem-erro';
+            divMensagem.textContent = mensagem;
+            campo.insertAdjacentElement('afterend', divMensagem);
+        }
+
+        // ==================== GERADOR DE CARACTERES ====================
+        function gerarCaractereAleatorio(tipo) {
+            const numeros = '0123456789';
+            const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const misturado = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+            switch(tipo) {
+                case 'apenasNumeros': return numeros[Math.floor(Math.random() * numeros.length)];
+                case 'apenasLetras': return letras[Math.floor(Math.random() * letras.length)];
+                case 'numeroLetra': return misturado[Math.floor(Math.random() * misturado.length)];
+                default: return numeros[Math.floor(Math.random() * numeros.length)];
+            }
+        }
+
+        function gerarParteAleatoria(tamanho, tipoCaractere) {
+            let resultado = '';
+            for (let i = 0; i < tamanho; i++) {
+                resultado += gerarCaractereAleatorio(tipoCaractere);
+            }
+            return resultado;
+        }
+
+        function formatarNumeroCompleto(parteSequencial, parteAleatoria = '') {
+            const prefixo = document.getElementById('txtPrefixo').value;
+            const sufixo = document.getElementById('txtSufixo').value;
+            const prefixoComEspaco = document.getElementById('rbPrefixoComEspaco').checked;
+            const sufixoComEspaco = document.getElementById('rbSufixoComEspaco').checked;
+            const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            const numDigitos = parseInt(document.getElementById('txtDigitos').value);
+            
+            let sequencialFormatado = parteSequencial.toString().padStart(numDigitos, '0');
+            let codigoCompleto = '';
+            
+            if (tipoGeracao === 'rbTipoHibrido') {
+                if (sequencialAtivo) {
+                    codigoCompleto = parteAleatoria + sequencialFormatado;
+                } else {
+                    codigoCompleto = parteAleatoria;
+                }
+            } else if (tipoGeracao === 'rbTipoAleatorio') {
+                codigoCompleto = parteAleatoria;
+            } else {
+                codigoCompleto = sequencialFormatado;
+            }
+            
+            const prefixoFormatado = prefixo ? (prefixoComEspaco ? `${prefixo} ` : prefixo) : '';
+            const sufixoFormatado = sufixo ? (sufixoComEspaco ? ` ${sufixo}` : sufixo) : '';
+            
+            return `${prefixoFormatado}${codigoCompleto}${sufixoFormatado}`;
+        }
+
+        // ==================== FUNÇÃO DE DEMONSTRAÇÃO PROFISSIONAL ====================
+        function atualizarPreview() {
+            const prefixo = document.getElementById('txtPrefixo').value;
+            const sufixo = document.getElementById('txtSufixo').value;
+            const prefixoComEspaco = document.getElementById('rbPrefixoComEspaco').checked;
+            const sufixoComEspaco = document.getElementById('rbSufixoComEspaco').checked;
+            const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            const numDigitos = parseInt(document.getElementById('txtDigitos').value);
+            const tamanhoAleatorio = parseInt(document.getElementById('txtTamanhoAleatorio').value);
+            const gerarQRCode = document.getElementById('cbQRCode').checked;
+            const gerarCodigoBarras = document.getElementById('cbCodigoBarras').checked;
+            const numColunas = parseInt(document.getElementById('txtColunas').value);
+            
+            let tipoCaractere = 'apenasNumeros';
+            if (document.getElementById('rbApenasNumeros').checked) tipoCaractere = 'apenasNumeros';
+            else if (document.getElementById('rbApenasLetras').checked) tipoCaractere = 'apenasLetras';
+            else if (document.getElementById('rbNumeroLetra').checked) tipoCaractere = 'numeroLetra';
+            
+            let formatoTexto = '';
+            
+            if (tipoGeracao === 'rbTipoSequencial') {
+                formatoTexto = `${prefixo}${prefixoComEspaco ? ' ' : ''}[${numDigitos} dígitos]${sufixoComEspaco ? ' ' : ''}${sufixo}`;
+            } else if (tipoGeracao === 'rbTipoAleatorio') {
+                formatoTexto = `${prefixo}${prefixoComEspaco ? ' ' : ''}[${tamanhoAleatorio} caracteres ${tipoCaractere === 'apenasNumeros' ? 'num' : tipoCaractere === 'apenasLetras' ? 'alpha' : 'alnum'}]${sufixoComEspaco ? ' ' : ''}${sufixo}`;
+            } else {
+                if (sequencialAtivo) {
+                    formatoTexto = `${prefixo}${prefixoComEspaco ? ' ' : ''}[${tamanhoAleatorio} chars][${numDigitos} dígitos]${sufixoComEspaco ? ' ' : ''}${sufixo}`;
+                } else {
+                    formatoTexto = `${prefixo}${prefixoComEspaco ? ' ' : ''}[${tamanhoAleatorio} chars]${sufixoComEspaco ? ' ' : ''}${sufixo} (sem sequencial)`;
+                }
+            }
+            
+            document.getElementById('demoFormatText').textContent = formatoTexto;
+            
+            const demoCodeGrid = document.getElementById('demoCodeGrid');
+            demoCodeGrid.innerHTML = '';
+            
+            let exemplo1 = '';
+            if (tipoGeracao === 'rbTipoSequencial') {
+                exemplo1 = formatarNumeroCompleto(1);
+            } else if (tipoGeracao === 'rbTipoAleatorio') {
+                exemplo1 = formatarNumeroCompleto(0, gerarParteAleatoria(tamanhoAleatorio, tipoCaractere));
+            } else {
+                if (sequencialAtivo) {
+                    exemplo1 = formatarNumeroCompleto(1, gerarParteAleatoria(tamanhoAleatorio, tipoCaractere));
+                } else {
+                    exemplo1 = formatarNumeroCompleto(0, gerarParteAleatoria(tamanhoAleatorio, tipoCaractere));
+                }
+            }
+            
+            const codeItem1 = document.createElement('span');
+            codeItem1.className = 'preview-code-item';
+            codeItem1.innerHTML = `<i class="fas fa-hashtag"></i> ${exemplo1}`;
+            demoCodeGrid.appendChild(codeItem1);
+            
+            let exemplo2 = '';
+            if (tipoGeracao === 'rbTipoSequencial') {
+                exemplo2 = formatarNumeroCompleto(2);
+            } else if (tipoGeracao === 'rbTipoAleatorio') {
+                exemplo2 = formatarNumeroCompleto(0, gerarParteAleatoria(tamanhoAleatorio, tipoCaractere));
+            } else {
+                if (sequencialAtivo) {
+                    exemplo2 = formatarNumeroCompleto(2, gerarParteAleatoria(tamanhoAleatorio, tipoCaractere));
+                } else {
+                    exemplo2 = formatarNumeroCompleto(0, gerarParteAleatoria(tamanhoAleatorio, tipoCaractere));
+                }
+            }
+            
+            const codeItem2 = document.createElement('span');
+            codeItem2.className = 'preview-code-item';
+            codeItem2.innerHTML = `<i class="fas fa-hashtag"></i> ${exemplo2}`;
+            demoCodeGrid.appendChild(codeItem2);
+            
+            if (gerarQRCode) {
+                const qrItem = document.createElement('span');
+                qrItem.className = 'preview-code-item qr';
+                qrItem.innerHTML = `<i class="fas fa-qrcode"></i> QR: ${exemplo1.substring(0, 12)}...`;
+                demoCodeGrid.appendChild(qrItem);
+            }
+            
+            if (gerarCodigoBarras) {
+                const barItem = document.createElement('span');
+                barItem.className = 'preview-code-item barcode';
+                barItem.innerHTML = `<i class="fas fa-barcode"></i> ${exemplo2.replace(/\D/g, '').substring(0, 8) || '12345678'}`;
+                demoCodeGrid.appendChild(barItem);
+            }
+            
+            const metadataContainer = document.getElementById('demoMetadataContainer');
+            metadataContainer.innerHTML = '';
+            
+            let tipoLabel = '';
+            if (tipoGeracao === 'rbTipoSequencial') tipoLabel = 'Sequencial';
+            else if (tipoGeracao === 'rbTipoAleatorio') tipoLabel = 'Aleatório';
+            else {
+                if (sequencialAtivo) {
+                    tipoLabel = 'Híbrido (com sequencial)';
+                } else {
+                    tipoLabel = 'Híbrido (sem sequencial)';
+                }
+            }
+            
+            metadataContainer.appendChild(createMetadataItem('fa-tag', 'Tipo', tipoLabel));
+            metadataContainer.appendChild(createMetadataItem('fa-sort-numeric-up', 'Dígitos', `${numDigitos}`));
+            
+            atualizarResultadoQuantidade();
+        }
+
+        function createMetadataItem(icon, label, value, color = '#0f172a') {
+            const item = document.createElement('div');
+            item.className = 'preview-metadata-item';
+            item.innerHTML = `
+                <i class="fas ${icon}" style="color: var(--azul-escuro);"></i>
+                <span class="preview-metadata-label">${label}:</span>
+                <span class="preview-metadata-value" style="color: ${color};">${value}</span>
+            `;
+            return item;
+        }
+
+        // ==================== GERAR NÚMEROS ====================
+        function gerarNumeros() {
+            if (!validarCampos()) {
+                adicionarLog('Erro: Campos obrigatórios não preenchidos');
+                showNotification('Campos obrigatórios não preenchidos', 'error');
+                return;
+            }
+
+            const nomeColuna = document.getElementById('txtNomeColunas').value;
+            const numColunas = parseInt(document.getElementById('txtColunas').value);
+            const gerarQRCode = document.getElementById('cbQRCode').checked;
+            const gerarCodigoBarras = document.getElementById('cbCodigoBarras').checked;
+            const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            const isVertical = document.getElementById('rbVertical').checked;
+            const isQuantidade = document.getElementById('rbQuantidade').checked;
+            const isNumeroFinal = document.getElementById('rbNumeroFinal').checked;
+            const isFolhas = document.getElementById('rbFolhas').checked;
+            
+            let numInicial = 1, intervalo = 1;
+            if ((tipoGeracao === 'rbTipoSequencial' || tipoGeracao === 'rbTipoHibrido') && sequencialAtivo) {
+                numInicial = parseInt(document.getElementById('txtInicial').value);
+                intervalo = parseInt(document.getElementById('txtIntervalo').value);
+            }
+            
+            let tamanhoAleatorio = 8, tipoCaractere = 'apenasNumeros';
+            if (tipoGeracao === 'rbTipoHibrido' || tipoGeracao === 'rbTipoAleatorio') {
+                tamanhoAleatorio = parseInt(document.getElementById('txtTamanhoAleatorio').value);
+                if (document.getElementById('rbApenasNumeros').checked) tipoCaractere = 'apenasNumeros';
+                else if (document.getElementById('rbApenasLetras').checked) tipoCaractere = 'apenasLetras';
+                else if (document.getElementById('rbNumeroLetra').checked) tipoCaractere = 'numeroLetra';
+            }
+            
+            let totalNumeros = 0;
+            if (isNumeroFinal) {
+                const numFinal = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+                totalNumeros = Math.floor((numFinal - numInicial) / intervalo) + 1;
+            } else if (isQuantidade) {
+                totalNumeros = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+            } else if (isFolhas) {
+                const folhas = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
+                totalNumeros = folhas * numColunas;
+            }
+            
+            if (totalNumeros > 100000) {
+                showNotification('Limite máximo de 10.000 números', 'error');
+                return;
+            }
+
+            let valores = [];
+            let partesAleatorias = new Set();
+            let valorSequencial = numInicial;
+            
+            if (tipoGeracao === 'rbTipoSequencial') {
+                for (let i = 0; i < totalNumeros; i++) {
+                    valores.push(formatarNumeroCompleto(valorSequencial));
+                    valorSequencial += intervalo;
+                }
+                adicionarLog(`Gerados ${totalNumeros} números sequenciais`, true);
+                
+            } else if (tipoGeracao === 'rbTipoAleatorio') {
+                let tentativas = 0;
+                const maxTentativas = totalNumeros * 20;
+                
+                while (valores.length < totalNumeros && tentativas < maxTentativas) {
+                    const parteAleatoria = gerarParteAleatoria(tamanhoAleatorio, tipoCaractere);
+                    if (!partesAleatorias.has(parteAleatoria)) {
+                        partesAleatorias.add(parteAleatoria);
+                        valores.push(formatarNumeroCompleto(0, parteAleatoria));
+                    }
+                    tentativas++;
+                }
+                adicionarLog(`Gerados ${valores.length} números aleatórios`, true);
+                
+            } else if (tipoGeracao === 'rbTipoHibrido') {
+                let tentativas = 0;
+                const maxTentativas = totalNumeros * 20;
+                
+                while (valores.length < totalNumeros && tentativas < maxTentativas) {
+                    const parteAleatoria = gerarParteAleatoria(tamanhoAleatorio, tipoCaractere);
+                    if (!partesAleatorias.has(parteAleatoria)) {
+                        partesAleatorias.add(parteAleatoria);
+                        if (sequencialAtivo) {
+                            valores.push(formatarNumeroCompleto(valorSequencial, parteAleatoria));
+                            valorSequencial += intervalo;
+                        } else {
+                            valores.push(formatarNumeroCompleto(0, parteAleatoria));
+                        }
+                    }
+                    tentativas++;
+                }
+                
+                if (sequencialAtivo) {
+                    adicionarLog(`Gerados ${valores.length} números híbridos com sequencial`, true);
+                } else {
+                    adicionarLog(`Gerados ${valores.length} números híbridos sem sequencial`, true);
+                }
+            }
+
+            valoresGerados = [...valores];
+
+            dadosTabela = [];
+            
+            if (isVertical) {
+                const numLinhas = Math.ceil(valores.length / numColunas);
+                for (let linha = 0; linha < numLinhas; linha++) {
+                    const linhaDados = [];
+                    for (let col = 0; col < numColunas; col++) {
+                        const index = (col * numLinhas) + linha;
+                        if (index < valores.length) {
+                            const valor = valores[index];
+                            linhaDados.push(valor);
+                            if (gerarQRCode) linhaDados.push(valor);
+                            if (gerarCodigoBarras) linhaDados.push(`(${valor})`);
+                        }
+                    }
+                    if (linhaDados.length > 0) dadosTabela.push(linhaDados);
+                }
+            } else {
+                for (let i = 0; i < valores.length; i += numColunas) {
+                    const linhaDados = [];
+                    const linhaValores = valores.slice(i, i + numColunas);
+                    linhaValores.forEach(valor => {
+                        linhaDados.push(valor);
+                        if (gerarQRCode) linhaDados.push(valor);
+                        if (gerarCodigoBarras) linhaDados.push(`(${valor})`);
+                    });
+                    dadosTabela.push(linhaDados);
+                }
+            }
+
+            if (valores.length > 0) {
+                primeiroNumero = valores[0];
+                ultimoNumero = valores[valores.length - 1];
+            }
+            
+            showNotification(`Tabela gerada com ${valores.length} números!`, 'success');
+            atualizarPreview();
+        }
+
+        // ==================== MODAL ====================
+        function abrirModalVisualizacao() {
+            if (dadosTabela.length === 0) {
+                showNotification('Nenhuma tabela gerada', 'error');
+                return;
+            }
+
+            const modal = document.getElementById('modalTabela');
+            const tabelaConteudo = document.getElementById('modalTabelaConteudo');
+            tabelaConteudo.innerHTML = '';
+
+            const nomeColuna = document.getElementById('txtNomeColunas').value;
+            const numColunas = parseInt(document.getElementById('txtColunas').value);
+            const gerarQRCode = document.getElementById('cbQRCode').checked;
+            const gerarCodigoBarras = document.getElementById('cbCodigoBarras').checked;
+
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            
+            for (let i = 1; i <= numColunas; i++) {
+                const th = document.createElement('th');
+                th.textContent = `${nomeColuna}_${i}`;
+                headerRow.appendChild(th);
+                
+                if (gerarQRCode) {
+                    const thQR = document.createElement('th');
+                    thQR.textContent = `#QR_${i}`;
+                    headerRow.appendChild(thQR);
+                }
+                
+                if (gerarCodigoBarras) {
+                    const thCB = document.createElement('th');
+                    thCB.textContent = `CB_${i}`;
+                    headerRow.appendChild(thCB);
+                }
+            }
+            
+            thead.appendChild(headerRow);
+            tabelaConteudo.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            dadosTabela.forEach(linha => {
+                const tr = document.createElement('tr');
+                linha.forEach(valor => {
+                    const td = document.createElement('td');
+                    td.textContent = valor;
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            tabelaConteudo.appendChild(tbody);
+
+            modal.style.display = 'block';
+            adicionarLog('Modal de visualização aberto');
+        }
+
+        // ==================== PDF COMPLETO ====================
+        function gerarPDFCompleto() {
+            if (dadosTabela.length === 0) {
+                showNotification('Nenhum dado para gerar PDF', 'error');
+                return;
+            }
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked');
+                let tipoTexto = '';
+                if (tipoGeracao.id === 'rbTipoSequencial') tipoTexto = 'Sequencial';
+                else if (tipoGeracao.id === 'rbTipoAleatorio') tipoTexto = 'Aleatório';
+                else {
+                    if (sequencialAtivo) {
+                        tipoTexto = 'Híbrido (com sequencial)';
+                    } else {
+                        tipoTexto = 'Híbrido (sem sequencial)';
+                    }
+                }
+
+                // Cabeçalho
+                doc.setFontSize(16);
+                doc.setTextColor(0, 119, 204);
+                doc.text('RELATÓRIO COMPLETO - NUMBERING DATA MERGE 2', 20, 15);
+                
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 20, 25);
+                doc.text(`Usuário: ${currentUser ? currentUser.nome || currentUser.username : 'Sistema'}`, 200, 25);
+                
+                // Configurações
+                doc.setFontSize(12);
+                doc.setTextColor(142, 68, 173);
+                doc.text('CONFIGURAÇÕES', 20, 35);
+                
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                
+                let y = 45;
+                const col1 = 20, col2 = 70, col3 = 110, col4 = 160;
+                
+                doc.text(`Nome da Coluna: ${document.getElementById('txtNomeColunas').value}`, col1, y);
+                doc.text(`Nº Colunas: ${document.getElementById('txtColunas').value}`, col2, y);
+                doc.text(`Tipo: ${tipoTexto}`, col3, y);
+                y += 6;
+                
+                doc.text(`Prefixo: ${document.getElementById('txtPrefixo').value || '(vazio)'}`, col1, y);
+                doc.text(`Sufixo: ${document.getElementById('txtSufixo').value || '(vazio)'}`, col2, y);
+                doc.text(`Dígitos: ${document.getElementById('txtDigitos').value}`, col3, y);
+                y += 6;
+                
+                if (tipoGeracao.id !== 'rbTipoAleatorio' && sequencialAtivo) {
+                    doc.text(`Nº Inicial: ${document.getElementById('txtInicial').value}`, col1, y);
+                    doc.text(`Intervalo: ${document.getElementById('txtIntervalo').value}`, col2, y);
+                    y += 6;
+                }
+                
+                if (tipoGeracao.id === 'rbTipoHibrido' || tipoGeracao.id === 'rbTipoAleatorio') {
+                    let tipoCaractere = '';
+                    if (document.getElementById('rbApenasNumeros').checked) tipoCaractere = 'Apenas Números';
+                    else if (document.getElementById('rbApenasLetras').checked) tipoCaractere = 'Apenas Letras';
+                    else tipoCaractere = 'Números e Letras';
+                    
+                    doc.text(`Tipo Caractere: ${tipoCaractere}`, col1, y);
+                    doc.text(`Tam Aleatório: ${document.getElementById('txtTamanhoAleatorio').value}`, col2, y);
+                    y += 6;
+                }
+                
+                doc.text(`QR Code: ${document.getElementById('cbQRCode').checked ? 'Sim' : 'Não'}`, col1, y);
+                doc.text(`Cód. Barras: ${document.getElementById('cbCodigoBarras').checked ? 'Sim' : 'Não'}`, col2, y);
+                doc.text(`Preenchimento: ${document.getElementById('rbVertical').checked ? 'Vertical' : 'Horizontal'}`, col3, y);
+                y += 10;
+
+                // Resumo
+                doc.setFontSize(12);
+                doc.setTextColor(142, 68, 173);
+                doc.text('RESUMO DOS DADOS', 20, y);
+                y += 6;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                
+                const totalNumeros = dadosTabela.flat().filter((v, i, a) => 
+                    i % (document.getElementById('cbQRCode').checked && document.getElementById('cbCodigoBarras').checked ? 3 : 
+                         document.getElementById('cbQRCode').checked || document.getElementById('cbCodigoBarras').checked ? 2 : 1) === 0
+                ).length;
+                
+                doc.text(`Total de Números: ${totalNumeros}`, col1, y);
+                doc.text(`Total de Linhas: ${dadosTabela.length}`, col2, y);
+                y += 6;
+                doc.text(`Primeiro Código: ${primeiroNumero}`, col1, y);
+                doc.text(`Último Código: ${ultimoNumero}`, col2, y);
+                y += 10;
+
+                // Dados
+                doc.setFontSize(12);
+                doc.setTextColor(142, 68, 173);
+                doc.text('DADOS COMPLETOS', 20, y);
+                y += 6;
+
+                // Preparar dados para tabela
+                const headers = [];
+                const numColunas = parseInt(document.getElementById('txtColunas').value);
+                const gerarQR = document.getElementById('cbQRCode').checked;
+                const gerarCB = document.getElementById('cbCodigoBarras').checked;
+                
+                for (let i = 1; i <= numColunas; i++) {
+                    headers.push(`${document.getElementById('txtNomeColunas').value}_${i}`);
+                    if (gerarQR) headers.push(`#QR_${i}`);
+                    if (gerarCB) headers.push(`CB_${i}`);
+                }
+
+                const rows = dadosTabela.map(linha => linha);
+
+                doc.autoTable({
+                    head: [headers],
+                    body: rows,
+                    startY: y,
+                    margin: { top: 10, left: 20, right: 20 },
+                    styles: { fontSize: 7, cellPadding: 2 },
+                    headStyles: { fillColor: [0, 119, 204], textColor: [255, 255, 255] },
+                    alternateRowStyles: { fillColor: [230, 242, 255] }
+                });
+
+                // Rodapé
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(8);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`Gerado por: ${currentUser ? currentUser.nome || currentUser.username : 'Sistema'}`, 20, 200);
+                    doc.text(`Página ${i} de ${totalPages}`, 250, 200, { align: 'right' });
+                }
+
+                const nomeArquivo = `relatorio_completo_${new Date().toISOString().slice(0,10)}.pdf`;
+                doc.save(nomeArquivo);
+                
+                adicionarLog('Relatório completo em PDF gerado');
+                showNotification('PDF completo gerado!', 'success');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                showNotification('Erro ao gerar PDF', 'error');
+            }
+        }
+
+        // ==================== PDF RESUMIDO ====================
+        function gerarPDFResumido() {
+            if (dadosTabela.length === 0) {
+                showNotification('Nenhum dado para gerar PDF', 'error');
+                return;
+            }
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                // Cabeçalho
+                doc.setFontSize(18);
+                doc.setTextColor(0, 119, 204);
+                doc.text('RELATÓRIO RESUMIDO', 20, 20);
+                
+                doc.setFontSize(11);
+                doc.setTextColor(0, 0, 0);
+                doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 20, 30);
+                doc.text(`Usuário: ${currentUser ? currentUser.nome || currentUser.username : 'Sistema'}`, 20, 38);
+                
+                // Linha separadora
+                doc.setDrawColor(0, 119, 204);
+                doc.setLineWidth(0.5);
+                doc.line(20, 45, 190, 45);
+                
+                // Informações principais
+                doc.setFontSize(14);
+                doc.setTextColor(142, 68, 173);
+                doc.text('RESUMO DA GERAÇÃO', 20, 55);
+                
+                doc.setFontSize(11);
+                doc.setTextColor(0, 0, 0);
+                
+                const totalNumeros = dadosTabela.flat().filter((v, i, a) => 
+                    i % (document.getElementById('cbQRCode').checked && document.getElementById('cbCodigoBarras').checked ? 3 : 
+                         document.getElementById('cbQRCode').checked || document.getElementById('cbCodigoBarras').checked ? 2 : 1) === 0
+                ).length;
+                
+                let y = 65;
+                doc.text(`Total de Números Gerados: ${totalNumeros}`, 25, y); y += 8;
+                doc.text(`Total de Linhas na Tabela: ${dadosTabela.length}`, 25, y); y += 8;
+                doc.text(`Primeiro Código: ${primeiroNumero || 'N/A'}`, 25, y); y += 8;
+                doc.text(`Último Código: ${ultimoNumero || 'N/A'}`, 25, y); y += 8;
+                
+                const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked');
+                let tipoTexto = '';
+                if (tipoGeracao.id === 'rbTipoSequencial') tipoTexto = 'Sequencial';
+                else if (tipoGeracao.id === 'rbTipoAleatorio') tipoTexto = 'Aleatório';
+                else {
+                    if (sequencialAtivo) {
+                        tipoTexto = 'Híbrido (com sequencial)';
+                    } else {
+                        tipoTexto = 'Híbrido (sem sequencial)';
+                    }
+                }
+                
+                doc.text(`Tipo de Geração: ${tipoTexto}`, 25, y); y += 8;
+                doc.text(`Dígitos da Parte Sequencial: ${document.getElementById('txtDigitos').value}`, 25, y); y += 8;
+                
+                if (tipoTexto.includes('Sequencial') || tipoTexto.includes('Híbrido')) {
+                    const numInicial = document.getElementById('txtInicial').value;
+                    const intervalo = document.getElementById('txtIntervalo').value;
+                    doc.text(`Número Inicial: ${numInicial} | Intervalo: ${intervalo}`, 25, y); y += 8;
+                }
+                
+                if (tipoTexto.includes('Aleatório') || tipoTexto.includes('Híbrido')) {
+                    const tamAleatorio = document.getElementById('txtTamanhoAleatorio').value;
+                    let tipoCaractere = '';
+                    if (document.getElementById('rbApenasNumeros').checked) tipoCaractere = 'Números';
+                    else if (document.getElementById('rbApenasLetras').checked) tipoCaractere = 'Letras';
+                    else tipoCaractere = 'Números+Letras';
+                    
+                    doc.text(`Parte Aleatória: ${tamAleatorio} caracteres (${tipoCaractere})`, 25, y); y += 8;
+                }
+                
+                doc.text(`Preenchimento: ${document.getElementById('rbVertical').checked ? 'Vertical' : 'Horizontal'}`, 25, y); y += 8;
+                
+                // Rodapé
+                y += 10;
+                doc.setFontSize(10);
+                doc.setTextColor(100, 100, 100);
+                doc.text('Gerado pelo Sistema de Numeração Híbrida - DataMerge InDesign', 20, y);
+                
+                const nomeArquivo = `relatorio_resumido_${new Date().toISOString().slice(0,10)}.pdf`;
+                doc.save(nomeArquivo);
+                
+                adicionarLog('Relatório resumido em PDF gerado');
+                showNotification('PDF resumido gerado!', 'success');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                showNotification('Erro ao gerar PDF', 'error');
+            }
+        }
+
+        // ==================== SALVAR TXT ====================
+        function salvarComoTXT() {
+            if (dadosTabela.length === 0) {
+                showNotification('Nenhum dado para exportar', 'error');
+                return;
+            }
+
+            const nomeColuna = document.getElementById('txtNomeColunas').value;
+            const numColunas = parseInt(document.getElementById('txtColunas').value);
+            const gerarQRCode = document.getElementById('cbQRCode').checked;
+            const gerarCodigoBarras = document.getElementById('cbCodigoBarras').checked;
+            
+            let cabecalho = '';
+            for (let i = 1; i <= numColunas; i++) {
+                cabecalho += `${nomeColuna}_${i}\t`;
+                if (gerarQRCode) cabecalho += `#${nomeColuna}_${i}_QRCODE\t`;
+                if (gerarCodigoBarras) cabecalho += `${nomeColuna}_${i}_CODIGOBARRAS\t`;
+            }
+            cabecalho = cabecalho.trim().replace(/\t$/, '') + '\r\n';
+            
+            let conteudoTXT = cabecalho;
+            dadosTabela.forEach(linha => conteudoTXT += linha.join('\t') + '\r\n');
+
+            const nomeArquivo = `${nomeColuna.toLowerCase().replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.txt`;
+            
+            const blob = new Blob([conteudoTXT], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = nomeArquivo;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            adicionarLog(`Dados exportados como TXT: ${nomeArquivo}`);
+            showNotification('Arquivo TXT salvo!', 'success');
+        }
+
+        // ==================== LIMPAR DADOS ====================
+        function limparDados() {
+            if (dadosTabela.length > 0 && !confirm('Tem certeza que deseja limpar todos os dados?')) {
+                return;
+            }
+
+            dadosTabela = [];
+            valoresGerados = [];
+            primeiroNumero = null;
+            ultimoNumero = null;
+            
+            document.getElementById('txtNomeColunas').value = '';
+            document.getElementById('txtPrefixo').value = '';
+            document.getElementById('txtSufixo').value = '';
+            document.getElementById('txtColunas').value = '1';
+            document.getElementById('txtDigitos').value = '4';
+            document.getElementById('txtInicial').value = '1';
+            document.getElementById('txtIntervalo').value = '1';
+            document.getElementById('txtTamanhoAleatorio').value = '8';
+            document.getElementById('txtFinalOuQuantidade').value = '10';
+            document.getElementById('txtLinhasPorFolha').value = '10';
+            
+            document.getElementById('cbQRCode').checked = true;
+            document.getElementById('cbCodigoBarras').checked = true;
+            document.getElementById('rbTipoHibrido').checked = true;
+            document.getElementById('rbPrefixoComEspaco').checked = true;
+            document.getElementById('rbSufixoSemEspaco').checked = true;
+            document.getElementById('rbQuantidade').checked = true;
+            document.getElementById('rbVertical').checked = true;
+            document.getElementById('rbApenasNumeros').checked = true;
+            
+            sequencialAtivo = true;
+            document.getElementById('btnSeqAtivo').classList.add('active');
+            document.getElementById('btnSeqInativo').classList.remove('active');
+            document.getElementById('seqInfoMessage').innerHTML = '<i class="fas fa-info-circle"></i> Sequencial ativo - números incrementam';
+            
+            toggleConfiguracoes();
+            atualizarPreview();
+            atualizarResultadoQuantidade();
+            
+            document.querySelectorAll('.mensagem-erro').forEach(el => el.remove());
+            document.querySelectorAll('.campo-obrigatorio').forEach(el => el.classList.remove('campo-obrigatorio'));
+            
+            adicionarLog('Dados e campos limpos com sucesso!');
+            showNotification('Dados limpos com sucesso!', 'success');
+        }
+
+        function toggleConfiguracoes() {
+            const tipoGeracao = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            
+            const configSequencial = document.getElementById('configSequencial');
+            const configHibridoAleatorio = document.getElementById('configHibridoAleatorio');
+            const configSequencialToggle = document.getElementById('configSequencialToggle');
+            
+            if (tipoGeracao === 'rbTipoSequencial') {
+                configSequencial.style.display = 'block';
+                configHibridoAleatorio.style.display = 'none';
+                configSequencialToggle.style.display = 'none';
+            } else if (tipoGeracao === 'rbTipoAleatorio') {
+                configSequencial.style.display = 'none';
+                configHibridoAleatorio.style.display = 'block';
+                configSequencialToggle.style.display = 'none';
+            } else if (tipoGeracao === 'rbTipoHibrido') {
+                configSequencial.style.display = sequencialAtivo ? 'block' : 'none';
+                configHibridoAleatorio.style.display = 'block';
+                configSequencialToggle.style.display = 'flex';
+            }
+            
+            atualizarPreview();
+            atualizarResultadoQuantidade();
+        }
+
+        function salvarConfiguracao() {
+            const config = {
+                nomeColuna: document.getElementById('txtNomeColunas').value,
+                prefixo: document.getElementById('txtPrefixo').value,
+                sufixo: document.getElementById('txtSufixo').value,
+                prefixoComEspaco: document.getElementById('rbPrefixoComEspaco').checked,
+                sufixoComEspaco: document.getElementById('rbSufixoComEspaco').checked,
+                numColunas: parseInt(document.getElementById('txtColunas').value),
+                gerarQRCode: document.getElementById('cbQRCode').checked,
+                gerarCodigoBarras: document.getElementById('cbCodigoBarras').checked,
+                tipoGeracao: document.querySelector('input[name="tipoGeracao"]:checked').id,
+                sequencialAtivo: sequencialAtivo,
+                numDigitos: parseInt(document.getElementById('txtDigitos').value),
+                numInicial: parseInt(document.getElementById('txtInicial').value),
+                intervalo: parseInt(document.getElementById('txtIntervalo').value),
+                tamanhoAleatorio: parseInt(document.getElementById('txtTamanhoAleatorio').value),
+                tipoCaractere: document.getElementById('rbApenasNumeros').checked ? 'apenasNumeros' : 
+                              document.getElementById('rbApenasLetras').checked ? 'apenasLetras' : 'numeroLetra',
+                opcaoNumerica: document.getElementById('rbNumeroFinal').checked ? 'final' : 
+                              document.getElementById('rbFolhas').checked ? 'folhas' : 'quantidade',
+                finalOuQuantidade: document.getElementById('txtFinalOuQuantidade').value,
+                linhasPorFolha: document.getElementById('txtLinhasPorFolha').value,
+                preenchimento: document.getElementById('rbHorizontal').checked ? 'horizontal' : 'vertical'
+            };
+
+            const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `config_hibrida_${config.nomeColuna.toLowerCase().replace(/\s+/g, '_')}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            adicionarLog('Configuração salva');
+            showNotification('Configuração salva!', 'success');
+        }
+
+        function carregarConfiguracao(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const config = JSON.parse(e.target.result);
+                    
+                    document.getElementById('txtNomeColunas').value = config.nomeColuna || '';
+                    document.getElementById('txtPrefixo').value = config.prefixo || '';
+                    document.getElementById('txtSufixo').value = config.sufixo || '';
+                    document.getElementById('rbPrefixoComEspaco').checked = config.prefixoComEspaco !== false;
+                    document.getElementById('rbPrefixoSemEspaco').checked = config.prefixoComEspaco === false;
+                    document.getElementById('rbSufixoComEspaco').checked = config.sufixoComEspaco === true;
+                    document.getElementById('rbSufixoSemEspaco').checked = config.sufixoComEspaco !== true;
+                    document.getElementById('txtColunas').value = config.numColunas || 1;
+                    document.getElementById('cbQRCode').checked = config.gerarQRCode !== false;
+                    document.getElementById('cbCodigoBarras').checked = config.gerarCodigoBarras !== false;
+                    
+                    if (config.tipoGeracao) {
+                        document.getElementById(config.tipoGeracao).checked = true;
+                    }
+                    
+                    if (config.sequencialAtivo !== undefined) {
+                        sequencialAtivo = config.sequencialAtivo;
+                        if (sequencialAtivo) {
+                            document.getElementById('btnSeqAtivo').classList.add('active');
+                            document.getElementById('btnSeqInativo').classList.remove('active');
+                            document.getElementById('seqInfoMessage').innerHTML = '<i class="fas fa-info-circle"></i> Sequencial ativo - números incrementam';
+                        } else {
+                            document.getElementById('btnSeqAtivo').classList.remove('active');
+                            document.getElementById('btnSeqInativo').classList.add('active');
+                            document.getElementById('seqInfoMessage').innerHTML = '<i class="fas fa-info-circle"></i> Sequencial inativo - apenas parte aleatória';
+                        }
+                    }
+                    
+                    document.getElementById('txtDigitos').value = config.numDigitos || 4;
+                    document.getElementById('txtInicial').value = config.numInicial || 1;
+                    document.getElementById('txtIntervalo').value = config.intervalo || 1;
+                    document.getElementById('txtTamanhoAleatorio').value = config.tamanhoAleatorio || 8;
+                    
+                    if (config.tipoCaractere === 'apenasNumeros') {
+                        document.getElementById('rbApenasNumeros').checked = true;
+                    } else if (config.tipoCaractere === 'apenasLetras') {
+                        document.getElementById('rbApenasLetras').checked = true;
+                    } else {
+                        document.getElementById('rbNumeroLetra').checked = true;
+                    }
+                    
+                    if (config.opcaoNumerica === 'final') {
+                        document.getElementById('rbNumeroFinal').checked = true;
+                        document.getElementById('lblFinalOuQuantidade').textContent = 'Número Final:';
+                        document.getElementById('divFinalOuQuantidade').style.display = 'flex';
+                        document.getElementById('divLinhasPorFolha').style.display = 'none';
+                    } else if (config.opcaoNumerica === 'folhas') {
+                        document.getElementById('rbFolhas').checked = true;
+                        document.getElementById('divFinalOuQuantidade').style.display = 'none';
+                        document.getElementById('divLinhasPorFolha').style.display = 'flex';
+                    } else {
+                        document.getElementById('rbQuantidade').checked = true;
+                        document.getElementById('lblFinalOuQuantidade').textContent = 'Quantidade de Códigos:';
+                        document.getElementById('divFinalOuQuantidade').style.display = 'flex';
+                        document.getElementById('divLinhasPorFolha').style.display = 'none';
+                    }
+                    
+                    document.getElementById('txtFinalOuQuantidade').value = config.finalOuQuantidade || '10';
+                    document.getElementById('txtLinhasPorFolha').value = config.linhasPorFolha || '10';
+                    
+                    if (config.preenchimento === 'horizontal') {
+                        document.getElementById('rbHorizontal').checked = true;
+                    } else {
+                        document.getElementById('rbVertical').checked = true;
+                    }
+                    
+                    toggleConfiguracoes();
+                    atualizarPreview();
+                    atualizarResultadoQuantidade();
+                    
+                    adicionarLog(`Configuração carregada: ${file.name}`);
+                    showNotification('Configuração carregada!', 'success');
+                    
+                } catch (error) {
+                    console.error(error);
+                    showNotification('Erro ao carregar configuração', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function salvarLogComoTXT() {
+            const logEntries = document.getElementById('logEntries').children;
+            
+            let conteudoLog = "=== LOG DE OPERAÇÕES ===\n";
+            conteudoLog += `Gerado em: ${new Date().toLocaleString('pt-BR')}\n`;
+            conteudoLog += `Usuário: ${currentUser ? currentUser.nome || currentUser.username : 'Sistema'}\n\n`;
+            
+            for (let i = logEntries.length - 1; i >= 0; i--) {
+                const entry = logEntries[i];
+                const timestamp = entry.querySelector('.log-timestamp').textContent;
+                const message = entry.querySelector('.log-message').textContent;
+                conteudoLog += `${timestamp} ${message}\n`;
+            }
+            
+            const blob = new Blob([conteudoLog], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `log_operacoes_${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            adicionarLog('Log salvo como TXT');
+            showNotification('Log salvo!', 'success');
+        }
+
+        function limparLog() {
+            if (confirm('Limpar todo o registro de operações?')) {
+                document.getElementById('logEntries').innerHTML = '';
+                localStorage.removeItem('logOperacoes');
+                adicionarLog('Log de operações limpo');
+            }
+        }
+
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sistema de login (apenas login fixo)
+            checkLogin();
+            
+            // Event listeners de autenticação
+            document.getElementById('loginButton').addEventListener('click', attemptLogin);
+            document.getElementById('btnLogout').addEventListener('click', logout);
+            
+            document.getElementById('loginUsername').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('loginPassword').focus();
+                }
+            });
+            
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    attemptLogin();
+                }
+            });
+
+            // Inicializar aplicação
+            const logSalvo = localStorage.getItem('logOperacoes');
+            if (logSalvo) {
+                document.getElementById('logEntries').innerHTML = logSalvo;
+            }
+            
+            // Toggle para numeração sequencial acoplada
+            document.getElementById('btnSeqAtivo').addEventListener('click', function() {
+                sequencialAtivo = true;
+                this.classList.add('active');
+                document.getElementById('btnSeqInativo').classList.remove('active');
+                document.getElementById('seqInfoMessage').innerHTML = '<i class="fas fa-info-circle"></i> Sequencial ativo - números incrementam';
+                document.getElementById('configSequencial').style.display = 'block';
+                atualizarPreview();
+                atualizarResultadoQuantidade();
+            });
+            
+            document.getElementById('btnSeqInativo').addEventListener('click', function() {
+                sequencialAtivo = false;
+                this.classList.add('active');
+                document.getElementById('btnSeqAtivo').classList.remove('active');
+                document.getElementById('seqInfoMessage').innerHTML = '<i class="fas fa-info-circle"></i> Sequencial inativo - apenas parte aleatória';
+                document.getElementById('configSequencial').style.display = 'none';
+                atualizarPreview();
+                atualizarResultadoQuantidade();
+            });
+            
+            document.querySelectorAll('input[name="tipoGeracao"]').forEach(radio => {
+                radio.addEventListener('change', toggleConfiguracoes);
+            });
+            
+            document.getElementById('rbNumeroFinal').addEventListener('change', function() {
+                document.getElementById('lblFinalOuQuantidade').textContent = 'Número Final:';
+                document.getElementById('divFinalOuQuantidade').style.display = 'flex';
+                document.getElementById('divLinhasPorFolha').style.display = 'none';
+                atualizarResultadoQuantidade();
+                atualizarPreview();
+            });
+            
+            document.getElementById('rbQuantidade').addEventListener('change', function() {
+                document.getElementById('lblFinalOuQuantidade').textContent = 'Quantidade de Códigos:';
+                document.getElementById('divFinalOuQuantidade').style.display = 'flex';
+                document.getElementById('divLinhasPorFolha').style.display = 'none';
+                atualizarResultadoQuantidade();
+                atualizarPreview();
+            });
+            
+            document.getElementById('rbFolhas').addEventListener('change', function() {
+                document.getElementById('divFinalOuQuantidade').style.display = 'none';
+                document.getElementById('divLinhasPorFolha').style.display = 'flex';
+                atualizarResultadoQuantidade();
+                atualizarPreview();
+            });
+            
+            // Eventos para atualizar preview e resultado
+            const previewInputs = ['txtPrefixo', 'txtSufixo', 'txtDigitos', 'txtTamanhoAleatorio', 'txtColunas', 'txtFinalOuQuantidade', 'txtInicial', 'txtIntervalo', 'txtLinhasPorFolha'];
+            previewInputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', function() {
+                        atualizarPreview();
+                        atualizarResultadoQuantidade();
+                    });
+                }
+            });
+            
+            document.querySelectorAll('input[name="prefixoEspaco"], input[name="sufixoEspaco"], input[name="tipoCaractere"], #cbQRCode, #cbCodigoBarras, input[name="preenchimento"]').forEach(el => {
+                el.addEventListener('change', function() {
+                    atualizarPreview();
+                    atualizarResultadoQuantidade();
+                });
+            });
+            
+            document.getElementById('btnGerar').addEventListener('click', gerarNumeros);
+            document.getElementById('btnVisualizarModal').addEventListener('click', abrirModalVisualizacao);
+            document.getElementById('btnSalvarTXT').addEventListener('click', salvarComoTXT);
+            document.getElementById('btnLimparDados').addEventListener('click', limparDados);
+            document.getElementById('btnSalvarConfig').addEventListener('click', salvarConfiguracao);
+            document.getElementById('btnRelatorioCompleto').addEventListener('click', gerarPDFCompleto);
+            document.getElementById('btnRelatorioResumido').addEventListener('click', gerarPDFResumido);
+            
+            fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.json';
+            fileInput.style.display = 'none';
+            fileInput.addEventListener('change', carregarConfiguracao);
+            document.body.appendChild(fileInput);
+            
+            document.getElementById('btnCarregarConfig').addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('modalTabela').style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(e) {
+                const modal = document.getElementById('modalTabela');
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F1') {
+                    e.preventDefault();
+                    limparDados();
+                }
+                if (e.key === 'F2') {
+                    e.preventDefault();
+                    gerarNumeros();
+                }
+                if (e.key === 'Escape') {
+                    document.getElementById('modalTabela').style.display = 'none';
+                }
+            });
+            
+            document.getElementById('btnSalvarLog').addEventListener('click', salvarLogComoTXT);
+            document.getElementById('btnLimparLog').addEventListener('click', limparLog);
+            
+            // Eventos para resetar timeout (qualquer interação do usuário)
+            const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+            events.forEach(event => {
+                document.addEventListener(event, resetTimeout);
+            });
+            
+            toggleConfiguracoes();
+            atualizarPreview();
+            atualizarResultadoQuantidade();
+            adicionarLog('Aplicação de numeração híbrida iniciada');
+        });
+    </script>
+</body>
+</html>s

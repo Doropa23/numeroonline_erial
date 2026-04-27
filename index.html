@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUMBERING DATA MERGE</title>
+    <title>NUMBERING DATA MERGE - SMART EDITION</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
@@ -17,7 +17,7 @@
             --sombra-botao: 0 2px 5px rgba(0, 0, 0, 0.2); --roxo: #8e44ad;
             --roxo-escuro: #6c3483; --roxo-hover: #7d3c98; --laranja: #e67e22;
             --laranja-escuro: #d35400; --laranja-hover: #e67e22; --vermelho: #e74c3c;
-            --vermelho-hover: #c0392b;
+            --vermelho-hover: #c0392b; --inteligente: #00adb5;
         }
         * { box-sizing: border-box; }
         body { font-family: 'Inter', 'Poppins', sans-serif; margin: 0; padding: 20px; background-color: #f0f4f8; color: var(--cinza-escuro); line-height: 1.6; }
@@ -79,6 +79,8 @@
         .btn-danger:hover { background-color: #dc2626; }
         .btn-success { background-color: #10b981; color: white; }
         .btn-success:hover { background-color: #059669; }
+        .btn-inteligente { background-color: var(--inteligente); color: white; }
+        .btn-inteligente:hover { background-color: #008c96; }
         .btn-sm { padding: 6px 12px; font-size: 0.8em; height: 36px; }
         .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.7em; font-weight: 600; margin-left: 6px; background-color: rgba(255,255,255,0.2); color: white; transition: all 0.2s ease; }
         button:hover .badge { background-color: rgba(255,255,255,0.3); }
@@ -117,7 +119,6 @@
         .preview-metadata-item:hover .preview-metadata-value { border-color: var(--azul-escuro); }
         .quantidade-resultado { display: inline-flex; align-items: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 6px 16px; border-radius: 30px; font-size: 0.85em; font-weight: 600; margin-left: 12px; letter-spacing: 0.3px; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .quantidade-resultado:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3); }
-        .quantidade-resultado i { margin-right: 6px; font-size: 0.9em; }
         .quantidade-resultado.warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
         .quantidade-resultado.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
         .auth-modal { display: flex; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
@@ -208,6 +209,12 @@
         .code-source-selector.show { display: block; }
         .code-source-selector h4 { margin: 0 0 10px 0; font-size: 0.85em; color: #92400e; display: flex; align-items: center; gap: 8px; }
         .header-row-option { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .distribuicao-preview { background: linear-gradient(135deg, #e0f7fa, #e0f2fe); border-left: 4px solid var(--inteligente); margin-top: 12px; padding: 12px 16px; border-radius: 8px; font-size: 0.8em; white-space: pre-line; font-family: 'Inter', monospace; line-height: 1.5; }
+        .distribuicao-preview strong { color: #0f172a; font-size: 0.9em; display: block; margin-bottom: 4px; }
+        .bloco-config { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; margin-top: 8px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .bloco-config label { font-size: 0.85em; width: auto; min-width: 140px; color: #065f46; }
+        .bloco-config input { width: 100px; border-color: #bbf7d0; }
+        .bloco-config select { width: auto; min-width: 120px; border-color: #bbf7d0; }
         @media (max-width: 1024px) {
             .app-layout { flex-direction: column; }
             .preview-sidebar { position: static; max-width: 100%; width: 100%; }
@@ -221,7 +228,7 @@
 <body>
     <div id="authModal" class="auth-modal">
         <div class="auth-container">
-            <div class="auth-header"><i class="fas fa-shield-alt"></i><h2>NUMBERING DATA MERGE</h2><p>Sistema de Numeração Automatizada</p></div>
+            <div class="auth-header"><i class="fas fa-microchip"></i><h2>NUMBERING DATA MERGE</h2><p>Sistema de Numeração Inteligente</p></div>
             <div id="loginForm" class="auth-form">
                 <div class="auth-field"><label><i class="fas fa-user" style="margin-right:5px;"></i> Username</label><input type="text" id="loginUsername" placeholder="Digite seu usuário" autocomplete="off" value=""></div>
                 <div class="auth-field"><label><i class="fas fa-lock" style="margin-right:5px;"></i> Password</label><input type="password" id="loginPassword" placeholder="Digite sua senha" autocomplete="off" value=""></div>
@@ -234,7 +241,7 @@
 
     <div id="appContent" class="app-content">
         <div class="app-header">
-            <div class="logo-container"><div class="logo-icon"><i class="fas fa-table"></i></div><div class="logo-text"><h1>NUMBERING DATA MERGE 2</h1><p>Sistema Profissional de Numeração Automatizada</p></div></div>
+            <div class="logo-container"><div class="logo-icon"><i class="fas fa-brain"></i></div><div class="logo-text"><h1>NUMBERING DATA MERGE 2</h1><p>Sistema Profissional de Numeração Automatizada - Smart Distribution</p></div></div>
             <div class="user-info"><div class="user-badge"><i class="fas fa-user-circle"></i><span id="currentUserDisplay">admin</span></div><button id="btnLogout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</button></div>
         </div>
         <div class="app-layout">
@@ -275,6 +282,25 @@
                     <section class="form-section">
                         <h2><i class="fas fa-layer-group"></i> Configurações de Layout</h2>
                         <div class="form-group"><label>Direção de Preenchimento</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbVertical" name="preenchimento" checked><label for="rbVertical"><i class="fas fa-arrows-alt-v"></i> Vertical</label></span><span class="radio-option"><input type="radio" id="rbHorizontal" name="preenchimento"><label for="rbHorizontal"><i class="fas fa-arrows-alt-h"></i> Horizontal</label></span></div></div>
+                        <div class="form-group"><label>Modo de Distribuição</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbDistNormal" name="modoDistribuicao" checked><label for="rbDistNormal"><i class="fas fa-th"></i> Normal (Sequencial)</label></span><span class="radio-option"><input type="radio" id="rbDistInteligente" name="modoDistribuicao"><label for="rbDistInteligente"><i class="fas fa-brain"></i> Inteligente (Blocos Contíguos)</label></span></div></div>
+                        <div id="configBlocoContainer" style="display:none; margin-top:8px;">
+                            <div class="bloco-config">
+                                <label><i class="fas fa-cubes"></i> Tamanho do Bloco:</label>
+                                <select id="selectTamanhoBloco">
+                                    <option value="auto">Automático (Otimizado)</option>
+                                    <option value="50">50 itens</option>
+                                    <option value="100">100 itens</option>
+                                    <option value="200" selected>200 itens</option>
+                                    <option value="300">300 itens</option>
+                                    <option value="500">500 itens</option>
+                                    <option value="1000">1000 itens</option>
+                                </select>
+                                <span style="font-size:0.75em;color:#64748b;margin-left:8px;">
+                                    <i class="fas fa-info-circle"></i> Blocos contíguos por coluna
+                                </span>
+                            </div>
+                        </div>
+                        <div id="distribuicaoPreview" class="distribuicao-preview" style="display:none;"></div>
                         <div class="button-container">
                             <div class="button-group">
                                 <button id="btnGerar" class="btn-primary" title="Gerar Números (F2)"><i class="fas fa-table"></i> Gerar Números</button>
@@ -297,11 +323,11 @@
             <div class="preview-sidebar">
                 <div class="preview-panel">
                     <div class="preview-header"><span class="preview-title"><i class="fas fa-eye"></i> VISUALIZAÇÃO ANTECIPADA</span><span class="preview-badge"><i class="fas fa-sync-alt"></i> TEMPO REAL</span></div>
-                    <div class="preview-body"><div class="preview-format-row"><span class="preview-format-label">Formato:</span><span id="demoFormatText" class="preview-format-value"></span></div><div class="preview-examples"><span class="preview-subtitle">Exemplos de Códigos</span><div id="demoCodeGrid" class="preview-code-grid"></div></div><div id="demoMetadataContainer" class="preview-metadata"></div></div>
+                    <div class="preview-body"><div class="preview-format-row"><span class="preview-format-label">Formato:</span><span id="demoFormatText" class="preview-format-value"></span></div><div class="preview-examples"><span class="preview-subtitle">Exemplos de Códigos</span><div id="demoCodeGrid" class="preview-code-grid"></div></div><div id="demoMetadataContainer" class="preview-metadata"></div><div id="smartDistPreview" class="distribuicao-preview" style="display:none;margin-top:12px;"></div></div>
                 </div>
             </div>
         </div>
-        <div id="modalTabela" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-table"></i> Visualização da Tabela</h3><span class="close-modal">&times;</span></div><div class="modal-body"><table id="modalTabelaConteudo"></table></div></div></div>
+        <div id="modalTabela" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-table"></i> Visualização da Tabela</h3><span class="close-modal">&times;</span></div><div class="modal-body"><table id="modalTabelaConteudo"><table></div></div></div>
     </div>
     <div id="notification" class="notification hidden"><i class="fas fa-check-circle"></i><span id="notification-message"></span></div>
 
@@ -312,6 +338,245 @@
         let dadosTabela = [], valoresGerados = [], primeiroNumero = null, ultimoNumero = null, fileInput, sequencialAtivo = true;
         let rawData = [], fullData = [], originalHeaders = [], numberingData = [], processedData = [], currentFileName = null, selectedColumns = [], uploadEnabled = false, hasHeaderRow = true;
 
+        // ==================== FUNÇÃO INTELIGENTE DE DISTRIBUIÇÃO POR BLOCOS CONTÍGUOS ====================
+        function distribuirBlocosContiguos(totalItens, numColunas, tamanhoBloco) {
+            if (totalItens <= 0 || numColunas <= 0) return { distribuicao: new Array(numColunas).fill(0), blocos: [], descricao: '' };
+            
+            // Se for "auto", determina o tamanho ideal do bloco
+            if (tamanhoBloco === 'auto' || !tamanhoBloco) {
+                const opcoes = [1000, 500, 300, 200, 100, 50];
+                tamanhoBloco = opcoes.find(b => totalItens >= b * numColunas) || Math.max(1, Math.floor(totalItens / numColunas));
+            } else {
+                tamanhoBloco = parseInt(tamanhoBloco);
+            }
+            
+            let resultado = new Array(numColunas).fill(0);
+            let blocos = [];
+            let restante = totalItens;
+            let numeroBloco = 1;
+            let descricao = '';
+            let inicioGlobal = 1;
+            
+            // Fase 1: Distribuir blocos completos (tamanhoBloco * numColunas)
+            while (restante >= tamanhoBloco * numColunas) {
+                let bloco = {
+                    numero: numeroBloco,
+                    tipo: 'completo',
+                    tamanho: tamanhoBloco,
+                    itensPorColuna: new Array(numColunas).fill(tamanhoBloco),
+                    inicio: inicioGlobal,
+                    fim: inicioGlobal + (tamanhoBloco * numColunas) - 1
+                };
+                blocos.push(bloco);
+                
+                for (let i = 0; i < numColunas; i++) {
+                    resultado[i] += tamanhoBloco;
+                }
+                
+                restante -= tamanhoBloco * numColunas;
+                inicioGlobal += tamanhoBloco * numColunas;
+                numeroBloco++;
+            }
+            
+            // Fase 2: Distribuir o restante (menor que um bloco completo)
+            if (restante > 0) {
+                let blocoRestante = {
+                    numero: numeroBloco,
+                    tipo: 'parcial',
+                    tamanho: restante,
+                    itensPorColuna: new Array(numColunas).fill(0),
+                    inicio: inicioGlobal,
+                    fim: inicioGlobal + restante - 1
+                };
+                
+                // Distribuir o restante igualmente entre as colunas
+                let porColuna = Math.floor(restante / numColunas);
+                let sobra = restante % numColunas;
+                
+                for (let i = 0; i < numColunas; i++) {
+                    let qtd = porColuna + (i < sobra ? 1 : 0);
+                    resultado[i] += qtd;
+                    blocoRestante.itensPorColuna[i] = qtd;
+                }
+                
+                blocos.push(blocoRestante);
+            }
+            
+            // Gerar descrição detalhada
+            descricao = `<strong>📊 Distribuição Inteligente por Blocos Contíguos</strong>\n`;
+            descricao += `<span style="font-size:0.7em;color:#64748b;">Bloco base: ${tamanhoBloco} itens | Total: ${totalItens} itens em ${numColunas} colunas</span>\n`;
+            
+            blocos.forEach(bloco => {
+                if (bloco.tipo === 'completo') {
+                    descricao += `\n🔹 <strong>Bloco ${bloco.numero}</strong> (Completo): Itens ${bloco.inicio}-${bloco.fim}\n`;
+                    for (let i = 0; i < numColunas; i++) {
+                        let iniCol = bloco.inicio + (i * bloco.tamanho);
+                        let fimCol = iniCol + bloco.tamanho - 1;
+                        descricao += `   📍 Col ${i+1}: ${iniCol}-${fimCol} (${bloco.tamanho} itens)\n`;
+                    }
+                } else {
+                    descricao += `\n🔸 <strong>Bloco ${bloco.numero}</strong> (Restante): Itens ${bloco.inicio}-${bloco.fim}\n`;
+                    let ini = bloco.inicio;
+                    for (let i = 0; i < numColunas; i++) {
+                        if (bloco.itensPorColuna[i] > 0) {
+                            let fim = ini + bloco.itensPorColuna[i] - 1;
+                            descricao += `   📍 Col ${i+1}: ${ini}-${fim} (${bloco.itensPorColuna[i]} itens)\n`;
+                            ini = fim + 1;
+                        } else {
+                            descricao += `   📍 Col ${i+1}: — (0 itens)\n`;
+                        }
+                    }
+                }
+            });
+            
+            descricao += `\n<span style="font-size:0.7em;color:#10b981;">✅ Total distribuído: ${totalItens} itens ✓</span>`;
+            
+            return {
+                distribuicao: resultado,
+                blocos: blocos,
+                descricao: descricao,
+                tamanhoBloco: tamanhoBloco
+            };
+        }
+
+        function gerarPreviewDistribuicaoInteligente(totalItens, numColunas) {
+            const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
+            const resultado = distribuirBlocosContiguos(totalItens, numColunas, tamanhoBloco);
+            return resultado;
+        }
+
+        function atualizarPreviewDistribuicao() {
+            const modoInteligente = document.getElementById('rbDistInteligente').checked;
+            const previewDiv = document.getElementById('smartDistPreview');
+            const configBloco = document.getElementById('configBlocoContainer');
+            
+            if (!modoInteligente) {
+                previewDiv.style.display = 'none';
+                if (configBloco) configBloco.style.display = 'none';
+                return;
+            }
+            
+            if (configBloco) configBloco.style.display = 'block';
+            
+            let totalItens = 0;
+            const uploadEnabledFlag = uploadEnabled && rawData.length > 0;
+            const iq = document.getElementById('rbQuantidade').checked;
+            const inf = document.getElementById('rbNumeroFinal').checked;
+            const iff = document.getElementById('rbFolhas').checked;
+            const nc = parseInt(document.getElementById('txtColunas').value) || 1;
+            let ni = 1, iv = 1;
+            const tg = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) {
+                ni = parseInt(document.getElementById('txtInicial').value) || 1;
+                iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
+            }
+            
+            if (uploadEnabledFlag) {
+                totalItens = rawData.length;
+            } else if (inf) {
+                let nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+                totalItens = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : 0;
+            } else if (iq) {
+                totalItens = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+            } else if (iff) {
+                let fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
+                totalItens = (!isNaN(fh) && fh > 0) ? fh * nc : 0;
+            }
+            
+            if (totalItens > 0 && totalItens <= 100000) {
+                const resultado = gerarPreviewDistribuicaoInteligente(totalItens, nc);
+                previewDiv.innerHTML = resultado.descricao.replace(/\n/g, '<br>');
+                previewDiv.style.display = 'block';
+            } else {
+                previewDiv.style.display = 'none';
+            }
+        }
+
+        // ==================== FUNÇÃO DE PREENCHIMENTO POR BLOCOS CONTÍGUOS ====================
+        function preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, dadosAdicionais) {
+            const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
+            const resultado = distribuirBlocosContiguos(itens.length, nc, tamanhoBloco);
+            
+            let tabela = [];
+            let idxItem = 0;
+            
+            // Para cada bloco
+            resultado.blocos.forEach(bloco => {
+                if (bloco.tipo === 'completo') {
+                    // Bloco completo: preencher verticalmente como antes
+                    let blocoItens = itens.slice(idxItem, idxItem + (bloco.tamanho * nc));
+                    idxItem += bloco.tamanho * nc;
+                    
+                    let numLinhas = bloco.tamanho;
+                    for (let linha = 0; linha < numLinhas; linha++) {
+                        let linhaDados = [];
+                        for (let col = 0; col < nc; col++) {
+                            let itemIdx = (col * numLinhas) + linha;
+                            if (itemIdx < blocoItens.length) {
+                                adicionarItemLinha(linhaDados, blocoItens[itemIdx], gq, gc, udc, cci, dadosAdicionais ? dadosAdicionais[idxItem - bloco.tamanho * nc + itemIdx] : null);
+                            }
+                        }
+                        if (linhaDados.length > 0) tabela.push(linhaDados);
+                    }
+                } else {
+                    // Bloco restante: preencher coluna por coluna
+                    let blocoItens = itens.slice(idxItem);
+                    idxItem = itens.length;
+                    
+                    let itensPorColuna = bloco.itensPorColuna;
+                    let colunasItens = [];
+                    let offset = 0;
+                    
+                    for (let col = 0; col < nc; col++) {
+                        colunasItens.push(blocoItens.slice(offset, offset + itensPorColuna[col]));
+                        offset += itensPorColuna[col];
+                    }
+                    
+                    // Adicionar uma linha vazia antes do bloco restante (se houver dados anteriores)
+                    if (tabela.length > 0) {
+                        tabela.push([]); // linha de separação
+                    }
+                    
+                    let maxLinhas = Math.max(...itensPorColuna);
+                    let dadosOffset = itens.length - blocoItens.length;
+                    
+                    for (let linha = 0; linha < maxLinhas; linha++) {
+                        let linhaDados = [];
+                        for (let col = 0; col < nc; col++) {
+                            if (linha < colunasItens[col].length) {
+                                let item = colunasItens[col][linha];
+                                let dadosIdx = dadosOffset + colunasItens.slice(0, col).reduce((a, b) => a + b.length, 0) + linha;
+                                adicionarItemLinha(linhaDados, item, gq, gc, udc, cci, dadosAdicionais ? dadosAdicionais[dadosIdx] : null);
+                            }
+                        }
+                        if (linhaDados.length > 0) tabela.push(linhaDados);
+                    }
+                }
+            });
+            
+            return tabela;
+        }
+        
+        function adicionarItemLinha(linhaDados, item, gq, gc, udc, cci, dadosAdicionais) {
+            if (Array.isArray(item)) {
+                // Item com dados (upload)
+                let num = item[0];
+                linhaDados.push(num);
+                let cv = udc ? (item[cci + 1] || num) : num;
+                if (gq) linhaDados.push(cv);
+                if (gc) linhaDados.push('(' + cv + ')');
+                linhaDados.push.apply(linhaDados, item.slice(1));
+            } else {
+                // Item simples (número)
+                linhaDados.push(item);
+                if (gq) linhaDados.push(item);
+                if (gc) linhaDados.push('(' + item + ')');
+                if (dadosAdicionais && Array.isArray(dadosAdicionais)) {
+                    linhaDados.push.apply(linhaDados, dadosAdicionais.slice(1));
+                }
+            }
+        }
+
         // ==================== TIMEOUT ====================
         function resetTimeout(){ if(!currentUser)return; if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); warningTimer=setTimeout(showTimeoutWarning,(TIMEOUT_MINUTES*60-WARNING_SECONDS)*1000); timeoutTimer=setTimeout(performLogout,TIMEOUT_MINUTES*60*1000); }
         function showTimeoutWarning(){ if(!currentUser)return; const w=document.querySelector('.timeout-warning'); if(w)w.remove(); const d=document.createElement('div'); d.className='timeout-warning'; d.innerHTML='<i class="fas fa-hourglass-half"></i><span>Sessão expirará em '+WARNING_SECONDS+'s</span><button onclick="resetTimeout()">Continuar</button>'; document.body.appendChild(d); setTimeout(function(){if(d.parentNode)d.remove();},(WARNING_SECONDS-5)*1000); }
@@ -319,26 +584,26 @@
 
         // ==================== LOGIN ====================
         function checkLogin(){ const u=sessionStorage.getItem('currentUser'); if(u){ currentUser=JSON.parse(u); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent=currentUser.nome||currentUser.username; adicionarLog('Usuário '+currentUser.username+' logado'); resetTimeout(); return true; }else{ document.getElementById('authModal').style.display='flex'; document.getElementById('appContent').style.display='none'; return false; } }
-        function attemptLogin(){ const u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value, e=document.getElementById('loginErrorMessage'); if(u==='admin'&&p==='admin123'){ currentUser={id:1,nome:'Administrador',username:'admin',email:'admin@system.com'}; sessionStorage.setItem('currentUser',JSON.stringify(currentUser)); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent='Administrador'; e.style.display='none'; toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); adicionarLog('Login realizado'); showNotification('Bem-vindo!','success'); resetTimeout(); }else{ e.style.display='block'; document.getElementById('loginPassword').value=''; document.getElementById('loginPassword').focus(); } }
+        function attemptLogin(){ const u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value, e=document.getElementById('loginErrorMessage'); if(u==='admin'&&p==='admin123'){ currentUser={id:1,nome:'Administrador',username:'admin',email:'admin@system.com'}; sessionStorage.setItem('currentUser',JSON.stringify(currentUser)); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent='Administrador'; e.style.display='none'; toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); adicionarLog('Login realizado'); showNotification('Bem-vindo!','success'); resetTimeout(); }else{ e.style.display='block'; document.getElementById('loginPassword').value=''; document.getElementById('loginPassword').focus(); } }
         function logout(){ if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); sessionStorage.removeItem('currentUser'); currentUser=null; document.getElementById('appContent').style.display='none'; document.getElementById('authModal').style.display='flex'; document.getElementById('loginUsername').value=''; document.getElementById('loginPassword').value=''; document.getElementById('loginErrorMessage').style.display='none'; adicionarLog('Usuário desconectado'); }
         function showNotification(m,t){ t=t||'success'; const n=document.getElementById('notification'); n.className='notification '+t; document.getElementById('notification-message').textContent=m; n.classList.add('show'); setTimeout(function(){n.classList.remove('show');},3000); }
         function adicionarLog(m,s){ const le=document.getElementById('logEntries'), now=new Date(), ts=now.toLocaleTimeString('pt-BR'), de=document.createElement('div'); de.className='log-entry'; de.innerHTML='<span class="log-timestamp">['+ts+']</span><span class="log-message">'+m+'</span>'; if(s){de.style.fontWeight='600';de.style.backgroundColor='#f8fafc';de.style.padding='8px';de.style.borderRadius='6px';} le.prepend(de); if(le.children.length>50)le.removeChild(le.lastChild); localStorage.setItem('logOperacoes',le.innerHTML); }
         function calcularExpressao(e){ try{ e=e.replace(/\s+/g,''); if(!/^[\d+\-*/().]+$/.test(e))return NaN; if((e.match(/\(/g)||[]).length!==(e.match(/\)/g)||[]).length)return NaN; e=e.replace(/,/g,'.'); if(/(\+|\*|\/){2,}/.test(e))return NaN; const r=eval(e); return(typeof r==='number'&&!isNaN(r)&&isFinite(r))?Math.floor(Math.abs(r)):NaN; }catch(ex){return NaN;} }
 
-        // ==================== UPLOAD ====================
+        // ==================== UPLOAD (MANTIDO ORIGINAL) ====================
         function processarArquivo(f){ if(!f)return; const ext=f.name.split('.').pop().toLowerCase(); if(!['xlsx','xls','csv','txt','tsv'].includes(ext)){showNotification('Formato não suportado','error');return;} currentFileName=f.name; const r=new FileReader(); r.onload=function(e){try{if(ext==='xlsx'||ext==='xls')processarExcel(e.target.result);else processarTexto(e.target.result,ext);}catch(err){showNotification('Erro ao processar','error');}}; if(ext==='xlsx'||ext==='xls')r.readAsArrayBuffer(f); else r.readAsText(f); }
-        function processarExcel(d){ try{ const wb=XLSX.read(d,{type:'array'}); const ws=wb.Sheets[wb.SheetNames[0]]; const jd=XLSX.utils.sheet_to_json(ws,{header:1}); if(!jd||jd.length===0){showNotification('Arquivo vazio','error');return;} hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=jd[0].length; if(hasHeaderRow&&jd.length>1){ originalHeaders=jd[0].map(function(h){return String(h||'');}); rawData=jd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?jd.slice(1):[].concat(jd); } fullData=[].concat(jd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); }catch(err){showNotification('Erro ao processar Excel','error');} }
-        function processarTexto(d,ext){ try{ const delim=ext==='tsv'?'\t':ext==='csv'?',':'\t'; const lines=d.split(/\r?\n/).filter(function(l){return l.trim();}); if(lines.length===0){showNotification('Arquivo vazio','error');return;} const pd=lines.map(function(l){return l.split(delim);}); hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=pd[0].length; if(hasHeaderRow&&pd.length>1){ originalHeaders=pd[0].map(function(h){return String(h||'').trim();}); rawData=pd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?pd.slice(1):[].concat(pd); } fullData=[].concat(pd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); }catch(err){showNotification('Erro ao processar','error');} }
+        function processarExcel(d){ try{ const wb=XLSX.read(d,{type:'array'}); const ws=wb.Sheets[wb.SheetNames[0]]; const jd=XLSX.utils.sheet_to_json(ws,{header:1}); if(!jd||jd.length===0){showNotification('Arquivo vazio','error');return;} hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=jd[0].length; if(hasHeaderRow&&jd.length>1){ originalHeaders=jd[0].map(function(h){return String(h||'');}); rawData=jd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?jd.slice(1):[].concat(jd); } fullData=[].concat(jd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); }catch(err){showNotification('Erro ao processar Excel','error');} }
+        function processarTexto(d,ext){ try{ const delim=ext==='tsv'?'\t':ext==='csv'?',':'\t'; const lines=d.split(/\r?\n/).filter(function(l){return l.trim();}); if(lines.length===0){showNotification('Arquivo vazio','error');return;} const pd=lines.map(function(l){return l.split(delim);}); hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=pd[0].length; if(hasHeaderRow&&pd.length>1){ originalHeaders=pd[0].map(function(h){return String(h||'').trim();}); rawData=pd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?pd.slice(1):[].concat(pd); } fullData=[].concat(pd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); }catch(err){showNotification('Erro ao processar','error');} }
         function mostrarInfoArquivo(){ const fi=document.getElementById('fileInfo'); document.getElementById('fileNameDisplay').textContent=currentFileName; document.getElementById('fileRowCount').textContent=rawData.length+' linhas × '+originalHeaders.length+' colunas'; fi.classList.add('show'); document.getElementById('codeSourceSelector').classList.add('show'); }
         function atualizarCodeSourceColumns(){ const s=document.getElementById('selectCodeSourceColumn'); s.innerHTML=''; originalHeaders.forEach(function(h,i){var o=document.createElement('option');o.value=i;o.textContent=h;s.appendChild(o);}); }
         function atualizarSelecaoColunas(){ if(originalHeaders.length===0)return; const cs=document.getElementById('columnSelector'), cc=document.getElementById('columnCheckboxes'), sa=document.getElementById('cbSelectAll'); cs.classList.add('show'); cc.innerHTML=''; selectedColumns=originalHeaders.map(function(_,i){return i;}); originalHeaders.forEach(function(h,i){ var d=document.createElement('div'); d.className='column-checkbox-item selected'; d.dataset.columnIndex=i; var cb=document.createElement('input'); cb.type='checkbox';cb.id='col_'+i;cb.checked=true;cb.style.marginRight='4px'; cb.addEventListener('change',function(){ if(this.checked){d.classList.add('selected');d.classList.remove('removed');if(selectedColumns.indexOf(i)===-1)selectedColumns.push(i);}else{d.classList.remove('selected');d.classList.add('removed');selectedColumns=selectedColumns.filter(function(j){return j!==i;});} atualizarEstadoSelectAll(); }); var l=document.createElement('label');l.htmlFor='col_'+i;l.textContent=h;l.style.cursor='pointer';l.style.fontSize='0.8em'; d.appendChild(cb);d.appendChild(l);cc.appendChild(d); }); sa.checked=true; sa.onchange=function(){ var cbs=cc.querySelectorAll('input[type="checkbox"]'), its=cc.querySelectorAll('.column-checkbox-item'); cbs.forEach(function(cb,i){cb.checked=this.checked;if(this.checked){its[i].classList.add('selected');its[i].classList.remove('removed');}else{its[i].classList.remove('selected');its[i].classList.add('removed');}}.bind(this)); selectedColumns=this.checked?originalHeaders.map(function(_,i){return i;}):[]; }; }
         function atualizarEstadoSelectAll(){document.getElementById('cbSelectAll').checked=selectedColumns.length===originalHeaders.length;}
-        function aplicarSelecaoColunas(){ if(rawData.length===0){showNotification('Nenhum arquivo','warning');return;} if(selectedColumns.length===0){showNotification('Selecione ao menos uma coluna','warning');return;} rawData=rawData.map(function(l){return selectedColumns.map(function(i){return l[i]||'';});}); originalHeaders=selectedColumns.map(function(i){return originalHeaders[i];}); selectedColumns=originalHeaders.map(function(_,i){return i;}); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); mostrarInfoArquivo(); adicionarLog('Seleção aplicada: '+originalHeaders.length+' colunas'); showNotification('Seleção aplicada!','success'); }
-        function removerArquivo(){ rawData=[];fullData=[];originalHeaders=[];numberingData=[];processedData=[];currentFileName=null;selectedColumns=[]; document.getElementById('fileInfo').classList.remove('show'); document.getElementById('columnSelector').classList.remove('show'); document.getElementById('columnCheckboxes').innerHTML=''; document.getElementById('codeSourceSelector').classList.remove('show'); document.getElementById('codeSourceDataColumn').style.display='none'; document.getElementById('txtFinalOuQuantidade').value='10'; document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; atualizarResultadoQuantidade(); atualizarPreview(); adicionarLog('Arquivo removido'); showNotification('Arquivo removido'); }
-        function sincronizarQuantidadeComArquivo(){ if(rawData.length>0){ document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; document.getElementById('txtFinalOuQuantidade').value=rawData.length.toString(); atualizarResultadoQuantidade(); } }
+        function aplicarSelecaoColunas(){ if(rawData.length===0){showNotification('Nenhum arquivo','warning');return;} if(selectedColumns.length===0){showNotification('Selecione ao menos uma coluna','warning');return;} rawData=rawData.map(function(l){return selectedColumns.map(function(i){return l[i]||'';});}); originalHeaders=selectedColumns.map(function(i){return originalHeaders[i];}); selectedColumns=originalHeaders.map(function(_,i){return i;}); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); mostrarInfoArquivo(); adicionarLog('Seleção aplicada: '+originalHeaders.length+' colunas'); showNotification('Seleção aplicada!','success'); atualizarPreviewDistribuicao(); }
+        function removerArquivo(){ rawData=[];fullData=[];originalHeaders=[];numberingData=[];processedData=[];currentFileName=null;selectedColumns=[]; document.getElementById('fileInfo').classList.remove('show'); document.getElementById('columnSelector').classList.remove('show'); document.getElementById('columnCheckboxes').innerHTML=''; document.getElementById('codeSourceSelector').classList.remove('show'); document.getElementById('codeSourceDataColumn').style.display='none'; document.getElementById('txtFinalOuQuantidade').value='10'; document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; atualizarResultadoQuantidade(); atualizarPreview(); atualizarPreviewDistribuicao(); adicionarLog('Arquivo removido'); showNotification('Arquivo removido'); }
+        function sincronizarQuantidadeComArquivo(){ if(rawData.length>0){ document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; document.getElementById('txtFinalOuQuantidade').value=rawData.length.toString(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); } }
 
         // ==================== QUANTIDADE ====================
-        function atualizarResultadoQuantidade(){ const iq=document.getElementById('rbQuantidade').checked, inf=document.getElementById('rbNumeroFinal').checked, iff=document.getElementById('rbFolhas').checked; const nc=parseInt(document.getElementById('txtColunas').value)||1; const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; let ni=1,iv=1; if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ni=parseInt(document.getElementById('txtInicial').value)||1;iv=parseInt(document.getElementById('txtIntervalo').value)||1;} let r=0; if(iq)r=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); else if(inf){var nf=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);r=(!isNaN(nf)&&nf>=ni)?Math.floor((nf-ni)/iv)+1:NaN;} else if(iff){var fh=calcularExpressao(document.getElementById('txtLinhasPorFolha').value);r=(!isNaN(fh)&&fh>0)?fh*nc:NaN;} const rs=document.getElementById('resultadoQuantidade'),rfs=document.getElementById('resultadoFolhas'); if(iff){rfs.style.display='inline-flex';if(!isNaN(r)&&r>0&&r<=100000){rfs.className='quantidade-resultado';rfs.innerHTML='<i class="fas fa-calculator"></i> '+r+' códigos';}else{rfs.className='quantidade-resultado error';rfs.innerHTML='<i class="fas fa-exclamation-triangle"></i> Inválido';}} else{rs.style.display='inline-flex';if(!isNaN(r)&&r>0&&r<=100000){rs.className='quantidade-resultado';rs.innerHTML='<i class="fas fa-calculator"></i> '+r+' códigos';}else{rs.className='quantidade-resultado error';rs.innerHTML='<i class="fas fa-exclamation-triangle"></i> Inválido';}} }
+        function atualizarResultadoQuantidade(){ const iq=document.getElementById('rbQuantidade').checked, inf=document.getElementById('rbNumeroFinal').checked, iff=document.getElementById('rbFolhas').checked; const nc=parseInt(document.getElementById('txtColunas').value)||1; const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; let ni=1,iv=1; if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ni=parseInt(document.getElementById('txtInicial').value)||1;iv=parseInt(document.getElementById('txtIntervalo').value)||1;} let r=0; if(iq)r=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); else if(inf){var nf=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);r=(!isNaN(nf)&&nf>=ni)?Math.floor((nf-ni)/iv)+1:NaN;} else if(iff){var fh=calcularExpressao(document.getElementById('txtLinhasPorFolha').value);r=(!isNaN(fh)&&fh>0)?fh*nc:NaN;} const rs=document.getElementById('resultadoQuantidade'),rfs=document.getElementById('resultadoFolhas'); if(iff){rfs.style.display='inline-flex';if(!isNaN(r)&&r>0&&r<=100000){rfs.className='quantidade-resultado';rfs.innerHTML='<i class="fas fa-calculator"></i> '+r+' códigos';}else{rfs.className='quantidade-resultado error';rfs.innerHTML='<i class="fas fa-exclamation-triangle"></i> Inválido';}} else{rs.style.display='inline-flex';if(!isNaN(r)&&r>0&&r<=100000){rs.className='quantidade-resultado';rs.innerHTML='<i class="fas fa-calculator"></i> '+r+' códigos';}else{rs.className='quantidade-resultado error';rs.innerHTML='<i class="fas fa-exclamation-triangle"></i> Inválido';}} atualizarPreviewDistribuicao(); }
         function validarCampos(){ let v=true; document.querySelectorAll('.mensagem-erro').forEach(function(e){e.remove();}); document.querySelectorAll('.campo-obrigatorio').forEach(function(e){e.classList.remove('campo-obrigatorio');}); if(!document.getElementById('txtNomeColunas').value.trim()){marcarCampoInvalido('txtNomeColunas','Informe o nome');v=false;} const nc=parseInt(document.getElementById('txtColunas').value); if(isNaN(nc)||nc<1||nc>10){marcarCampoInvalido('txtColunas','Entre 1 e 10');v=false;} const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; const nd=parseInt(document.getElementById('txtDigitos').value); if(isNaN(nd)||nd<1||nd>10){marcarCampoInvalido('txtDigitos','Entre 1 e 10');v=false;} if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ if(isNaN(parseInt(document.getElementById('txtInicial').value))||parseInt(document.getElementById('txtInicial').value)<0){marcarCampoInvalido('txtInicial','Inválido');v=false;} if(isNaN(parseInt(document.getElementById('txtIntervalo').value))||parseInt(document.getElementById('txtIntervalo').value)<=0){marcarCampoInvalido('txtIntervalo','>0');v=false;} } if(tg==='rbTipoHibrido'||tg==='rbTipoAleatorio'){var ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);if(isNaN(ta)||ta<1||ta>20){marcarCampoInvalido('txtTamanhoAleatorio','Entre 1 e 20');v=false;}} if(!(uploadEnabled&&rawData.length>0)){var iq=document.getElementById('rbQuantidade').checked,inf=document.getElementById('rbNumeroFinal').checked; if(iq||inf){var ex=document.getElementById('txtFinalOuQuantidade').value.trim(); if(!ex){marcarCampoInvalido('txtFinalOuQuantidade','Obrigatório');v=false;}else{var r=calcularExpressao(ex);if(isNaN(r)||r<=0||r>100000){marcarCampoInvalido('txtFinalOuQuantidade','Inválido ou >100.000');v=false;}}} } if(document.getElementById('rbFolhas').checked){var ef=document.getElementById('txtLinhasPorFolha').value.trim(); if(!ef){marcarCampoInvalido('txtLinhasPorFolha','Obrigatório');v=false;}else{var r=calcularExpressao(ef);if(isNaN(r)||r<=0||r*nc>100000){marcarCampoInvalido('txtLinhasPorFolha','Inválido ou >100.000');v=false;}} } return v; }
         function marcarCampoInvalido(id,m){ var c=document.getElementById(id); c.classList.add('campo-obrigatorio'); var d=document.createElement('div');d.className='mensagem-erro';d.textContent=m;c.insertAdjacentElement('afterend',d); }
 
@@ -349,7 +614,7 @@
         function atualizarPreview(){ var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked; var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value),ta=parseInt(document.getElementById('txtTamanhoAleatorio').value); var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked; var tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra'; var ft=tp==='rbTipoSequencial'?pf+(pe?' ':'')+'['+dg+' dígitos]'+(se?' ':'')+sf:tp==='rbTipoAleatorio'?pf+(pe?' ':'')+'['+ta+' '+(tc==='apenasNumeros'?'num':tc==='apenasLetras'?'alpha':'alnum')+']'+(se?' ':'')+sf:(sequencialAtivo?pf+(pe?' ':'')+'['+ta+']['+dg+']'+(se?' ':'')+sf:pf+(pe?' ':'')+'['+ta+']'+(se?' ':'')+sf+' (sem seq)'); document.getElementById('demoFormatText').textContent=ft; var g=document.getElementById('demoCodeGrid');g.innerHTML=''; var e1=tp==='rbTipoSequencial'?formatarNumeroCompleto(1):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(1,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); var e2=tp==='rbTipoSequencial'?formatarNumeroCompleto(2):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(2,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); [e1,e2].forEach(function(ex){var s=document.createElement('span');s.className='preview-code-item';s.innerHTML='<i class="fas fa-hashtag"></i> '+ex;g.appendChild(s);}); if(gq){var s=document.createElement('span');s.className='preview-code-item qr';s.innerHTML='<i class="fas fa-qrcode"></i> QR: '+e1.substring(0,12)+'...';g.appendChild(s);} if(gc){var s=document.createElement('span');s.className='preview-code-item barcode';s.innerHTML='<i class="fas fa-barcode"></i> '+(e2.replace(/\D/g,'').substring(0,8)||'12345678');g.appendChild(s);} var mt=document.getElementById('demoMetadataContainer');mt.innerHTML=''; var tl=tp==='rbTipoSequencial'?'Sequencial':tp==='rbTipoAleatorio'?'Aleatório':(sequencialAtivo?'Híbrido (com seq)':'Híbrido (sem seq)'); mt.appendChild(createMetadataItem('fa-tag','Tipo',tl)); mt.appendChild(createMetadataItem('fa-sort-numeric-up','Dígitos',dg)); if(uploadEnabled&&rawData.length>0){mt.appendChild(createMetadataItem('fa-file-excel','Arquivo',currentFileName+' ('+rawData.length+' linhas)'));mt.appendChild(createMetadataItem('fa-columns','Colunas dados',originalHeaders.length));} atualizarResultadoQuantidade(); }
         function createMetadataItem(ic,lb,vl){ var i=document.createElement('div');i.className='preview-metadata-item';i.innerHTML='<i class="fas '+ic+'" style="color:var(--azul-escuro);"></i><span class="preview-metadata-label">'+lb+':</span><span class="preview-metadata-value">'+vl+'</span>'; return i; }
 
-        // ==================== GERAR NÚMEROS ====================
+        // ==================== GERAR NÚMEROS COM NOVA DISTRIBUIÇÃO INTELIGENTE ====================
         function gerarNumeros(){
             if(!validarCampos()){adicionarLog('Erro: Campos obrigatórios');showNotification('Campos obrigatórios não preenchidos','error');return;}
             var nc=parseInt(document.getElementById('txtColunas').value),gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
@@ -358,34 +623,63 @@
             var ta=8,tc='apenasNumeros'; if(tp==='rbTipoHibrido'||tp==='rbTipoAleatorio'){ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';}
             var total=0; if(uploadEnabled&&rawData.length>0)total=rawData.length; else if(inf)total=Math.floor((calcularExpressao(document.getElementById('txtFinalOuQuantidade').value)-ni)/iv)+1; else if(iq)total=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); else if(iff)total=calcularExpressao(document.getElementById('txtLinhasPorFolha').value)*nc;
             if(total>100000||total<=0||isNaN(total)){showNotification('Quantidade inválida ou excede 100.000','error');return;}
+            
+            // GERAÇÃO DOS NÚMEROS
             var valores=[]; var pu=new Set(); var vs=ni;
             if(tp==='rbTipoSequencial'){for(var i=0;i<total;i++){valores.push(formatarNumeroCompleto(vs));vs+=iv;}adicionarLog('Gerados '+total+' números sequenciais',true);}
             else if(tp==='rbTipoAleatorio'){var t=0;while(valores.length<total&&t<total*20){var p=gerarParteAleatoria(ta,tc);if(!pu.has(p)){pu.add(p);valores.push(formatarNumeroCompleto(0,p));}t++;}adicionarLog('Gerados '+valores.length+' números aleatórios',true);}
             else{var t=0;while(valores.length<total&&t<total*20){var p=gerarParteAleatoria(ta,tc);if(!pu.has(p)){pu.add(p);valores.push(sequencialAtivo?formatarNumeroCompleto(vs,p):formatarNumeroCompleto(0,p));if(sequencialAtivo)vs+=iv;}t++;}adicionarLog('Gerados '+valores.length+' números híbridos',true);}
+            
             valoresGerados=[].concat(valores); numberingData=[].concat(valores);
+            
+            // COMBINAÇÃO COM DADOS (SE HOUVER UPLOAD)
             if(uploadEnabled&&rawData.length>0){processedData=valores.map(function(n,i){var l=rawData[i]||[];return[n].concat(l);});adicionarLog('Dados combinados: '+processedData.length+' linhas',true);}else processedData=[];
+            
             var udc=uploadEnabled&&rawData.length>0&&document.getElementById('rbCodeSourceData').checked;
             var cci=udc?parseInt(document.getElementById('selectCodeSourceColumn').value):-1;
+            
+            // PREENCHIMENTO DA TABELA
             dadosTabela=[];
-            if(uploadEnabled&&rawData.length>0){
-                var dp=processedData;
-                if(iv_){
-                    var nl=Math.ceil(dp.length/nc);
-                    for(var l=0;l<nl;l++){ var ld=[]; for(var c=0;c<nc;c++){ var idx=(c*nl)+l; if(idx<dp.length){ var num=dp[idx][0]; ld.push(num); var cv=udc?(dp[idx][cci+1]||num):num; if(gq)ld.push(cv); if(gc)ld.push('('+cv+')'); ld.push.apply(ld,dp[idx].slice(1)); } } if(ld.length>0)dadosTabela.push(ld); }
-                }else{
-                    for(var i=0;i<dp.length;i+=nc){ var ld=[]; var bl=dp.slice(i,i+nc); bl.forEach(function(rw){ var num=rw[0]; ld.push(num); var cv=udc?(rw[cci+1]||num):num; if(gq)ld.push(cv); if(gc)ld.push('('+cv+')'); ld.push.apply(ld,rw.slice(1)); }); dadosTabela.push(ld); }
+            const modoInteligente = document.getElementById('rbDistInteligente').checked;
+            
+            if (modoInteligente && nc > 1 && valores.length > 0) {
+                // MODO INTELIGENTE - BLOCOS CONTÍGUOS
+                let itens;
+                if (uploadEnabled && rawData.length > 0) {
+                    itens = processedData; // Arrays com [numero, ...dados]
+                } else {
+                    itens = valores; // Strings simples
                 }
-            }else{
-                if(iv_){
-                    var nl=Math.ceil(valores.length/nc);
-                    for(var l=0;l<nl;l++){ var ld=[]; for(var c=0;c<nc;c++){ var idx=(c*nl)+l; if(idx<valores.length){ld.push(valores[idx]);if(gq)ld.push(valores[idx]);if(gc)ld.push('('+valores[idx]+')');} } if(ld.length>0)dadosTabela.push(ld); }
-                }else{
-                    for(var i=0;i<valores.length;i+=nc){ var ld=[]; valores.slice(i,i+nc).forEach(function(v){ld.push(v);if(gq)ld.push(v);if(gc)ld.push('('+v+')');}); dadosTabela.push(ld); }
+                
+                dadosTabela = preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, 
+                    uploadEnabled && rawData.length > 0 ? processedData : null);
+                
+                const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
+                adicionarLog(`Modo Inteligente aplicado: Blocos de ${tamanhoBloco} itens | ${dadosTabela.length} linhas geradas`, true);
+            } else {
+                // MODO NORMAL (ORIGINAL)
+                if(uploadEnabled&&rawData.length>0){
+                    var dp = processedData;
+                    if(iv_){
+                        var nl=Math.ceil(dp.length/nc);
+                        for(var l=0;l<nl;l++){ var ld=[]; for(var c=0;c<nc;c++){ var idx=(c*nl)+l; if(idx<dp.length){ var num=dp[idx][0]; ld.push(num); var cv=udc?(dp[idx][cci+1]||num):num; if(gq)ld.push(cv); if(gc)ld.push('('+cv+')'); ld.push.apply(ld,dp[idx].slice(1)); } } if(ld.length>0)dadosTabela.push(ld); }
+                    }else{
+                        for(var i=0;i<dp.length;i+=nc){ var ld=[]; var bl=dp.slice(i,i+nc); bl.forEach(function(rw){ var num=rw[0]; ld.push(num); var cv=udc?(rw[cci+1]||num):num; if(gq)ld.push(cv); if(gc)ld.push('('+cv+')'); ld.push.apply(ld,rw.slice(1)); }); dadosTabela.push(ld); }
+                    }
+                } else {
+                    if(iv_){
+                        var nl=Math.ceil(valores.length/nc);
+                        for(var l=0;l<nl;l++){ var ld=[]; for(var c=0;c<nc;c++){ var idx=(c*nl)+l; if(idx<valores.length){ld.push(valores[idx]);if(gq)ld.push(valores[idx]);if(gc)ld.push('('+valores[idx]+')');} } if(ld.length>0)dadosTabela.push(ld); }
+                    }else{
+                        for(var i=0;i<valores.length;i+=nc){ var ld=[]; valores.slice(i,i+nc).forEach(function(v){ld.push(v);if(gq)ld.push(v);if(gc)ld.push('('+v+')');}); dadosTabela.push(ld); }
+                    }
                 }
             }
+            
             if(valores.length>0){primeiroNumero=valores[0];ultimoNumero=valores[valores.length-1];}
             showNotification('Tabela gerada com '+valores.length+' números!','success');
             atualizarPreview();
+            atualizarPreviewDistribuicao();
         }
 
         // ==================== MODAL COM CABEÇALHOS CORRETOS ====================
@@ -514,6 +808,8 @@
                 doc.text('Tipo: '+tt,25,y);y+=8;
                 doc.text('Dígitos: '+document.getElementById('txtDigitos').value,25,y);y+=8;
                 doc.text('Preenchimento: '+(document.getElementById('rbVertical').checked?'Vertical':'Horizontal'),25,y);y+=10;
+                const modoDist = document.getElementById('rbDistInteligente').checked ? 'Inteligente (Blocos Contíguos)' : 'Normal';
+                doc.text('Distribuição: '+modoDist,25,y);y+=8;
                 doc.setFontSize(10);doc.setTextColor(100,100,100);doc.text('Sistema de Numeração Híbrida',20,y);
                 doc.save('relatorio_resumido_'+new Date().toISOString().slice(0,10)+'.pdf');
                 adicionarLog('PDF resumido gerado');showNotification('PDF resumido gerado!','success');
@@ -533,6 +829,9 @@
             document.getElementById('rbTipoHibrido').checked=true;document.getElementById('rbQuantidade').checked=true;
             document.getElementById('rbVertical').checked=true;document.getElementById('rbApenasNumeros').checked=true;
             document.getElementById('rbPrefixoComEspaco').checked=true;document.getElementById('rbSufixoSemEspaco').checked=true;
+            document.getElementById('rbDistNormal').checked=true;
+            document.getElementById('configBlocoContainer').style.display='none';
+            document.getElementById('smartDistPreview').style.display='none';
             sequencialAtivo=true;document.getElementById('btnSeqAtivo').classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');
             document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';
             document.getElementById('fileInfo').classList.remove('show');document.getElementById('columnSelector').classList.remove('show');
@@ -540,7 +839,7 @@
             document.getElementById('codeSourceDataColumn').style.display='none';
             document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';
             document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';
-            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();
+            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();
             document.querySelectorAll('.mensagem-erro').forEach(function(e){e.remove();});document.querySelectorAll('.campo-obrigatorio').forEach(function(e){e.classList.remove('campo-obrigatorio');});
             adicionarLog('Dados limpos');showNotification('Dados limpos!','success');
         }
@@ -550,11 +849,11 @@
             document.getElementById('configSequencial').style.display=tp==='rbTipoAleatorio'?'none':'block';
             document.getElementById('configHibridoAleatorio').style.display=tp==='rbTipoSequencial'?'none':'block';
             document.getElementById('configSequencialToggle').style.display=tp==='rbTipoHibrido'?'flex':'none';
-            atualizarPreview();atualizarResultadoQuantidade();
+            atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();
         }
 
         function salvarConfiguracao(){
-            var c={nomeColuna:document.getElementById('txtNomeColunas').value,prefixo:document.getElementById('txtPrefixo').value,sufixo:document.getElementById('txtSufixo').value,prefixoComEspaco:document.getElementById('rbPrefixoComEspaco').checked,sufixoComEspaco:document.getElementById('rbSufixoComEspaco').checked,numColunas:parseInt(document.getElementById('txtColunas').value),gerarQRCode:document.getElementById('cbQRCode').checked,gerarCodigoBarras:document.getElementById('cbCodigoBarras').checked,tipoGeracao:document.querySelector('input[name="tipoGeracao"]:checked').id,sequencialAtivo:sequencialAtivo,numDigitos:parseInt(document.getElementById('txtDigitos').value),numInicial:parseInt(document.getElementById('txtInicial').value),intervalo:parseInt(document.getElementById('txtIntervalo').value),tamanhoAleatorio:parseInt(document.getElementById('txtTamanhoAleatorio').value),tipoCaractere:document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra',opcaoNumerica:document.getElementById('rbNumeroFinal').checked?'final':document.getElementById('rbFolhas').checked?'folhas':'quantidade',finalOuQuantidade:document.getElementById('txtFinalOuQuantidade').value,linhasPorFolha:document.getElementById('txtLinhasPorFolha').value,preenchimento:document.getElementById('rbHorizontal').checked?'horizontal':'vertical'};
+            var c={nomeColuna:document.getElementById('txtNomeColunas').value,prefixo:document.getElementById('txtPrefixo').value,sufixo:document.getElementById('txtSufixo').value,prefixoComEspaco:document.getElementById('rbPrefixoComEspaco').checked,sufixoComEspaco:document.getElementById('rbSufixoComEspaco').checked,numColunas:parseInt(document.getElementById('txtColunas').value),gerarQRCode:document.getElementById('cbQRCode').checked,gerarCodigoBarras:document.getElementById('cbCodigoBarras').checked,tipoGeracao:document.querySelector('input[name="tipoGeracao"]:checked').id,sequencialAtivo:sequencialAtivo,numDigitos:parseInt(document.getElementById('txtDigitos').value),numInicial:parseInt(document.getElementById('txtInicial').value),intervalo:parseInt(document.getElementById('txtIntervalo').value),tamanhoAleatorio:parseInt(document.getElementById('txtTamanhoAleatorio').value),tipoCaractere:document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra',opcaoNumerica:document.getElementById('rbNumeroFinal').checked?'final':document.getElementById('rbFolhas').checked?'folhas':'quantidade',finalOuQuantidade:document.getElementById('txtFinalOuQuantidade').value,linhasPorFolha:document.getElementById('txtLinhasPorFolha').value,preenchimento:document.getElementById('rbHorizontal').checked?'horizontal':'vertical',modoDistribuicao:document.getElementById('rbDistInteligente').checked?'inteligente':'normal',tamanhoBloco:document.getElementById('selectTamanhoBloco')?.value||'auto'};
             var blob=new Blob([JSON.stringify(c,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
             a.href=url;a.download='config_'+c.nomeColuna.toLowerCase().replace(/\s+/g,'_')+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
             adicionarLog('Configuração salva');showNotification('Configuração salva!','success');
@@ -577,7 +876,17 @@
             else{document.getElementById('rbQuantidade').checked=true;document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';}
             document.getElementById('txtFinalOuQuantidade').value=c.finalOuQuantidade||'10';document.getElementById('txtLinhasPorFolha').value=c.linhasPorFolha||'10';
             if(c.preenchimento==='horizontal')document.getElementById('rbHorizontal').checked=true;else document.getElementById('rbVertical').checked=true;
-            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();adicionarLog('Configuração carregada: '+f.name);showNotification('Configuração carregada!','success');
+            if(c.modoDistribuicao==='inteligente'){
+                document.getElementById('rbDistInteligente').checked=true;
+                document.getElementById('configBlocoContainer').style.display='block';
+                if(c.tamanhoBloco && document.getElementById('selectTamanhoBloco')) {
+                    document.getElementById('selectTamanhoBloco').value = c.tamanhoBloco;
+                }
+            } else {
+                document.getElementById('rbDistNormal').checked=true;
+                document.getElementById('configBlocoContainer').style.display='none';
+            }
+            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();adicionarLog('Configuração carregada: '+f.name);showNotification('Configuração carregada!','success');
             }catch(err){showNotification('Erro ao carregar','error');}};r.readAsText(f);
         }
 
@@ -600,10 +909,36 @@
             document.getElementById('loginPassword').addEventListener('keypress',function(e){if(e.key==='Enter')attemptLogin();});
             var ls=localStorage.getItem('logOperacoes');if(ls)document.getElementById('logEntries').innerHTML=ls;
 
+            // EVENTOS DO MODO INTELIGENTE
+            document.getElementById('rbDistNormal').addEventListener('change', function() {
+                document.getElementById('configBlocoContainer').style.display = 'none';
+                atualizarPreviewDistribuicao();
+            });
+            document.getElementById('rbDistInteligente').addEventListener('change', function() {
+                document.getElementById('configBlocoContainer').style.display = 'block';
+                atualizarPreviewDistribuicao();
+            });
+            
+            // Evento para mudança no tamanho do bloco
+            const selectBloco = document.getElementById('selectTamanhoBloco');
+            if (selectBloco) {
+                selectBloco.addEventListener('change', function() {
+                    atualizarPreviewDistribuicao();
+                });
+            }
+            
+            ['txtColunas', 'txtFinalOuQuantidade', 'txtLinhasPorFolha', 'txtInicial', 'txtIntervalo'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.addEventListener('input', function() { atualizarPreviewDistribuicao(); });
+            });
+            document.querySelectorAll('input[name="opcao"], input[name="tipoGeracao"]').forEach(function(el) {
+                el.addEventListener('change', function() { atualizarPreviewDistribuicao(); });
+            });
+            
             var uth=document.getElementById('uploadToggleHeader'),uc=document.getElementById('uploadContent'),cbu=document.getElementById('cbEnableUpload');
-            cbu.addEventListener('change',function(){uploadEnabled=this.checked;uc.classList.toggle('expanded',uploadEnabled);uth.classList.toggle('expanded',uploadEnabled);if(!uploadEnabled)removerArquivo();atualizarPreview();});
+            cbu.addEventListener('change',function(){uploadEnabled=this.checked;uc.classList.toggle('expanded',uploadEnabled);uth.classList.toggle('expanded',uploadEnabled);if(!uploadEnabled)removerArquivo();atualizarPreview();atualizarPreviewDistribuicao();});
             uth.addEventListener('click',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='LABEL')return;if(uploadEnabled){uc.classList.toggle('expanded');uth.classList.toggle('expanded');}});
-            document.getElementById('cbHasHeader').addEventListener('change',function(){hasHeaderRow=this.checked;if(uploadEnabled&&currentFileName&&fullData.length>0){var nc=fullData[0].length;if(hasHeaderRow&&fullData.length>1){originalHeaders=fullData[0].map(function(h){return String(h||'');});rawData=fullData.slice(1);}else{originalHeaders=[];for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1));rawData=hasHeaderRow?fullData.slice(1):[].concat(fullData);}mostrarInfoArquivo();atualizarSelecaoColunas();atualizarCodeSourceColumns();sincronizarQuantidadeComArquivo();atualizarPreview();}});
+            document.getElementById('cbHasHeader').addEventListener('change',function(){hasHeaderRow=this.checked;if(uploadEnabled&&currentFileName&&fullData.length>0){var nc=fullData[0].length;if(hasHeaderRow&&fullData.length>1){originalHeaders=fullData[0].map(function(h){return String(h||'');});rawData=fullData.slice(1);}else{originalHeaders=[];for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1));rawData=hasHeaderRow?fullData.slice(1):[].concat(fullData);}mostrarInfoArquivo();atualizarSelecaoColunas();atualizarCodeSourceColumns();sincronizarQuantidadeComArquivo();atualizarPreview();atualizarPreviewDistribuicao();}});
 
             var fua=document.getElementById('fileUploadArea'),fie=document.getElementById('fileInput');
             fua.addEventListener('click',function(){if(uploadEnabled)fie.click();});
@@ -617,16 +952,16 @@
             document.getElementById('rbCodeSourceData').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display=this.checked?'flex':'none';});
             document.getElementById('rbCodeSourceNumbering').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display='none';});
 
-            document.getElementById('btnSeqAtivo').addEventListener('click',function(){sequencialAtivo=true;this.classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';document.getElementById('configSequencial').style.display='block';atualizarPreview();atualizarResultadoQuantidade();});
-            document.getElementById('btnSeqInativo').addEventListener('click',function(){sequencialAtivo=false;this.classList.add('active');document.getElementById('btnSeqAtivo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial inativo';document.getElementById('configSequencial').style.display='none';atualizarPreview();atualizarResultadoQuantidade();});
+            document.getElementById('btnSeqAtivo').addEventListener('click',function(){sequencialAtivo=true;this.classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';document.getElementById('configSequencial').style.display='block';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});
+            document.getElementById('btnSeqInativo').addEventListener('click',function(){sequencialAtivo=false;this.classList.add('active');document.getElementById('btnSeqAtivo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial inativo';document.getElementById('configSequencial').style.display='none';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});
 
             document.querySelectorAll('input[name="tipoGeracao"]').forEach(function(r){r.addEventListener('change',toggleConfiguracoes);});
-            document.getElementById('rbNumeroFinal').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Número Final:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();});
-            document.getElementById('rbQuantidade').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();});
-            document.getElementById('rbFolhas').addEventListener('change',function(){document.getElementById('divFinalOuQuantidade').style.display='none';document.getElementById('divLinhasPorFolha').style.display='flex';atualizarResultadoQuantidade();atualizarPreview();});
+            document.getElementById('rbNumeroFinal').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Número Final:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();});
+            document.getElementById('rbQuantidade').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();});
+            document.getElementById('rbFolhas').addEventListener('change',function(){document.getElementById('divFinalOuQuantidade').style.display='none';document.getElementById('divLinhasPorFolha').style.display='flex';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();});
 
-            ['txtPrefixo','txtSufixo','txtDigitos','txtTamanhoAleatorio','txtColunas','txtFinalOuQuantidade','txtInicial','txtIntervalo','txtLinhasPorFolha'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',function(){atualizarPreview();atualizarResultadoQuantidade();});});
-            document.querySelectorAll('input[name="prefixoEspaco"],input[name="sufixoEspaco"],input[name="tipoCaractere"],#cbQRCode,#cbCodigoBarras,input[name="preenchimento"]').forEach(function(el){el.addEventListener('change',function(){atualizarPreview();atualizarResultadoQuantidade();});});
+            ['txtPrefixo','txtSufixo','txtDigitos','txtTamanhoAleatorio','txtColunas','txtFinalOuQuantidade','txtInicial','txtIntervalo','txtLinhasPorFolha'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',function(){atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});});
+            document.querySelectorAll('input[name="prefixoEspaco"],input[name="sufixoEspaco"],input[name="tipoCaractere"],#cbQRCode,#cbCodigoBarras,input[name="preenchimento"]').forEach(function(el){el.addEventListener('change',function(){atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});});
 
             document.getElementById('btnGerar').addEventListener('click',gerarNumeros);
             document.getElementById('btnVisualizarModal').addEventListener('click',abrirModalVisualizacao);
@@ -646,7 +981,7 @@
             document.getElementById('btnSalvarLog').addEventListener('click',salvarLogComoTXT);
             document.getElementById('btnLimparLog').addEventListener('click',limparLog);
             ['mousedown','mousemove','keypress','scroll','touchstart','click'].forEach(function(ev){document.addEventListener(ev,resetTimeout);});
-            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();adicionarLog('Aplicação iniciada');
+            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();adicionarLog('Aplicação iniciada - Distribuição por Blocos Contíguos');
         });
     </script>
 </body>

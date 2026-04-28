@@ -11,12 +11,12 @@
     <style>
         :root {
             --azul-claro: #e6f2ff; --azul-escuro: #0077cc; --azul-hover: #0066b3;
-            --verde: #4CAF50; --verde-escuro: #3e8e41; --verde-hover: #3e8e41;
+            --verde: #4CAF50; --verde-escuro: #3e8e41;
             --branco: #ffffff; --cinza-claro: #f5f5f5; --cinza-medio: #e0e0e0;
             --cinza-escuro: #333333; --sombra: 0 4px 8px rgba(0, 0, 0, 0.1);
             --sombra-botao: 0 2px 5px rgba(0, 0, 0, 0.2); --roxo: #8e44ad;
-            --roxo-escuro: #6c3483; --roxo-hover: #7d3c98; --laranja: #e67e22;
-            --laranja-escuro: #d35400; --laranja-hover: #e67e22; --vermelho: #e74c3c;
+            --roxo-escuro: #6c3483; --laranja: #e67e22;
+            --laranja-escuro: #d35400; --vermelho: #e74c3c;
             --vermelho-hover: #c0392b; --inteligente: #00adb5;
         }
         * { box-sizing: border-box; }
@@ -60,33 +60,121 @@
         .radio-option:hover, .checkbox-option:hover { background-color: #f8fafc; border-color: var(--azul-escuro); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 119, 204, 0.1); }
         .radio-option input:checked + label, .checkbox-option input:checked + label { font-weight: 600; color: var(--azul-escuro); }
         .radio-option:has(input:checked), .checkbox-option:has(input:checked) { background-color: #f0f7ff; border-color: var(--azul-escuro); }
-        button { padding: 10px 16px; border: none; border-radius: 8px; font-size: 0.85em; font-weight: 500; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; height: 40px; letter-spacing: 0.3px; }
-        button i { font-size: 1em; transition: transform 0.3s ease; }
+        
+        /* Botões profissionais e elegantes */
+        button { padding: 12px 20px; border: none; border-radius: 10px; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: inline-flex; align-items: center; justify-content: center; gap: 10px; letter-spacing: 0.5px; font-family: 'Inter', 'Poppins', sans-serif; }
+        button i { font-size: 1.1em; transition: transform 0.3s ease; }
         button:hover i { transform: scale(1.1); }
-        button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); }
-        button:active { transform: translateY(1px) scale(0.98); }
-        .btn-primary { background-color: var(--azul-escuro); color: white; }
-        .btn-primary:hover { background-color: var(--azul-hover); }
-        .btn-secondary { background-color: #2c3e50; color: white; }
-        .btn-secondary:hover { background-color: #1e2b37; }
-        .btn-tertiary { background-color: white; color: #334155; border: 1px solid #e2e8f0; box-shadow: none; }
-        .btn-tertiary:hover { background-color: #f8fafc; }
-        .btn-quaternary { background-color: var(--roxo); color: white; }
-        .btn-quaternary:hover { background-color: var(--roxo-hover); }
-        .btn-quinary { background-color: var(--laranja); color: white; }
-        .btn-quinary:hover { background-color: var(--laranja-hover); }
-        .btn-danger { background-color: #ef4444; color: white; }
-        .btn-danger:hover { background-color: #dc2626; }
-        .btn-success { background-color: #10b981; color: white; }
-        .btn-success:hover { background-color: #059669; }
-        .btn-inteligente { background-color: var(--inteligente); color: white; }
-        .btn-inteligente:hover { background-color: #008c96; }
-        .btn-sm { padding: 6px 12px; font-size: 0.8em; height: 36px; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
+        button:active { transform: translateY(1px); }
+        
+        .btn-primary { background: linear-gradient(135deg, #0077cc, #005fa3); color: white; border: none; }
+        .btn-primary:hover { background: linear-gradient(135deg, #0088e6, #0066b3); box-shadow: 0 8px 20px rgba(0, 119, 204, 0.3); }
+        .btn-secondary { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; }
+        .btn-secondary:hover { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .btn-success:hover { background: linear-gradient(135deg, #34d399, #10b981); }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .btn-warning:hover { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .btn-danger:hover { background: linear-gradient(135deg, #f87171, #ef4444); }
+        .btn-purple { background: linear-gradient(135deg, #8e44ad, #6c3483); color: white; }
+        .btn-purple:hover { background: linear-gradient(135deg, #a569bd, #8e44ad); }
+        .btn-inteligente { background: linear-gradient(135deg, #00adb5, #008c96); color: white; }
+        .btn-inteligente:hover { background: linear-gradient(135deg, #00c9d1, #00adb5); }
+        .btn-sm { padding: 8px 16px; font-size: 0.85em; }
+
+        /* Botão Gerar/Atualizar com animação */
+        .btn-primary.btn-update-needed {
+            animation: pulseUpdate 1.5s ease-in-out infinite;
+            background: linear-gradient(135deg, #ef4444, #10b981);
+            background-size: 200% 200%;
+        }
+        @keyframes pulseUpdate {
+            0% { background: linear-gradient(135deg, #ef4444, #ef4444); box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); transform: scale(1); }
+            50% { background: linear-gradient(135deg, #10b981, #10b981); box-shadow: 0 0 20px rgba(16, 185, 129, 0.7); transform: scale(1.02); }
+            100% { background: linear-gradient(135deg, #ef4444, #ef4444); box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); transform: scale(1); }
+        }
+
+        /* Botões container - layout profissional */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .button-group-primary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            flex: 2;
+        }
+        .button-group-secondary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        .relatorios-container {
+            display: flex;
+            gap: 12px;
+            margin-left: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .button-container { flex-direction: column; }
+            .button-group-primary, .button-group-secondary, .relatorios-container { width: 100%; justify-content: center; margin-left: 0; }
+        }
+
+        .continuar-sequencia-box {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: slideInContinuar 0.3s ease;
+        }
+        @keyframes slideInContinuar {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .continuar-sequencia-box .checkbox-option {
+            background: white;
+            border-color: #86efac;
+            margin: 0;
+        }
+        .continuar-sequencia-box .checkbox-option:has(input:checked) {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .continuar-info {
+            font-size: 0.8em;
+            color: #166534;
+            background: #dcfce7;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ultimo-numero-badge {
+            background: #22c55e;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
         .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.7em; font-weight: 600; margin-left: 6px; background-color: rgba(255,255,255,0.2); color: white; transition: all 0.2s ease; }
         button:hover .badge { background-color: rgba(255,255,255,0.3); }
-        .button-container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-top: 24px; }
-        .button-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-        .relatorios-container { display: flex; gap: 8px; align-items: center; }
+        
         .preview-panel { background: white; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); width: 100%; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .preview-panel:hover { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); transform: translateY(-3px); }
         .preview-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: linear-gradient(to right, #f8fafc, white); border-bottom: 1px solid #e2e8f0; }
@@ -121,6 +209,8 @@
         .quantidade-resultado:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3); }
         .quantidade-resultado.warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
         .quantidade-resultado.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        
+        /* Modal de Autenticação */
         .auth-modal { display: flex; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
         .auth-container { background: white; width: 100%; max-width: 420px; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         @keyframes slideIn { from { transform: translateY(30px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
@@ -138,13 +228,11 @@
         .auth-button:hover { background: linear-gradient(135deg, #0066b3, #005091); transform: scale(1.02) translateY(-3px); box-shadow: 0 15px 25px -10px rgba(0,119,204,0.6); }
         .auth-error { color: #ef4444; font-size: 0.8em; margin-top: 15px; text-align: center; display: none; }
         .auth-footer { padding: 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 0.9em; color: #64748b; }
-        .auth-footer a { color: var(--azul-escuro); text-decoration: none; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
-        .auth-footer a:hover { color: #0060a0; text-decoration: underline; transform: translateX(3px); }
+        
         .timeout-warning { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 12px 20px; border-radius: 30px; font-size: 0.9em; font-weight: 600; box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4); display: flex; align-items: center; gap: 12px; z-index: 10000; animation: slideInUp 0.3s ease; transition: all 0.3s ease; }
         @keyframes slideInUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .timeout-warning i { font-size: 1.2em; }
         .timeout-warning button { background: white; color: #d97706; border: none; border-radius: 20px; padding: 4px 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; height: auto; font-size: 0.85em; }
-        .timeout-warning button:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); overflow: auto; }
         .modal-content { background-color: var(--branco); margin: 30px auto; padding: 20px; border-radius: 12px; width: 90%; max-width: 1200px; max-height: 80vh; overflow: auto; position: relative; box-shadow: 0 8px 16px rgba(0,0,0,0.2); animation: modalAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         @keyframes modalAppear { from { transform: translateY(-50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
@@ -219,7 +307,7 @@
             .app-layout { flex-direction: column; }
             .preview-sidebar { position: static; max-width: 100%; width: 100%; }
             .button-container { flex-direction: column; }
-            .button-group { width: 100%; justify-content: center; }
+            .button-group-primary, .button-group-secondary { width: 100%; justify-content: center; }
             .relatorios-container { width: 100%; justify-content: center; margin-left: 0; }
             button { flex: 1; }
         }
@@ -255,7 +343,7 @@
                                     <div class="file-upload-area" id="fileUploadArea"><i class="fas fa-cloud-upload-alt"></i><p><strong>Arraste um arquivo aqui ou clique para selecionar</strong></p><p>Formatos aceitos: .xlsx, .xls, .csv, .txt, .tsv</p><input type="file" id="fileInput" accept=".xlsx,.xls,.csv,.txt,.tsv" style="display:none;"></div>
                                     <div class="file-info" id="fileInfo"><i class="fas fa-file-excel"></i><span id="fileNameDisplay"></span><span id="fileRowCount" style="background:rgba(255,255,255,0.3);padding:2px 10px;border-radius:20px;font-size:0.8em;"></span><button class="remove-file" id="removeFileBtn" title="Remover arquivo"><i class="fas fa-times"></i></button></div>
                                     <div class="header-row-option"><span class="checkbox-option"><input type="checkbox" id="cbHasHeader" checked><label for="cbHasHeader"><i class="fas fa-heading"></i> Primeira linha é cabeçalho</label></span></div>
-                                    <div class="column-selector" id="columnSelector"><h4><i class="fas fa-columns"></i> Selecionar Colunas para Manter</h4><div class="form-group"><span class="checkbox-option" style="margin:0;"><input type="checkbox" id="cbSelectAll" checked><label for="cbSelectAll"><strong>Selecionar Todas</strong></label></span></div><div class="column-checkboxes" id="columnCheckboxes"></div><button id="btnApplySelection" class="btn-success" style="margin-top:8px;"><i class="fas fa-check"></i> Aplicar Seleção</button></div>
+                                    <div class="column-selector" id="columnSelector"><h4><i class="fas fa-columns"></i> Selecionar Colunas para Manter</h4><div class="form-group"><span class="checkbox-option" style="margin:0;"><input type="checkbox" id="cbSelectAll" checked><label for="cbSelectAll"><strong>Selecionar Todas</strong></label></span></div><div class="column-checkboxes" id="columnCheckboxes"></div><button id="btnApplySelection" class="btn-success btn-sm" style="margin-top:8px;"><i class="fas fa-check"></i> Aplicar Seleção</button></div>
                                 </div>
                             </div>
                         </div>
@@ -278,6 +366,20 @@
                         <div class="form-group"><label>Opção de Quantidade</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbQuantidade" name="opcao" checked><label for="rbQuantidade"><i class="fas fa-hashtag"></i> Quantidade</label></span><span class="radio-option"><input type="radio" id="rbNumeroFinal" name="opcao"><label for="rbNumeroFinal"><i class="fas fa-flag-checkered"></i> Nº Final</label></span><span class="radio-option"><input type="radio" id="rbFolhas" name="opcao"><label for="rbFolhas"><i class="fas fa-file-alt"></i> Folhas</label></span></div></div>
                         <div class="form-group" id="divFinalOuQuantidade"><label for="txtFinalOuQuantidade" id="lblFinalOuQuantidade">Quantidade de Códigos</label><input type="text" id="txtFinalOuQuantidade" value="10" style="width:120px;"><span id="resultadoQuantidade" class="quantidade-resultado"><i class="fas fa-calculator"></i> 10 códigos</span></div>
                         <div class="form-group" id="divLinhasPorFolha" style="display:none;"><label for="txtLinhasPorFolha">Nº de Folhas</label><input type="text" id="txtLinhasPorFolha" value="10" style="width:120px;"><span id="resultadoFolhas" class="quantidade-resultado"><i class="fas fa-calculator"></i> 10 códigos</span></div>
+                        
+                        <!-- Caixa para continuar sequência -->
+                        <div id="continuarSequenciaBox" class="continuar-sequencia-box" style="display:none;">
+                            <span class="checkbox-option" style="margin:0;background:white;">
+                                <input type="checkbox" id="cbContinuarSequencia">
+                                <label for="cbContinuarSequencia"><i class="fas fa-forward"></i> Continuar do último número gerado</label>
+                            </span>
+                            <span class="continuar-info">
+                                <i class="fas fa-database"></i> Último número: <strong id="ultimoNumeroDisplay">-</strong>
+                            </span>
+                            <span class="ultimo-numero-badge" id="proxNumeroDisplay">
+                                <i class="fas fa-arrow-right"></i> Próximo: -
+                            </span>
+                        </div>
                     </section>
                     <section class="form-section">
                         <h2><i class="fas fa-layer-group"></i> Configurações de Layout</h2>
@@ -301,23 +403,25 @@
                             </div>
                         </div>
                         <div id="distribuicaoPreview" class="distribuicao-preview" style="display:none;"></div>
+                        
+                        <!-- Botões organizados profissionalmente -->
                         <div class="button-container">
-                            <div class="button-group">
-                                <button id="btnGerar" class="btn-primary" title="Gerar Números (F2)"><i class="fas fa-table"></i> Gerar Números</button>
+                            <div class="button-group-primary">
+                                <button id="btnGerar" class="btn-primary" title="Gerar Números (F2)"><i class="fas fa-table"></i> <span id="btnGerarText">Gerar Números</span><span class="badge">F2</span></button>
                                 <button id="btnVisualizarModal" class="btn-secondary" title="Visualizar Tabela"><i class="fas fa-eye"></i> Visualizar</button>
-                                <button id="btnSalvarTXT" class="btn-secondary" title="Salvar como TXT"><i class="fas fa-file-export"></i> Exportar TXT</button>
-                                <button id="btnSalvarCSV" class="btn-secondary" title="Salvar como CSV (DataMerge)"><i class="fas fa-file-csv"></i> Exportar CSV</button>
+                                <button id="btnSalvarTXT" class="btn-purple" title="Salvar como TXT"><i class="fas fa-file-export"></i> Exportar TXT</button>
+                                <button id="btnSalvarCSV" class="btn-purple" title="Salvar como CSV (DataMerge)"><i class="fas fa-file-csv"></i> Exportar CSV</button>
                                 <button id="btnLimparDados" class="btn-danger" title="Limpar Dados (F1)"><i class="fas fa-trash-alt"></i> Limpar Dados<span class="badge">F1</span></button>
-                                <button id="btnSalvarConfig" class="btn-quaternary" title="Salvar Configuração"><i class="fas fa-save"></i> Salvar Config</button>
-                                <button id="btnCarregarConfig" class="btn-quaternary" title="Carregar Configuração"><i class="fas fa-folder-open"></i> Carregar Config</button>
                             </div>
-                            <div class="relatorios-container">
-                                <button id="btnRelatorioCompleto" class="btn-quinary" title="Relatório Completo em PDF"><i class="fas fa-file-pdf"></i> PDF Completo</button>
-                                <button id="btnRelatorioResumido" class="btn-quinary" title="Relatório Resumido em PDF"><i class="fas fa-file-pdf"></i> PDF Resumido</button>
+                            <div class="button-group-secondary">
+                                <button id="btnSalvarConfig" class="btn-warning" title="Salvar Configuração"><i class="fas fa-save"></i> Salvar Config</button>
+                                <button id="btnCarregarConfig" class="btn-warning" title="Carregar Configuração"><i class="fas fa-folder-open"></i> Carregar Config</button>
+                                <button id="btnRelatorioCompleto" class="btn-inteligente" title="Relatório Completo em PDF"><i class="fas fa-file-pdf"></i> PDF Completo</button>
+                                <button id="btnRelatorioResumido" class="btn-inteligente" title="Relatório Resumido em PDF"><i class="fas fa-file-pdf"></i> PDF Resumido</button>
                             </div>
                         </div>
                     </section>
-                    <div id="logOperacoes"><h3><i class="fas fa-clipboard-list"></i> Registro de Operações</h3><div id="logEntries"></div><div style="margin-top:10px;display:flex;gap:8px;"><button id="btnSalvarLog" class="btn-quaternary btn-sm"><i class="fas fa-save"></i> Salvar Log</button><button id="btnLimparLog" class="btn-tertiary btn-sm"><i class="fas fa-trash-alt"></i> Limpar Log</button></div></div>
+                    <div id="logOperacoes"><h3><i class="fas fa-clipboard-list"></i> Registro de Operações</h3><div id="logEntries"></div><div style="margin-top:10px;display:flex;gap:8px;"><button id="btnSalvarLog" class="btn-secondary btn-sm"><i class="fas fa-save"></i> Salvar Log</button><button id="btnLimparLog" class="btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Limpar Log</button></div></div>
                 </div>
             </div>
             <div class="preview-sidebar">
@@ -327,7 +431,7 @@
                 </div>
             </div>
         </div>
-        <div id="modalTabela" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-table"></i> Visualização da Tabela</h3><span class="close-modal">&times;</span></div><div class="modal-body"><table id="modalTabelaConteudo"><table></div></div></div>
+        <div id="modalTabela" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-table"></i> Visualização da Tabela</h3><span class="close-modal">&times;</span></div><div class="modal-body"><table id="modalTabelaConteudo"></table></div></div></div>
     </div>
     <div id="notification" class="notification hidden"><i class="fas fa-check-circle"></i><span id="notification-message"></span></div>
 
@@ -337,12 +441,190 @@
         const TIMEOUT_MINUTES = 10, WARNING_SECONDS = 30;
         let dadosTabela = [], valoresGerados = [], primeiroNumero = null, ultimoNumero = null, fileInput, sequencialAtivo = true;
         let rawData = [], fullData = [], originalHeaders = [], numberingData = [], processedData = [], currentFileName = null, selectedColumns = [], uploadEnabled = false, hasHeaderRow = true;
+        let updateNeeded = false, primeiraGeracaoRealizada = false;
+        let ultimoNumeroSequencial = null;
+
+        // ==================== SALVAR/CARREGAR ESTADO DA SESSÃO ====================
+        function salvarEstadoSessao() {
+            if (!primeiraGeracaoRealizada) return;
+            const estado = {
+                ultimoNumeroSequencial: ultimoNumeroSequencial,
+                primeiraGeracaoRealizada: true,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('numeroDataMergeState', JSON.stringify(estado));
+            adicionarLog('Estado da sessão salvo (último número: ' + (ultimoNumeroSequencial || 'N/A') + ')', false);
+        }
+
+        function carregarEstadoSessao() {
+            const estadoSalvo = localStorage.getItem('numeroDataMergeState');
+            if (estadoSalvo) {
+                try {
+                    const estado = JSON.parse(estadoSalvo);
+                    if (estado.ultimoNumeroSequencial && estado.primeiraGeracaoRealizada) {
+                        ultimoNumeroSequencial = estado.ultimoNumeroSequencial;
+                        primeiraGeracaoRealizada = true;
+                        adicionarLog('✅ Estado da sessão restaurado. Último número: ' + ultimoNumeroSequencial, true);
+                        mostrarContinuarSequenciaBox();
+                        atualizarUltimoNumeroDisplay();
+                        return true;
+                    }
+                } catch(e) {}
+            }
+            return false;
+        }
+
+        function limparEstadoSessao() {
+            localStorage.removeItem('numeroDataMergeState');
+            ultimoNumeroSequencial = null;
+            primeiraGeracaoRealizada = false;
+            ocultarContinuarSequenciaBox();
+            adicionarLog('Estado da sessão limpo', false);
+        }
+
+        function mostrarContinuarSequenciaBox() {
+            const box = document.getElementById('continuarSequenciaBox');
+            if (box && primeiraGeracaoRealizada && ultimoNumeroSequencial) {
+                box.style.display = 'flex';
+                atualizarUltimoNumeroDisplay();
+            }
+        }
+
+        function ocultarContinuarSequenciaBox() {
+            const box = document.getElementById('continuarSequenciaBox');
+            if (box) box.style.display = 'none';
+        }
+
+        function atualizarUltimoNumeroDisplay() {
+            if (ultimoNumeroSequencial) {
+                document.getElementById('ultimoNumeroDisplay').innerHTML = ultimoNumeroSequencial;
+                const proximo = parseInt(ultimoNumeroSequencial) + (parseInt(document.getElementById('txtIntervalo').value) || 1);
+                document.getElementById('proxNumeroDisplay').innerHTML = '<i class="fas fa-arrow-right"></i> Próximo: ' + proximo;
+            }
+        }
+
+        // Função para aplicar continuar sequência (chamada quando o checkbox é marcado)
+        function aplicarContinuarSequencia() {
+            const cbContinuar = document.getElementById('cbContinuarSequencia');
+            if (cbContinuar && cbContinuar.checked && ultimoNumeroSequencial) {
+                const intervalo = parseInt(document.getElementById('txtIntervalo').value) || 1;
+                const proximoNumero = parseInt(ultimoNumeroSequencial) + intervalo;
+                document.getElementById('txtInicial').value = proximoNumero;
+                adicionarLog(`📌 Continuar sequência ativado: número inicial alterado para ${proximoNumero}`, true);
+                showNotification(`Número inicial alterado para ${proximoNumero}`, 'success');
+                atualizarResultadoQuantidade();
+                atualizarPreviewDistribuicao();
+                setUpdateNeeded();
+            }
+        }
+
+        // ==================== FUNÇÃO PARA ATUALIZAR QUANTIDADE TOTAL (CORRIGIDA) ====================
+        function calcularQuantidadeTotal() {
+            const nc = parseInt(document.getElementById('txtColunas').value) || 1;
+            const tg = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            let ni = 1, iv = 1;
+            
+            if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) {
+                ni = parseInt(document.getElementById('txtInicial').value) || 1;
+                iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
+            }
+            
+            const iq = document.getElementById('rbQuantidade').checked;
+            const inf = document.getElementById('rbNumeroFinal').checked;
+            const iff = document.getElementById('rbFolhas').checked;
+            
+            let total = 0;
+            
+            if (uploadEnabled && rawData.length > 0) {
+                total = rawData.length;
+            } else if (inf) {
+                let nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+                total = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : 0;
+            } else if (iq) {
+                total = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+            } else if (iff) {
+                let fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
+                total = (!isNaN(fh) && fh > 0) ? fh * nc : 0;
+            }
+            
+            return total;
+        }
+
+        // Função para recalcular quando o número de colunas muda
+        function onNumeroColunasChange() {
+            atualizarResultadoQuantidade();
+            atualizarPreviewDistribuicao();
+            setUpdateNeeded();
+        }
+
+        // ==================== FUNÇÃO PARA ATIVAR O MODO "ATUALIZAR" ====================
+        function setUpdateNeeded() {
+            if (primeiraGeracaoRealizada && !updateNeeded) {
+                updateNeeded = true;
+                const btnGerar = document.getElementById('btnGerar');
+                const btnText = document.getElementById('btnGerarText');
+                if (btnGerar) {
+                    btnGerar.classList.add('btn-update-needed');
+                    if (btnText) btnText.textContent = '⚠️ ATUALIZAR DADOS ⚠️';
+                    adicionarLog('⚠️ Alteração detectada - Botão "Gerar" agora é "ATUALIZAR"', false);
+                }
+            }
+        }
+
+        function resetUpdateNeeded() {
+            if (updateNeeded) {
+                updateNeeded = false;
+                const btnGerar = document.getElementById('btnGerar');
+                const btnText = document.getElementById('btnGerarText');
+                if (btnGerar) {
+                    btnGerar.classList.remove('btn-update-needed');
+                    if (btnText) btnText.textContent = 'Gerar Números';
+                }
+            }
+        }
+
+        // ==================== FUNÇÃO PARA GERAR NOME DE ARQUIVO INTELIGENTE ====================
+        function gerarNomeArquivo(extensao, tipoExportacao = 'txt') {
+            const nomeColuna = document.getElementById('txtNomeColunas').value.trim() || 'numeracao';
+            const dataAtual = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+            
+            let nomeBase = '';
+            
+            if (uploadEnabled && currentFileName && rawData.length > 0) {
+                const nomeArquivoOriginal = currentFileName.replace(/\.[^/.]+$/, '');
+                nomeBase = `${nomeArquivoOriginal}_${nomeColuna}`;
+            } else {
+                nomeBase = nomeColuna;
+            }
+            
+            if (primeiroNumero && ultimoNumero) {
+                const primeiroNum = extrairNumeroSequencial(primeiroNumero);
+                const ultimoNum = extrairNumeroSequencial(ultimoNumero);
+                nomeBase += `_${primeiroNum}-${ultimoNum}`;
+            }
+            
+            if (valoresGerados && valoresGerados.length > 0) {
+                nomeBase += `_${valoresGerados.length}itens`;
+            }
+            
+            nomeBase = nomeBase.replace(/[\\/:*?"<>|]/g, '_');
+            
+            return `${nomeBase}_${dataAtual}.${extensao}`;
+        }
+        
+        function extrairNumeroSequencial(codigoCompleto) {
+            const codigoStr = String(codigoCompleto);
+            const matchNumerico = codigoStr.match(/\d+/g);
+            if (matchNumerico && matchNumerico.length > 0) {
+                return matchNumerico[matchNumerico.length - 1];
+            }
+            return codigoStr;
+        }
 
         // ==================== FUNÇÃO INTELIGENTE DE DISTRIBUIÇÃO POR BLOCOS CONTÍGUOS ====================
         function distribuirBlocosContiguos(totalItens, numColunas, tamanhoBloco) {
             if (totalItens <= 0 || numColunas <= 0) return { distribuicao: new Array(numColunas).fill(0), blocos: [], descricao: '' };
             
-            // Se for "auto", determina o tamanho ideal do bloco
             if (tamanhoBloco === 'auto' || !tamanhoBloco) {
                 const opcoes = [1000, 500, 300, 200, 100, 50];
                 tamanhoBloco = opcoes.find(b => totalItens >= b * numColunas) || Math.max(1, Math.floor(totalItens / numColunas));
@@ -357,7 +639,6 @@
             let descricao = '';
             let inicioGlobal = 1;
             
-            // Fase 1: Distribuir blocos completos (tamanhoBloco * numColunas)
             while (restante >= tamanhoBloco * numColunas) {
                 let bloco = {
                     numero: numeroBloco,
@@ -378,7 +659,6 @@
                 numeroBloco++;
             }
             
-            // Fase 2: Distribuir o restante (menor que um bloco completo)
             if (restante > 0) {
                 let blocoRestante = {
                     numero: numeroBloco,
@@ -389,7 +669,6 @@
                     fim: inicioGlobal + restante - 1
                 };
                 
-                // Distribuir o restante igualmente entre as colunas
                 let porColuna = Math.floor(restante / numColunas);
                 let sobra = restante % numColunas;
                 
@@ -402,7 +681,6 @@
                 blocos.push(blocoRestante);
             }
             
-            // Gerar descrição detalhada
             descricao = `<strong>📊 Distribuição Inteligente por Blocos Contíguos</strong>\n`;
             descricao += `<span style="font-size:0.7em;color:#64748b;">Bloco base: ${tamanhoBloco} itens | Total: ${totalItens} itens em ${numColunas} colunas</span>\n`;
             
@@ -458,30 +736,8 @@
             
             if (configBloco) configBloco.style.display = 'block';
             
-            let totalItens = 0;
-            const uploadEnabledFlag = uploadEnabled && rawData.length > 0;
-            const iq = document.getElementById('rbQuantidade').checked;
-            const inf = document.getElementById('rbNumeroFinal').checked;
-            const iff = document.getElementById('rbFolhas').checked;
+            let totalItens = calcularQuantidadeTotal();
             const nc = parseInt(document.getElementById('txtColunas').value) || 1;
-            let ni = 1, iv = 1;
-            const tg = document.querySelector('input[name="tipoGeracao"]:checked').id;
-            if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) {
-                ni = parseInt(document.getElementById('txtInicial').value) || 1;
-                iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
-            }
-            
-            if (uploadEnabledFlag) {
-                totalItens = rawData.length;
-            } else if (inf) {
-                let nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
-                totalItens = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : 0;
-            } else if (iq) {
-                totalItens = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
-            } else if (iff) {
-                let fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
-                totalItens = (!isNaN(fh) && fh > 0) ? fh * nc : 0;
-            }
             
             if (totalItens > 0 && totalItens <= 100000) {
                 const resultado = gerarPreviewDistribuicaoInteligente(totalItens, nc);
@@ -492,7 +748,6 @@
             }
         }
 
-        // ==================== FUNÇÃO DE PREENCHIMENTO POR BLOCOS CONTÍGUOS ====================
         function preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, dadosAdicionais) {
             const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
             const resultado = distribuirBlocosContiguos(itens.length, nc, tamanhoBloco);
@@ -500,10 +755,8 @@
             let tabela = [];
             let idxItem = 0;
             
-            // Para cada bloco
             resultado.blocos.forEach(bloco => {
                 if (bloco.tipo === 'completo') {
-                    // Bloco completo: preencher verticalmente como antes
                     let blocoItens = itens.slice(idxItem, idxItem + (bloco.tamanho * nc));
                     idxItem += bloco.tamanho * nc;
                     
@@ -519,7 +772,6 @@
                         if (linhaDados.length > 0) tabela.push(linhaDados);
                     }
                 } else {
-                    // Bloco restante: preencher coluna por coluna
                     let blocoItens = itens.slice(idxItem);
                     idxItem = itens.length;
                     
@@ -532,9 +784,8 @@
                         offset += itensPorColuna[col];
                     }
                     
-                    // Adicionar uma linha vazia antes do bloco restante (se houver dados anteriores)
                     if (tabela.length > 0) {
-                        tabela.push([]); // linha de separação
+                        tabela.push([]);
                     }
                     
                     let maxLinhas = Math.max(...itensPorColuna);
@@ -559,7 +810,6 @@
         
         function adicionarItemLinha(linhaDados, item, gq, gc, udc, cci, dadosAdicionais) {
             if (Array.isArray(item)) {
-                // Item com dados (upload)
                 let num = item[0];
                 linhaDados.push(num);
                 let cv = udc ? (item[cci + 1] || num) : num;
@@ -567,7 +817,6 @@
                 if (gc) linhaDados.push('(' + cv + ')');
                 linhaDados.push.apply(linhaDados, item.slice(1));
             } else {
-                // Item simples (número)
                 linhaDados.push(item);
                 if (gq) linhaDados.push(item);
                 if (gc) linhaDados.push('(' + item + ')');
@@ -583,27 +832,77 @@
         function performLogout(){ if(!currentUser)return; if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); sessionStorage.removeItem('currentUser'); currentUser=null; document.getElementById('appContent').style.display='none'; document.getElementById('authModal').style.display='flex'; document.getElementById('loginUsername').value=''; document.getElementById('loginPassword').value=''; document.getElementById('loginErrorMessage').style.display='none'; adicionarLog('Sessão expirada'); showNotification('Sessão expirada','warning'); }
 
         // ==================== LOGIN ====================
-        function checkLogin(){ const u=sessionStorage.getItem('currentUser'); if(u){ currentUser=JSON.parse(u); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent=currentUser.nome||currentUser.username; adicionarLog('Usuário '+currentUser.username+' logado'); resetTimeout(); return true; }else{ document.getElementById('authModal').style.display='flex'; document.getElementById('appContent').style.display='none'; return false; } }
-        function attemptLogin(){ const u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value, e=document.getElementById('loginErrorMessage'); if(u==='admin'&&p==='admin123'){ currentUser={id:1,nome:'Administrador',username:'admin',email:'admin@system.com'}; sessionStorage.setItem('currentUser',JSON.stringify(currentUser)); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent='Administrador'; e.style.display='none'; toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); adicionarLog('Login realizado'); showNotification('Bem-vindo!','success'); resetTimeout(); }else{ e.style.display='block'; document.getElementById('loginPassword').value=''; document.getElementById('loginPassword').focus(); } }
+        function checkLogin(){ const u=sessionStorage.getItem('currentUser'); if(u){ currentUser=JSON.parse(u); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent=currentUser.nome||currentUser.username; adicionarLog('Usuário '+currentUser.username+' logado'); resetTimeout(); carregarEstadoSessao(); return true; }else{ document.getElementById('authModal').style.display='flex'; document.getElementById('appContent').style.display='none'; return false; } }
+        function attemptLogin(){ const u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value, e=document.getElementById('loginErrorMessage'); if(u==='admin'&&p==='admin123'){ currentUser={id:1,nome:'Administrador',username:'admin',email:'admin@system.com'}; sessionStorage.setItem('currentUser',JSON.stringify(currentUser)); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent='Administrador'; e.style.display='none'; toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); adicionarLog('Login realizado'); showNotification('Bem-vindo!','success'); resetTimeout(); carregarEstadoSessao(); }else{ e.style.display='block'; document.getElementById('loginPassword').value=''; document.getElementById('loginPassword').focus(); } }
         function logout(){ if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); sessionStorage.removeItem('currentUser'); currentUser=null; document.getElementById('appContent').style.display='none'; document.getElementById('authModal').style.display='flex'; document.getElementById('loginUsername').value=''; document.getElementById('loginPassword').value=''; document.getElementById('loginErrorMessage').style.display='none'; adicionarLog('Usuário desconectado'); }
         function showNotification(m,t){ t=t||'success'; const n=document.getElementById('notification'); n.className='notification '+t; document.getElementById('notification-message').textContent=m; n.classList.add('show'); setTimeout(function(){n.classList.remove('show');},3000); }
         function adicionarLog(m,s){ const le=document.getElementById('logEntries'), now=new Date(), ts=now.toLocaleTimeString('pt-BR'), de=document.createElement('div'); de.className='log-entry'; de.innerHTML='<span class="log-timestamp">['+ts+']</span><span class="log-message">'+m+'</span>'; if(s){de.style.fontWeight='600';de.style.backgroundColor='#f8fafc';de.style.padding='8px';de.style.borderRadius='6px';} le.prepend(de); if(le.children.length>50)le.removeChild(le.lastChild); localStorage.setItem('logOperacoes',le.innerHTML); }
         function calcularExpressao(e){ try{ e=e.replace(/\s+/g,''); if(!/^[\d+\-*/().]+$/.test(e))return NaN; if((e.match(/\(/g)||[]).length!==(e.match(/\)/g)||[]).length)return NaN; e=e.replace(/,/g,'.'); if(/(\+|\*|\/){2,}/.test(e))return NaN; const r=eval(e); return(typeof r==='number'&&!isNaN(r)&&isFinite(r))?Math.floor(Math.abs(r)):NaN; }catch(ex){return NaN;} }
 
-        // ==================== UPLOAD (MANTIDO ORIGINAL) ====================
+        // ==================== UPLOAD ====================
         function processarArquivo(f){ if(!f)return; const ext=f.name.split('.').pop().toLowerCase(); if(!['xlsx','xls','csv','txt','tsv'].includes(ext)){showNotification('Formato não suportado','error');return;} currentFileName=f.name; const r=new FileReader(); r.onload=function(e){try{if(ext==='xlsx'||ext==='xls')processarExcel(e.target.result);else processarTexto(e.target.result,ext);}catch(err){showNotification('Erro ao processar','error');}}; if(ext==='xlsx'||ext==='xls')r.readAsArrayBuffer(f); else r.readAsText(f); }
-        function processarExcel(d){ try{ const wb=XLSX.read(d,{type:'array'}); const ws=wb.Sheets[wb.SheetNames[0]]; const jd=XLSX.utils.sheet_to_json(ws,{header:1}); if(!jd||jd.length===0){showNotification('Arquivo vazio','error');return;} hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=jd[0].length; if(hasHeaderRow&&jd.length>1){ originalHeaders=jd[0].map(function(h){return String(h||'');}); rawData=jd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?jd.slice(1):[].concat(jd); } fullData=[].concat(jd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); }catch(err){showNotification('Erro ao processar Excel','error');} }
-        function processarTexto(d,ext){ try{ const delim=ext==='tsv'?'\t':ext==='csv'?',':'\t'; const lines=d.split(/\r?\n/).filter(function(l){return l.trim();}); if(lines.length===0){showNotification('Arquivo vazio','error');return;} const pd=lines.map(function(l){return l.split(delim);}); hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=pd[0].length; if(hasHeaderRow&&pd.length>1){ originalHeaders=pd[0].map(function(h){return String(h||'').trim();}); rawData=pd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?pd.slice(1):[].concat(pd); } fullData=[].concat(pd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); }catch(err){showNotification('Erro ao processar','error');} }
+        function processarExcel(d){ try{ const wb=XLSX.read(d,{type:'array'}); const ws=wb.Sheets[wb.SheetNames[0]]; const jd=XLSX.utils.sheet_to_json(ws,{header:1}); if(!jd||jd.length===0){showNotification('Arquivo vazio','error');return;} hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=jd[0].length; if(hasHeaderRow&&jd.length>1){ originalHeaders=jd[0].map(function(h){return String(h||'');}); rawData=jd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?jd.slice(1):[].concat(jd); } fullData=[].concat(jd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }catch(err){showNotification('Erro ao processar Excel','error');} }
+        function processarTexto(d,ext){ try{ const delim=ext==='tsv'?'\t':ext==='csv'?',':'\t'; const lines=d.split(/\r?\n/).filter(function(l){return l.trim();}); if(lines.length===0){showNotification('Arquivo vazio','error');return;} const pd=lines.map(function(l){return l.split(delim);}); hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=pd[0].length; if(hasHeaderRow&&pd.length>1){ originalHeaders=pd[0].map(function(h){return String(h||'').trim();}); rawData=pd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?pd.slice(1):[].concat(pd); } fullData=[].concat(pd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }catch(err){showNotification('Erro ao processar','error');} }
         function mostrarInfoArquivo(){ const fi=document.getElementById('fileInfo'); document.getElementById('fileNameDisplay').textContent=currentFileName; document.getElementById('fileRowCount').textContent=rawData.length+' linhas × '+originalHeaders.length+' colunas'; fi.classList.add('show'); document.getElementById('codeSourceSelector').classList.add('show'); }
         function atualizarCodeSourceColumns(){ const s=document.getElementById('selectCodeSourceColumn'); s.innerHTML=''; originalHeaders.forEach(function(h,i){var o=document.createElement('option');o.value=i;o.textContent=h;s.appendChild(o);}); }
-        function atualizarSelecaoColunas(){ if(originalHeaders.length===0)return; const cs=document.getElementById('columnSelector'), cc=document.getElementById('columnCheckboxes'), sa=document.getElementById('cbSelectAll'); cs.classList.add('show'); cc.innerHTML=''; selectedColumns=originalHeaders.map(function(_,i){return i;}); originalHeaders.forEach(function(h,i){ var d=document.createElement('div'); d.className='column-checkbox-item selected'; d.dataset.columnIndex=i; var cb=document.createElement('input'); cb.type='checkbox';cb.id='col_'+i;cb.checked=true;cb.style.marginRight='4px'; cb.addEventListener('change',function(){ if(this.checked){d.classList.add('selected');d.classList.remove('removed');if(selectedColumns.indexOf(i)===-1)selectedColumns.push(i);}else{d.classList.remove('selected');d.classList.add('removed');selectedColumns=selectedColumns.filter(function(j){return j!==i;});} atualizarEstadoSelectAll(); }); var l=document.createElement('label');l.htmlFor='col_'+i;l.textContent=h;l.style.cursor='pointer';l.style.fontSize='0.8em'; d.appendChild(cb);d.appendChild(l);cc.appendChild(d); }); sa.checked=true; sa.onchange=function(){ var cbs=cc.querySelectorAll('input[type="checkbox"]'), its=cc.querySelectorAll('.column-checkbox-item'); cbs.forEach(function(cb,i){cb.checked=this.checked;if(this.checked){its[i].classList.add('selected');its[i].classList.remove('removed');}else{its[i].classList.remove('selected');its[i].classList.add('removed');}}.bind(this)); selectedColumns=this.checked?originalHeaders.map(function(_,i){return i;}):[]; }; }
+        function atualizarSelecaoColunas(){ if(originalHeaders.length===0)return; const cs=document.getElementById('columnSelector'), cc=document.getElementById('columnCheckboxes'), sa=document.getElementById('cbSelectAll'); cs.classList.add('show'); cc.innerHTML=''; selectedColumns=originalHeaders.map(function(_,i){return i;}); originalHeaders.forEach(function(h,i){ var d=document.createElement('div'); d.className='column-checkbox-item selected'; d.dataset.columnIndex=i; var cb=document.createElement('input'); cb.type='checkbox';cb.id='col_'+i;cb.checked=true;cb.style.marginRight='4px'; cb.addEventListener('change',function(){ if(this.checked){d.classList.add('selected');d.classList.remove('removed');if(selectedColumns.indexOf(i)===-1)selectedColumns.push(i);}else{d.classList.remove('selected');d.classList.add('removed');selectedColumns=selectedColumns.filter(function(j){return j!==i;});} atualizarEstadoSelectAll(); setUpdateNeeded(); }); var l=document.createElement('label');l.htmlFor='col_'+i;l.textContent=h;l.style.cursor='pointer';l.style.fontSize='0.8em'; d.appendChild(cb);d.appendChild(l);cc.appendChild(d); }); sa.checked=true; sa.onchange=function(){ var cbs=cc.querySelectorAll('input[type="checkbox"]'), its=cc.querySelectorAll('.column-checkbox-item'); cbs.forEach(function(cb,i){cb.checked=this.checked;if(this.checked){its[i].classList.add('selected');its[i].classList.remove('removed');}else{its[i].classList.remove('selected');its[i].classList.add('removed');}}.bind(this)); selectedColumns=this.checked?originalHeaders.map(function(_,i){return i;}):[]; setUpdateNeeded(); }; }
         function atualizarEstadoSelectAll(){document.getElementById('cbSelectAll').checked=selectedColumns.length===originalHeaders.length;}
-        function aplicarSelecaoColunas(){ if(rawData.length===0){showNotification('Nenhum arquivo','warning');return;} if(selectedColumns.length===0){showNotification('Selecione ao menos uma coluna','warning');return;} rawData=rawData.map(function(l){return selectedColumns.map(function(i){return l[i]||'';});}); originalHeaders=selectedColumns.map(function(i){return originalHeaders[i];}); selectedColumns=originalHeaders.map(function(_,i){return i;}); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); mostrarInfoArquivo(); adicionarLog('Seleção aplicada: '+originalHeaders.length+' colunas'); showNotification('Seleção aplicada!','success'); atualizarPreviewDistribuicao(); }
-        function removerArquivo(){ rawData=[];fullData=[];originalHeaders=[];numberingData=[];processedData=[];currentFileName=null;selectedColumns=[]; document.getElementById('fileInfo').classList.remove('show'); document.getElementById('columnSelector').classList.remove('show'); document.getElementById('columnCheckboxes').innerHTML=''; document.getElementById('codeSourceSelector').classList.remove('show'); document.getElementById('codeSourceDataColumn').style.display='none'; document.getElementById('txtFinalOuQuantidade').value='10'; document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; atualizarResultadoQuantidade(); atualizarPreview(); atualizarPreviewDistribuicao(); adicionarLog('Arquivo removido'); showNotification('Arquivo removido'); }
-        function sincronizarQuantidadeComArquivo(){ if(rawData.length>0){ document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; document.getElementById('txtFinalOuQuantidade').value=rawData.length.toString(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); } }
+        function aplicarSelecaoColunas(){ if(rawData.length===0){showNotification('Nenhum arquivo','warning');return;} if(selectedColumns.length===0){showNotification('Selecione ao menos uma coluna','warning');return;} rawData=rawData.map(function(l){return selectedColumns.map(function(i){return l[i]||'';});}); originalHeaders=selectedColumns.map(function(i){return originalHeaders[i];}); selectedColumns=originalHeaders.map(function(_,i){return i;}); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); mostrarInfoArquivo(); adicionarLog('Seleção aplicada: '+originalHeaders.length+' colunas'); showNotification('Seleção aplicada!','success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }
+        function removerArquivo(){ rawData=[];fullData=[];originalHeaders=[];numberingData=[];processedData=[];currentFileName=null;selectedColumns=[]; document.getElementById('fileInfo').classList.remove('show'); document.getElementById('columnSelector').classList.remove('show'); document.getElementById('columnCheckboxes').innerHTML=''; document.getElementById('codeSourceSelector').classList.remove('show'); document.getElementById('codeSourceDataColumn').style.display='none'; document.getElementById('txtFinalOuQuantidade').value='10'; document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; atualizarResultadoQuantidade(); atualizarPreview(); atualizarPreviewDistribuicao(); adicionarLog('Arquivo removido'); showNotification('Arquivo removido'); setUpdateNeeded(); }
+        function sincronizarQuantidadeComArquivo(){ if(rawData.length>0){ document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; document.getElementById('txtFinalOuQuantidade').value=rawData.length.toString(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); setUpdateNeeded(); } }
 
         // ==================== QUANTIDADE ====================
-        function atualizarResultadoQuantidade(){ const iq=document.getElementById('rbQuantidade').checked, inf=document.getElementById('rbNumeroFinal').checked, iff=document.getElementById('rbFolhas').checked; const nc=parseInt(document.getElementById('txtColunas').value)||1; const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; let ni=1,iv=1; if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ni=parseInt(document.getElementById('txtInicial').value)||1;iv=parseInt(document.getElementById('txtIntervalo').value)||1;} let r=0; if(iq)r=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); else if(inf){var nf=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);r=(!isNaN(nf)&&nf>=ni)?Math.floor((nf-ni)/iv)+1:NaN;} else if(iff){var fh=calcularExpressao(document.getElementById('txtLinhasPorFolha').value);r=(!isNaN(fh)&&fh>0)?fh*nc:NaN;} const rs=document.getElementById('resultadoQuantidade'),rfs=document.getElementById('resultadoFolhas'); if(iff){rfs.style.display='inline-flex';if(!isNaN(r)&&r>0&&r<=100000){rfs.className='quantidade-resultado';rfs.innerHTML='<i class="fas fa-calculator"></i> '+r+' códigos';}else{rfs.className='quantidade-resultado error';rfs.innerHTML='<i class="fas fa-exclamation-triangle"></i> Inválido';}} else{rs.style.display='inline-flex';if(!isNaN(r)&&r>0&&r<=100000){rs.className='quantidade-resultado';rs.innerHTML='<i class="fas fa-calculator"></i> '+r+' códigos';}else{rs.className='quantidade-resultado error';rs.innerHTML='<i class="fas fa-exclamation-triangle"></i> Inválido';}} atualizarPreviewDistribuicao(); }
+        function atualizarResultadoQuantidade(){ 
+            const nc = parseInt(document.getElementById('txtColunas').value) || 1;
+            const iq = document.getElementById('rbQuantidade').checked;
+            const inf = document.getElementById('rbNumeroFinal').checked;
+            const iff = document.getElementById('rbFolhas').checked;
+            const tg = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            let ni = 1, iv = 1;
+            if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) {
+                ni = parseInt(document.getElementById('txtInicial').value) || 1;
+                iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
+            }
+            
+            let r = 0;
+            if (uploadEnabled && rawData.length > 0) {
+                r = rawData.length;
+            } else if (iq) {
+                r = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+            } else if (inf) {
+                var nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+                r = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : NaN;
+            } else if (iff) {
+                var fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
+                r = (!isNaN(fh) && fh > 0) ? fh * nc : NaN;
+            }
+            
+            const rs = document.getElementById('resultadoQuantidade');
+            const rfs = document.getElementById('resultadoFolhas');
+            
+            if (iff) {
+                rfs.style.display = 'inline-flex';
+                if (!isNaN(r) && r > 0 && r <= 100000) {
+                    rfs.className = 'quantidade-resultado';
+                    rfs.innerHTML = '<i class="fas fa-calculator"></i> ' + r + ' códigos';
+                } else {
+                    rfs.className = 'quantidade-resultado error';
+                    rfs.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Inválido';
+                }
+            } else {
+                rs.style.display = 'inline-flex';
+                if (!isNaN(r) && r > 0 && r <= 100000) {
+                    rs.className = 'quantidade-resultado';
+                    rs.innerHTML = '<i class="fas fa-calculator"></i> ' + r + ' códigos';
+                } else {
+                    rs.className = 'quantidade-resultado error';
+                    rs.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Inválido';
+                }
+            }
+            atualizarPreviewDistribuicao();
+            setUpdateNeeded();
+        }
+        
         function validarCampos(){ let v=true; document.querySelectorAll('.mensagem-erro').forEach(function(e){e.remove();}); document.querySelectorAll('.campo-obrigatorio').forEach(function(e){e.classList.remove('campo-obrigatorio');}); if(!document.getElementById('txtNomeColunas').value.trim()){marcarCampoInvalido('txtNomeColunas','Informe o nome');v=false;} const nc=parseInt(document.getElementById('txtColunas').value); if(isNaN(nc)||nc<1||nc>10){marcarCampoInvalido('txtColunas','Entre 1 e 10');v=false;} const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; const nd=parseInt(document.getElementById('txtDigitos').value); if(isNaN(nd)||nd<1||nd>10){marcarCampoInvalido('txtDigitos','Entre 1 e 10');v=false;} if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ if(isNaN(parseInt(document.getElementById('txtInicial').value))||parseInt(document.getElementById('txtInicial').value)<0){marcarCampoInvalido('txtInicial','Inválido');v=false;} if(isNaN(parseInt(document.getElementById('txtIntervalo').value))||parseInt(document.getElementById('txtIntervalo').value)<=0){marcarCampoInvalido('txtIntervalo','>0');v=false;} } if(tg==='rbTipoHibrido'||tg==='rbTipoAleatorio'){var ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);if(isNaN(ta)||ta<1||ta>20){marcarCampoInvalido('txtTamanhoAleatorio','Entre 1 e 20');v=false;}} if(!(uploadEnabled&&rawData.length>0)){var iq=document.getElementById('rbQuantidade').checked,inf=document.getElementById('rbNumeroFinal').checked; if(iq||inf){var ex=document.getElementById('txtFinalOuQuantidade').value.trim(); if(!ex){marcarCampoInvalido('txtFinalOuQuantidade','Obrigatório');v=false;}else{var r=calcularExpressao(ex);if(isNaN(r)||r<=0||r>100000){marcarCampoInvalido('txtFinalOuQuantidade','Inválido ou >100.000');v=false;}}} } if(document.getElementById('rbFolhas').checked){var ef=document.getElementById('txtLinhasPorFolha').value.trim(); if(!ef){marcarCampoInvalido('txtLinhasPorFolha','Obrigatório');v=false;}else{var r=calcularExpressao(ef);if(isNaN(r)||r<=0||r*nc>100000){marcarCampoInvalido('txtLinhasPorFolha','Inválido ou >100.000');v=false;}} } return v; }
         function marcarCampoInvalido(id,m){ var c=document.getElementById(id); c.classList.add('campo-obrigatorio'); var d=document.createElement('div');d.className='mensagem-erro';d.textContent=m;c.insertAdjacentElement('afterend',d); }
 
@@ -611,20 +910,42 @@
         function gerarCaractereAleatorio(t){ var map={apenasNumeros:'0123456789',apenasLetras:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',numeroLetra:'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'}; var c=map[t]||map['apenasNumeros']; return c[Math.floor(Math.random()*c.length)]; }
         function gerarParteAleatoria(tm,tp){ var r=''; for(var i=0;i<tm;i++)r+=gerarCaractereAleatorio(tp); return r; }
         function formatarNumeroCompleto(ps,pa){ pa=pa||''; var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked; var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value); var sfmt=ps.toString().padStart(dg,'0'); var cd=tp==='rbTipoHibrido'?(sequencialAtivo?pa+sfmt:pa):tp==='rbTipoAleatorio'?pa:sfmt; var pff=pf?(pe?pf+' ':pf):'',sff=sf?(se?' '+sf:sf):''; return pff+cd+sff; }
-        function atualizarPreview(){ var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked; var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value),ta=parseInt(document.getElementById('txtTamanhoAleatorio').value); var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked; var tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra'; var ft=tp==='rbTipoSequencial'?pf+(pe?' ':'')+'['+dg+' dígitos]'+(se?' ':'')+sf:tp==='rbTipoAleatorio'?pf+(pe?' ':'')+'['+ta+' '+(tc==='apenasNumeros'?'num':tc==='apenasLetras'?'alpha':'alnum')+']'+(se?' ':'')+sf:(sequencialAtivo?pf+(pe?' ':'')+'['+ta+']['+dg+']'+(se?' ':'')+sf:pf+(pe?' ':'')+'['+ta+']'+(se?' ':'')+sf+' (sem seq)'); document.getElementById('demoFormatText').textContent=ft; var g=document.getElementById('demoCodeGrid');g.innerHTML=''; var e1=tp==='rbTipoSequencial'?formatarNumeroCompleto(1):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(1,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); var e2=tp==='rbTipoSequencial'?formatarNumeroCompleto(2):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(2,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); [e1,e2].forEach(function(ex){var s=document.createElement('span');s.className='preview-code-item';s.innerHTML='<i class="fas fa-hashtag"></i> '+ex;g.appendChild(s);}); if(gq){var s=document.createElement('span');s.className='preview-code-item qr';s.innerHTML='<i class="fas fa-qrcode"></i> QR: '+e1.substring(0,12)+'...';g.appendChild(s);} if(gc){var s=document.createElement('span');s.className='preview-code-item barcode';s.innerHTML='<i class="fas fa-barcode"></i> '+(e2.replace(/\D/g,'').substring(0,8)||'12345678');g.appendChild(s);} var mt=document.getElementById('demoMetadataContainer');mt.innerHTML=''; var tl=tp==='rbTipoSequencial'?'Sequencial':tp==='rbTipoAleatorio'?'Aleatório':(sequencialAtivo?'Híbrido (com seq)':'Híbrido (sem seq)'); mt.appendChild(createMetadataItem('fa-tag','Tipo',tl)); mt.appendChild(createMetadataItem('fa-sort-numeric-up','Dígitos',dg)); if(uploadEnabled&&rawData.length>0){mt.appendChild(createMetadataItem('fa-file-excel','Arquivo',currentFileName+' ('+rawData.length+' linhas)'));mt.appendChild(createMetadataItem('fa-columns','Colunas dados',originalHeaders.length));} atualizarResultadoQuantidade(); }
+        function atualizarPreview(){ var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked; var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value),ta=parseInt(document.getElementById('txtTamanhoAleatorio').value); var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked; var tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra'; var ft=tp==='rbTipoSequencial'?pf+(pe?' ':'')+'['+dg+' dígitos]'+(se?' ':'')+sf:tp==='rbTipoAleatorio'?pf+(pe?' ':'')+'['+ta+' '+(tc==='apenasNumeros'?'num':tc==='apenasLetras'?'alpha':'alnum')+']'+(se?' ':'')+sf:(sequencialAtivo?pf+(pe?' ':'')+'['+ta+']['+dg+']'+(se?' ':'')+sf:pf+(pe?' ':'')+'['+ta+']'+(se?' ':'')+sf+' (sem seq)'); document.getElementById('demoFormatText').textContent=ft; var g=document.getElementById('demoCodeGrid');g.innerHTML=''; var e1=tp==='rbTipoSequencial'?formatarNumeroCompleto(1):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(1,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); var e2=tp==='rbTipoSequencial'?formatarNumeroCompleto(2):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(2,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); [e1,e2].forEach(function(ex){var s=document.createElement('span');s.className='preview-code-item';s.innerHTML='<i class="fas fa-hashtag"></i> '+ex;g.appendChild(s);}); if(gq){var s=document.createElement('span');s.className='preview-code-item qr';s.innerHTML='<i class="fas fa-qrcode"></i> QR: '+e1.substring(0,12)+'...';g.appendChild(s);} if(gc){var s=document.createElement('span');s.className='preview-code-item barcode';s.innerHTML='<i class="fas fa-barcode"></i> '+(e2.replace(/\D/g,'').substring(0,8)||'12345678');g.appendChild(s);} var mt=document.getElementById('demoMetadataContainer');mt.innerHTML=''; var tl=tp==='rbTipoSequencial'?'Sequencial':tp==='rbTipoAleatorio'?'Aleatório':(sequencialAtivo?'Híbrido (com seq)':'Híbrido (sem seq)'); mt.appendChild(createMetadataItem('fa-tag','Tipo',tl)); mt.appendChild(createMetadataItem('fa-sort-numeric-up','Dígitos',dg)); if(uploadEnabled&&rawData.length>0){mt.appendChild(createMetadataItem('fa-file-excel','Arquivo',currentFileName+' ('+rawData.length+' linhas)'));mt.appendChild(createMetadataItem('fa-columns','Colunas dados',originalHeaders.length));} atualizarResultadoQuantidade(); setUpdateNeeded(); }
         function createMetadataItem(ic,lb,vl){ var i=document.createElement('div');i.className='preview-metadata-item';i.innerHTML='<i class="fas '+ic+'" style="color:var(--azul-escuro);"></i><span class="preview-metadata-label">'+lb+':</span><span class="preview-metadata-value">'+vl+'</span>'; return i; }
 
-        // ==================== GERAR NÚMEROS COM NOVA DISTRIBUIÇÃO INTELIGENTE ====================
+        // ==================== GERAR NÚMEROS COM CONTINUAÇÃO INTELIGENTE ====================
         function gerarNumeros(){
             if(!validarCampos()){adicionarLog('Erro: Campos obrigatórios');showNotification('Campos obrigatórios não preenchidos','error');return;}
+            
             var nc=parseInt(document.getElementById('txtColunas').value),gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
             var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,iv_=document.getElementById('rbVertical').checked,iq=document.getElementById('rbQuantidade').checked,inf=document.getElementById('rbNumeroFinal').checked,iff=document.getElementById('rbFolhas').checked;
-            var ni=1,iv=1; if((tp==='rbTipoSequencial'||tp==='rbTipoHibrido')&&sequencialAtivo){ni=parseInt(document.getElementById('txtInicial').value);iv=parseInt(document.getElementById('txtIntervalo').value);}
-            var ta=8,tc='apenasNumeros'; if(tp==='rbTipoHibrido'||tp==='rbTipoAleatorio'){ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';}
-            var total=0; if(uploadEnabled&&rawData.length>0)total=rawData.length; else if(inf)total=Math.floor((calcularExpressao(document.getElementById('txtFinalOuQuantidade').value)-ni)/iv)+1; else if(iq)total=calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); else if(iff)total=calcularExpressao(document.getElementById('txtLinhasPorFolha').value)*nc;
+            
+            // Verificar se deve continuar do último número
+            var continuarSequencia = document.getElementById('cbContinuarSequencia') && document.getElementById('cbContinuarSequencia').checked;
+            var ni=1,iv=1;
+            
+            if ((tp==='rbTipoSequencial'||tp==='rbTipoHibrido') && sequencialAtivo) {
+                if (continuarSequencia && ultimoNumeroSequencial) {
+                    ni = parseInt(ultimoNumeroSequencial) + (parseInt(document.getElementById('txtIntervalo').value) || 1);
+                    document.getElementById('txtInicial').value = ni;
+                    adicionarLog(`🔄 Continuando sequência do último número: ${ultimoNumeroSequencial} → próximo: ${ni}`, true);
+                    showNotification(`Continuando do número ${ni}`, 'success');
+                } else {
+                    ni = parseInt(document.getElementById('txtInicial').value) || 1;
+                }
+                iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
+            }
+            
+            var ta=8,tc='apenasNumeros'; 
+            if(tp==='rbTipoHibrido'||tp==='rbTipoAleatorio'){
+                ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);
+                tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';
+            }
+            
+            var total = calcularQuantidadeTotal();
+            
             if(total>100000||total<=0||isNaN(total)){showNotification('Quantidade inválida ou excede 100.000','error');return;}
             
-            // GERAÇÃO DOS NÚMEROS
             var valores=[]; var pu=new Set(); var vs=ni;
             if(tp==='rbTipoSequencial'){for(var i=0;i<total;i++){valores.push(formatarNumeroCompleto(vs));vs+=iv;}adicionarLog('Gerados '+total+' números sequenciais',true);}
             else if(tp==='rbTipoAleatorio'){var t=0;while(valores.length<total&&t<total*20){var p=gerarParteAleatoria(ta,tc);if(!pu.has(p)){pu.add(p);valores.push(formatarNumeroCompleto(0,p));}t++;}adicionarLog('Gerados '+valores.length+' números aleatórios',true);}
@@ -632,23 +953,31 @@
             
             valoresGerados=[].concat(valores); numberingData=[].concat(valores);
             
-            // COMBINAÇÃO COM DADOS (SE HOUVER UPLOAD)
+            // Atualizar último número sequencial
+            if (sequencialAtivo && valores.length > 0 && (tp==='rbTipoSequencial'||tp==='rbTipoHibrido')) {
+                const ultimoValor = valores[valores.length-1];
+                const matchNumero = ultimoValor.match(/\d+/g);
+                if (matchNumero && matchNumero.length > 0) {
+                    ultimoNumeroSequencial = matchNumero[matchNumero.length - 1];
+                    adicionarLog(`📌 Último número sequencial salvo: ${ultimoNumeroSequencial}`, true);
+                    salvarEstadoSessao();
+                }
+            }
+            
             if(uploadEnabled&&rawData.length>0){processedData=valores.map(function(n,i){var l=rawData[i]||[];return[n].concat(l);});adicionarLog('Dados combinados: '+processedData.length+' linhas',true);}else processedData=[];
             
             var udc=uploadEnabled&&rawData.length>0&&document.getElementById('rbCodeSourceData').checked;
             var cci=udc?parseInt(document.getElementById('selectCodeSourceColumn').value):-1;
             
-            // PREENCHIMENTO DA TABELA
             dadosTabela=[];
             const modoInteligente = document.getElementById('rbDistInteligente').checked;
             
             if (modoInteligente && nc > 1 && valores.length > 0) {
-                // MODO INTELIGENTE - BLOCOS CONTÍGUOS
                 let itens;
                 if (uploadEnabled && rawData.length > 0) {
-                    itens = processedData; // Arrays com [numero, ...dados]
+                    itens = processedData;
                 } else {
-                    itens = valores; // Strings simples
+                    itens = valores;
                 }
                 
                 dadosTabela = preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, 
@@ -657,7 +986,6 @@
                 const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
                 adicionarLog(`Modo Inteligente aplicado: Blocos de ${tamanhoBloco} itens | ${dadosTabela.length} linhas geradas`, true);
             } else {
-                // MODO NORMAL (ORIGINAL)
                 if(uploadEnabled&&rawData.length>0){
                     var dp = processedData;
                     if(iv_){
@@ -677,9 +1005,18 @@
             }
             
             if(valores.length>0){primeiroNumero=valores[0];ultimoNumero=valores[valores.length-1];}
+            
+            // Marcar primeira geração realizada
+            if (!primeiraGeracaoRealizada) {
+                primeiraGeracaoRealizada = true;
+                mostrarContinuarSequenciaBox();
+                salvarEstadoSessao();
+            }
+            
             showNotification('Tabela gerada com '+valores.length+' números!','success');
             atualizarPreview();
             atualizarPreviewDistribuicao();
+            resetUpdateNeeded();
         }
 
         // ==================== MODAL COM CABEÇALHOS CORRETOS ====================
@@ -709,7 +1046,7 @@
             tbl.appendChild(tbody);modal.style.display='block';adicionarLog('Modal de visualização aberto');
         }
 
-        // ==================== EXPORTAÇÃO COM CABEÇALHOS CORRETOS ====================
+        // ==================== EXPORTAÇÃO COM CABEÇALHOS CORRETOS E NOME INTELIGENTE ====================
         function gerarCabecalhosExportacao(delimitador,aspas){
             var nomeCol=document.getElementById('txtNomeColunas').value,nc=parseInt(document.getElementById('txtColunas').value);
             var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
@@ -730,26 +1067,27 @@
 
         function salvarComoTXT(){
             if(dadosTabela.length===0){showNotification('Nenhum dado','error');return;}
-            var nomeCol=document.getElementById('txtNomeColunas').value;
             var txt=gerarCabecalhosExportacao('\t',false);
             dadosTabela.forEach(function(l){txt+=l.join('\t')+'\r\n';});
+            var nomeArquivo = gerarNomeArquivo('txt', 'txt');
             var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
             var url=URL.createObjectURL(blob),a=document.createElement('a');
-            a.href=url;a.download=nomeCol.toLowerCase().replace(/\s+/g,'_')+'_'+new Date().toISOString().slice(0,10)+'.txt';
+            a.href=url;a.download=nomeArquivo;
             document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-            adicionarLog('Exportado TXT');showNotification('TXT salvo!','success');
+            adicionarLog('Exportado TXT: '+nomeArquivo);showNotification('TXT salvo!','success');
         }
 
         function salvarComoCSV(){
             if(dadosTabela.length===0){showNotification('Nenhum dado','error');return;}
-            var nomeCol=document.getElementById('txtNomeColunas').value,BOM='\uFEFF';
+            var BOM='\uFEFF';
             var csv=gerarCabecalhosExportacao(',',true);
             dadosTabela.forEach(function(l){csv+=l.map(function(v){return'"'+String(v).replace(/"/g,'""')+'"';}).join(',')+'\r\n';});
+            var nomeArquivo = gerarNomeArquivo('csv', 'csv');
             var blob=new Blob([BOM+csv],{type:'text/csv;charset=utf-8'});
             var url=URL.createObjectURL(blob),a=document.createElement('a');
-            a.href=url;a.download=nomeCol.toLowerCase().replace(/\s+/g,'_')+'_datamerge_'+new Date().toISOString().slice(0,10)+'.csv';
+            a.href=url;a.download=nomeArquivo;
             document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-            adicionarLog('Exportado CSV (DataMerge)');showNotification('CSV DataMerge salvo!','success');
+            adicionarLog('Exportado CSV (DataMerge): '+nomeArquivo);showNotification('CSV DataMerge salvo!','success');
         }
 
         // ==================== PDFs ====================
@@ -782,8 +1120,9 @@
                 }
                 doc.autoTable({head:[headers],body:dadosTabela.map(function(l){return l;}),startY:y,margin:{top:10,left:20,right:20},styles:{fontSize:7,cellPadding:2},headStyles:{fillColor:[0,119,204],textColor:[255,255,255]},alternateRowStyles:{fillColor:[230,242,255]}});
                 var tp=doc.internal.getNumberOfPages();for(var i=1;i<=tp;i++){doc.setPage(i);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.text('Página '+i+' de '+tp,250,200,{align:'right'});}
-                doc.save('relatorio_completo_'+new Date().toISOString().slice(0,10)+'.pdf');
-                adicionarLog('PDF completo gerado');showNotification('PDF completo gerado!','success');
+                var nomePDF = gerarNomeArquivo('pdf', 'pdf_completo');
+                doc.save(nomePDF);
+                adicionarLog('PDF completo gerado: '+nomePDF);showNotification('PDF completo gerado!','success');
             }catch(e){console.error(e);showNotification('Erro ao gerar PDF','error');}
         }
 
@@ -811,8 +1150,9 @@
                 const modoDist = document.getElementById('rbDistInteligente').checked ? 'Inteligente (Blocos Contíguos)' : 'Normal';
                 doc.text('Distribuição: '+modoDist,25,y);y+=8;
                 doc.setFontSize(10);doc.setTextColor(100,100,100);doc.text('Sistema de Numeração Híbrida',20,y);
-                doc.save('relatorio_resumido_'+new Date().toISOString().slice(0,10)+'.pdf');
-                adicionarLog('PDF resumido gerado');showNotification('PDF resumido gerado!','success');
+                var nomePDF = gerarNomeArquivo('pdf', 'pdf_resumido');
+                doc.save(nomePDF);
+                adicionarLog('PDF resumido gerado: '+nomePDF);showNotification('PDF resumido gerado!','success');
             }catch(e){console.error(e);showNotification('Erro ao gerar PDF','error');}
         }
 
@@ -842,6 +1182,8 @@
             toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();
             document.querySelectorAll('.mensagem-erro').forEach(function(e){e.remove();});document.querySelectorAll('.campo-obrigatorio').forEach(function(e){e.classList.remove('campo-obrigatorio');});
             adicionarLog('Dados limpos');showNotification('Dados limpos!','success');
+            limparEstadoSessao();
+            resetUpdateNeeded();
         }
 
         function toggleConfiguracoes(){
@@ -850,6 +1192,7 @@
             document.getElementById('configHibridoAleatorio').style.display=tp==='rbTipoSequencial'?'none':'block';
             document.getElementById('configSequencialToggle').style.display=tp==='rbTipoHibrido'?'flex':'none';
             atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();
+            setUpdateNeeded();
         }
 
         function salvarConfiguracao(){
@@ -887,6 +1230,7 @@
                 document.getElementById('configBlocoContainer').style.display='none';
             }
             toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();adicionarLog('Configuração carregada: '+f.name);showNotification('Configuração carregada!','success');
+            setUpdateNeeded();
             }catch(err){showNotification('Erro ao carregar','error');}};r.readAsText(f);
         }
 
@@ -909,36 +1253,48 @@
             document.getElementById('loginPassword').addEventListener('keypress',function(e){if(e.key==='Enter')attemptLogin();});
             var ls=localStorage.getItem('logOperacoes');if(ls)document.getElementById('logEntries').innerHTML=ls;
 
-            // EVENTOS DO MODO INTELIGENTE
+            // Eventos para número de colunas - CORRIGIDO
+            const txtColunas = document.getElementById('txtColunas');
+            txtColunas.addEventListener('change', onNumeroColunasChange);
+            txtColunas.addEventListener('input', onNumeroColunasChange);
+
             document.getElementById('rbDistNormal').addEventListener('change', function() {
                 document.getElementById('configBlocoContainer').style.display = 'none';
                 atualizarPreviewDistribuicao();
+                setUpdateNeeded();
             });
             document.getElementById('rbDistInteligente').addEventListener('change', function() {
                 document.getElementById('configBlocoContainer').style.display = 'block';
                 atualizarPreviewDistribuicao();
+                setUpdateNeeded();
             });
             
-            // Evento para mudança no tamanho do bloco
             const selectBloco = document.getElementById('selectTamanhoBloco');
             if (selectBloco) {
                 selectBloco.addEventListener('change', function() {
                     atualizarPreviewDistribuicao();
+                    setUpdateNeeded();
                 });
             }
             
-            ['txtColunas', 'txtFinalOuQuantidade', 'txtLinhasPorFolha', 'txtInicial', 'txtIntervalo'].forEach(function(id) {
+            // Eventos para continuar sequência - CORRIGIDO
+            const cbContinuarSequencia = document.getElementById('cbContinuarSequencia');
+            if (cbContinuarSequencia) {
+                cbContinuarSequencia.addEventListener('change', aplicarContinuarSequencia);
+            }
+            
+            ['txtFinalOuQuantidade', 'txtLinhasPorFolha', 'txtInicial', 'txtIntervalo', 'txtNomeColunas', 'txtPrefixo', 'txtSufixo', 'txtDigitos', 'txtTamanhoAleatorio'].forEach(function(id) {
                 var el = document.getElementById(id);
-                if (el) el.addEventListener('input', function() { atualizarPreviewDistribuicao(); });
+                if (el) el.addEventListener('input', function() { atualizarPreviewDistribuicao(); setUpdateNeeded(); });
             });
-            document.querySelectorAll('input[name="opcao"], input[name="tipoGeracao"]').forEach(function(el) {
-                el.addEventListener('change', function() { atualizarPreviewDistribuicao(); });
+            document.querySelectorAll('input[name="opcao"], input[name="tipoGeracao"], input[name="prefixoEspaco"], input[name="sufixoEspaco"], input[name="tipoCaractere"], #cbQRCode, #cbCodigoBarras, input[name="preenchimento"]').forEach(function(el) {
+                el.addEventListener('change', function() { atualizarPreviewDistribuicao(); setUpdateNeeded(); });
             });
             
             var uth=document.getElementById('uploadToggleHeader'),uc=document.getElementById('uploadContent'),cbu=document.getElementById('cbEnableUpload');
-            cbu.addEventListener('change',function(){uploadEnabled=this.checked;uc.classList.toggle('expanded',uploadEnabled);uth.classList.toggle('expanded',uploadEnabled);if(!uploadEnabled)removerArquivo();atualizarPreview();atualizarPreviewDistribuicao();});
+            cbu.addEventListener('change',function(){uploadEnabled=this.checked;uc.classList.toggle('expanded',uploadEnabled);uth.classList.toggle('expanded',uploadEnabled);if(!uploadEnabled)removerArquivo();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
             uth.addEventListener('click',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='LABEL')return;if(uploadEnabled){uc.classList.toggle('expanded');uth.classList.toggle('expanded');}});
-            document.getElementById('cbHasHeader').addEventListener('change',function(){hasHeaderRow=this.checked;if(uploadEnabled&&currentFileName&&fullData.length>0){var nc=fullData[0].length;if(hasHeaderRow&&fullData.length>1){originalHeaders=fullData[0].map(function(h){return String(h||'');});rawData=fullData.slice(1);}else{originalHeaders=[];for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1));rawData=hasHeaderRow?fullData.slice(1):[].concat(fullData);}mostrarInfoArquivo();atualizarSelecaoColunas();atualizarCodeSourceColumns();sincronizarQuantidadeComArquivo();atualizarPreview();atualizarPreviewDistribuicao();}});
+            document.getElementById('cbHasHeader').addEventListener('change',function(){hasHeaderRow=this.checked;if(uploadEnabled&&currentFileName&&fullData.length>0){var nc=fullData[0].length;if(hasHeaderRow&&fullData.length>1){originalHeaders=fullData[0].map(function(h){return String(h||'');});rawData=fullData.slice(1);}else{originalHeaders=[];for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1));rawData=hasHeaderRow?fullData.slice(1):[].concat(fullData);}mostrarInfoArquivo();atualizarSelecaoColunas();atualizarCodeSourceColumns();sincronizarQuantidadeComArquivo();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();}});
 
             var fua=document.getElementById('fileUploadArea'),fie=document.getElementById('fileInput');
             fua.addEventListener('click',function(){if(uploadEnabled)fie.click();});
@@ -949,19 +1305,16 @@
             document.getElementById('removeFileBtn').addEventListener('click',function(e){e.stopPropagation();removerArquivo();});
             document.getElementById('btnApplySelection').addEventListener('click',aplicarSelecaoColunas);
 
-            document.getElementById('rbCodeSourceData').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display=this.checked?'flex':'none';});
-            document.getElementById('rbCodeSourceNumbering').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display='none';});
+            document.getElementById('rbCodeSourceData').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display=this.checked?'flex':'none';setUpdateNeeded();});
+            document.getElementById('rbCodeSourceNumbering').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display='none';setUpdateNeeded();});
 
-            document.getElementById('btnSeqAtivo').addEventListener('click',function(){sequencialAtivo=true;this.classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';document.getElementById('configSequencial').style.display='block';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});
-            document.getElementById('btnSeqInativo').addEventListener('click',function(){sequencialAtivo=false;this.classList.add('active');document.getElementById('btnSeqAtivo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial inativo';document.getElementById('configSequencial').style.display='none';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});
+            document.getElementById('btnSeqAtivo').addEventListener('click',function(){sequencialAtivo=true;this.classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';document.getElementById('configSequencial').style.display='block';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();setUpdateNeeded();});
+            document.getElementById('btnSeqInativo').addEventListener('click',function(){sequencialAtivo=false;this.classList.add('active');document.getElementById('btnSeqAtivo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial inativo';document.getElementById('configSequencial').style.display='none';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();setUpdateNeeded();});
 
             document.querySelectorAll('input[name="tipoGeracao"]').forEach(function(r){r.addEventListener('change',toggleConfiguracoes);});
-            document.getElementById('rbNumeroFinal').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Número Final:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();});
-            document.getElementById('rbQuantidade').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();});
-            document.getElementById('rbFolhas').addEventListener('change',function(){document.getElementById('divFinalOuQuantidade').style.display='none';document.getElementById('divLinhasPorFolha').style.display='flex';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();});
-
-            ['txtPrefixo','txtSufixo','txtDigitos','txtTamanhoAleatorio','txtColunas','txtFinalOuQuantidade','txtInicial','txtIntervalo','txtLinhasPorFolha'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',function(){atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});});
-            document.querySelectorAll('input[name="prefixoEspaco"],input[name="sufixoEspaco"],input[name="tipoCaractere"],#cbQRCode,#cbCodigoBarras,input[name="preenchimento"]').forEach(function(el){el.addEventListener('change',function(){atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();});});
+            document.getElementById('rbNumeroFinal').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Número Final:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
+            document.getElementById('rbQuantidade').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
+            document.getElementById('rbFolhas').addEventListener('change',function(){document.getElementById('divFinalOuQuantidade').style.display='none';document.getElementById('divLinhasPorFolha').style.display='flex';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
 
             document.getElementById('btnGerar').addEventListener('click',gerarNumeros);
             document.getElementById('btnVisualizarModal').addEventListener('click',abrirModalVisualizacao);

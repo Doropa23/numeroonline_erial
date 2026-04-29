@@ -34,9 +34,128 @@
         .user-badge i { color: var(--azul-escuro); }
         .btn-logout { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 8px 16px; border-radius: 30px; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; align-items: center; gap: 8px; font-size: 0.9em; }
         .btn-logout:hover { background: rgba(255,255,255,0.15); transform: translateY(-3px) scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .app-layout { max-width: 1400px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start; }
+        .app-layout { max-width: 1400px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start; position: relative; }
         .main-content { flex: 2; min-width: 0; }
         .preview-sidebar { flex: 1; position: sticky; top: 20px; align-self: flex-start; max-width: 380px; }
+        
+        /* Botões flutuantes discretos na lateral direita */
+        .floating-buttons {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .floating-buttons button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: #475569;
+            font-size: 1.2rem;
+            padding: 0;
+            transition: all 0.25s ease;
+        }
+        .floating-buttons button:hover {
+            background: white;
+            transform: translateX(-4px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            color: var(--azul-escuro);
+        }
+        .floating-buttons button i { margin: 0; font-size: 1.2rem; }
+        
+        /* Barra de botões estilo Dock no rodapé */
+        .dock-footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            padding: 8px 16px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 1001;
+            transition: all 0.2s ease;
+        }
+        .dock-footer button {
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 40px;
+            color: #334155;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 42px;
+        }
+        .dock-footer button i {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .dock-footer button span {
+            display: none;
+            margin-left: 4px;
+            font-weight: 500;
+        }
+        .dock-footer button:hover {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 200px;
+            padding: 8px 18px;
+        }
+        .dock-footer button:hover span {
+            display: inline-block;
+        }
+        
+        /* Seta de voltar ao topo (quase invisível) */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .back-to-top.show {
+            opacity: 0.6;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            opacity: 1;
+            background: white;
+            color: var(--azul-escuro);
+            transform: translateY(-3px);
+        }
+        
         .container { padding: 25px; background-color: var(--branco); border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden; margin-bottom: 20px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .container:hover { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12); }
         .container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--azul-escuro), #0099ff); transition: height 0.3s ease; }
@@ -45,7 +164,9 @@
         h2, h3 { margin-bottom: 20px; display: flex; align-items: center; font-weight: 600; font-size: 1.2em; transition: transform 0.2s ease; }
         h2:hover, h3:hover { transform: translateX(3px); }
         h2 i, h3 i { margin-right: 10px; font-size: 1.1em; color: var(--azul-escuro); }
-        .form-section { background-color: var(--branco); border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #edf2f7; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .section-scroll-btn { margin-left: auto; background: rgba(0,119,204,0.1); border-radius: 30px; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); color: var(--azul-escuro); }
+        .section-scroll-btn:hover { background: var(--azul-escuro); color: white; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,119,204,0.3); }
+        .form-section { background-color: var(--branco); border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #edf2f7; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; }
         .form-section:hover { border-color: var(--azul-escuro); box-shadow: 0 8px 20px rgba(0, 119, 204, 0.08); transform: translateY(-2px); }
         .form-group { margin-bottom: 16px; display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
         label { display: inline-block; width: 180px; font-weight: 500; color: #334155; margin-bottom: 0; font-size: 0.95em; }
@@ -61,73 +182,6 @@
         .radio-option input:checked + label, .checkbox-option input:checked + label { font-weight: 600; color: var(--azul-escuro); }
         .radio-option:has(input:checked), .checkbox-option:has(input:checked) { background-color: #f0f7ff; border-color: var(--azul-escuro); }
         
-        /* Botões profissionais e elegantes */
-        button { padding: 12px 20px; border: none; border-radius: 10px; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: inline-flex; align-items: center; justify-content: center; gap: 10px; letter-spacing: 0.5px; font-family: 'Inter', 'Poppins', sans-serif; }
-        button i { font-size: 1.1em; transition: transform 0.3s ease; }
-        button:hover i { transform: scale(1.1); }
-        button:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
-        button:active { transform: translateY(1px); }
-        
-        .btn-primary { background: linear-gradient(135deg, #0077cc, #005fa3); color: white; border: none; }
-        .btn-primary:hover { background: linear-gradient(135deg, #0088e6, #0066b3); box-shadow: 0 8px 20px rgba(0, 119, 204, 0.3); }
-        .btn-secondary { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; }
-        .btn-secondary:hover { background: linear-gradient(135deg, #34495e, #2c3e50); }
-        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .btn-success:hover { background: linear-gradient(135deg, #34d399, #10b981); }
-        .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-        .btn-warning:hover { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
-        .btn-danger:hover { background: linear-gradient(135deg, #f87171, #ef4444); }
-        .btn-purple { background: linear-gradient(135deg, #8e44ad, #6c3483); color: white; }
-        .btn-purple:hover { background: linear-gradient(135deg, #a569bd, #8e44ad); }
-        .btn-inteligente { background: linear-gradient(135deg, #00adb5, #008c96); color: white; }
-        .btn-inteligente:hover { background: linear-gradient(135deg, #00c9d1, #00adb5); }
-        .btn-sm { padding: 8px 16px; font-size: 0.85em; }
-
-        /* Botão Gerar/Atualizar com animação */
-        .btn-primary.btn-update-needed {
-            animation: pulseUpdate 1.5s ease-in-out infinite;
-            background: linear-gradient(135deg, #ef4444, #10b981);
-            background-size: 200% 200%;
-        }
-        @keyframes pulseUpdate {
-            0% { background: linear-gradient(135deg, #ef4444, #ef4444); box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); transform: scale(1); }
-            50% { background: linear-gradient(135deg, #10b981, #10b981); box-shadow: 0 0 20px rgba(16, 185, 129, 0.7); transform: scale(1.02); }
-            100% { background: linear-gradient(135deg, #ef4444, #ef4444); box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); transform: scale(1); }
-        }
-
-        /* Botões container - layout profissional */
-        .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
-        .button-group-primary {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            flex: 2;
-        }
-        .button-group-secondary {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-        .relatorios-container {
-            display: flex;
-            gap: 12px;
-            margin-left: auto;
-        }
-        
-        @media (max-width: 768px) {
-            .button-container { flex-direction: column; }
-            .button-group-primary, .button-group-secondary, .relatorios-container { width: 100%; justify-content: center; margin-left: 0; }
-        }
-
         .continuar-sequencia-box {
             background: linear-gradient(135deg, #f0fdf4, #dcfce7);
             border: 1px solid #bbf7d0;
@@ -210,7 +264,6 @@
         .quantidade-resultado.warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
         .quantidade-resultado.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
         
-        /* Modal de Autenticação */
         .auth-modal { display: flex; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
         .auth-container { background: white; width: 100%; max-width: 420px; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         @keyframes slideIn { from { transform: translateY(30px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
@@ -303,13 +356,16 @@
         .bloco-config label { font-size: 0.85em; width: auto; min-width: 140px; color: #065f46; }
         .bloco-config input { width: 100px; border-color: #bbf7d0; }
         .bloco-config select { width: auto; min-width: 120px; border-color: #bbf7d0; }
+        .export-options { display: flex; align-items: center; gap: 12px; margin-top: 8px; background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; }
+        .export-options label { width: auto; font-size: 0.8em; margin: 0; }
         @media (max-width: 1024px) {
             .app-layout { flex-direction: column; }
             .preview-sidebar { position: static; max-width: 100%; width: 100%; }
-            .button-container { flex-direction: column; }
-            .button-group-primary, .button-group-secondary { width: 100%; justify-content: center; }
-            .relatorios-container { width: 100%; justify-content: center; margin-left: 0; }
-            button { flex: 1; }
+            .floating-buttons { right: 10px; }
+            .floating-buttons button { width: 40px; height: 40px; }
+            .back-to-top { right: 20px; bottom: 20px; }
+            .dock-footer { bottom: 10px; padding: 6px 12px; gap: 4px; }
+            .dock-footer button { padding: 6px 10px; }
         }
     </style>
 </head>
@@ -335,7 +391,8 @@
         <div class="app-layout">
             <div class="main-content">
                 <div class="container">
-                    <section class="form-section" style="padding:0;border:none;box-shadow:none;margin-bottom:24px;">
+                    <section class="form-section" id="section-upload">
+                        <h2><i class="fas fa-upload"></i> Carregar Dados <span class="section-scroll-btn" data-next="section-basic"><i class="fas fa-arrow-down"></i></span></h2>
                         <div class="upload-collapsible">
                             <div class="upload-toggle-header" id="uploadToggleHeader"><h3><span class="checkbox-option" style="pointer-events:none;margin:0;padding:6px 12px;height:auto;"><input type="checkbox" id="cbEnableUpload" style="pointer-events:auto;"><label for="cbEnableUpload" style="pointer-events:auto;"><i class="fas fa-upload"></i> Carregar Arquivo de Dados</label></span></h3><i class="fas fa-chevron-down"></i></div>
                             <div class="upload-content" id="uploadContent">
@@ -348,8 +405,8 @@
                             </div>
                         </div>
                     </section>
-                    <section class="form-section">
-                        <h2><i class="fas fa-cog"></i> Configurações Básicas</h2>
+                    <section class="form-section" id="section-basic">
+                        <h2><i class="fas fa-cog"></i> Configurações Básicas <span class="section-scroll-btn" data-next="section-numeration"><i class="fas fa-arrow-down"></i></span></h2>
                         <div class="form-group"><label for="txtNomeColunas">Nome da Coluna</label><input type="text" id="txtNomeColunas" value="" placeholder="Digite o nome"></div>
                         <div class="form-group"><label for="txtPrefixo">Prefixo Global</label><input type="text" id="txtPrefixo" placeholder="Exemplo: A000"><div class="radio-group"><span class="radio-option"><input type="radio" id="rbPrefixoComEspaco" name="prefixoEspaco" checked><label for="rbPrefixoComEspaco">Espaço</label></span><span class="radio-option"><input type="radio" id="rbPrefixoSemEspaco" name="prefixoEspaco"><label for="rbPrefixoSemEspaco">Sem Espaço</label></span></div></div>
                         <div class="form-group"><label for="txtSufixo">Sufixo Global</label><input type="text" id="txtSufixo" placeholder="Exemplo: /2024"><div class="radio-group"><span class="radio-option"><input type="radio" id="rbSufixoComEspaco" name="sufixoEspaco"><label for="rbSufixoComEspaco">Espaço</label></span><span class="radio-option"><input type="radio" id="rbSufixoSemEspaco" name="sufixoEspaco" checked><label for="rbSufixoSemEspaco">Sem Espaço</label></span></div></div>
@@ -357,32 +414,38 @@
                         <div class="form-group"><label>Códigos Adicionais</label><div class="checkbox-group"><span class="checkbox-option"><input type="checkbox" id="cbQRCode" checked><label for="cbQRCode"><i class="fas fa-qrcode"></i> QR Code</label></span><span class="checkbox-option"><input type="checkbox" id="cbCodigoBarras" checked><label for="cbCodigoBarras"><i class="fas fa-barcode"></i> Código de Barras</label></span></div></div>
                         <div class="code-source-selector" id="codeSourceSelector"><h4><i class="fas fa-exchange-alt"></i> Origem para QR Code / Código de Barras</h4><div class="radio-group"><span class="radio-option"><input type="radio" id="rbCodeSourceNumbering" name="codeSource" checked><label for="rbCodeSourceNumbering"><i class="fas fa-hashtag"></i> Numeração gerada</label></span><span class="radio-option"><input type="radio" id="rbCodeSourceData" name="codeSource"><label for="rbCodeSourceData"><i class="fas fa-table"></i> Dados da tabela</label></span></div><div id="codeSourceDataColumn" style="display:none;margin-top:10px;"><label style="width:auto;margin-right:10px;">Coluna:</label><select id="selectCodeSourceColumn" style="width:auto;min-width:150px;"></select></div></div>
                     </section>
-                    <section class="form-section">
-                        <h2><i class="fas fa-sliders-h"></i> Configurações de Numeração</h2>
+                    <section class="form-section" id="section-numeration">
+                        <h2><i class="fas fa-sliders-h"></i> Configurações de Numeração <span class="section-scroll-btn" data-next="section-layout"><i class="fas fa-arrow-down"></i></span></h2>
                         <div class="form-group"><label>Tipo de Geração</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbTipoSequencial" name="tipoGeracao"><label for="rbTipoSequencial"><i class="fas fa-sort-numeric-up"></i> Sequencial</label></span><span class="radio-option"><input type="radio" id="rbTipoAleatorio" name="tipoGeracao"><label for="rbTipoAleatorio"><i class="fas fa-random"></i> Aleatório</label></span><span class="radio-option"><input type="radio" id="rbTipoHibrido" name="tipoGeracao" checked><label for="rbTipoHibrido"><i class="fas fa-code-branch"></i> Híbrido</label></span></div></div>
                         <div id="configSequencialToggle" style="display:none;" class="form-group"><label>Numeração Sequencial</label><div class="toggle-sequencial"><button id="btnSeqAtivo" class="toggle-sequencial-btn active"><i class="fas fa-check-circle"></i> Ativo</button><button id="btnSeqInativo" class="toggle-sequencial-btn"><i class="fas fa-times-circle"></i> Inativo</button></div><span id="seqInfoMessage" style="margin-left:12px;background:#f0f9ff;padding:8px 16px;border-radius:30px;display:inline-flex;align-items:center;gap:8px;"><i class="fas fa-info-circle" style="color:var(--azul-escuro);"></i> Sequencial ativo</span></div>
                         <div id="configSequencial"><div class="form-group"><label for="txtDigitos">Dígitos Parte Sequencial</label><input type="number" id="txtDigitos" value="4" min="1" max="10" style="width:80px;"><span style="color:#64748b;font-size:0.85em;">dígitos</span></div><div class="form-group"><label for="txtInicial">Número Inicial</label><input type="number" id="txtInicial" value="1" min="1" style="width:100px;"></div><div class="form-group"><label for="txtIntervalo">Intervalo</label><input type="number" id="txtIntervalo" value="1" min="1" style="width:100px;"></div></div>
-                        <div id="configHibridoAleatorio"><div class="form-group"><label>Tipo de Caractere</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbApenasNumeros" name="tipoCaractere" checked><label for="rbApenasNumeros"><i class="fas fa-calculator"></i> Números</label></span><span class="radio-option"><input type="radio" id="rbApenasLetras" name="tipoCaractere"><label for="rbApenasLetras"><i class="fas fa-font"></i> Letras</label></span><span class="radio-option"><input type="radio" id="rbNumeroLetra" name="tipoCaractere"><label for="rbNumeroLetra"><i class="fas fa-font"></i> Números+Letras</label></span></div></div><div class="form-group tamanho-parte-aleatoria"><label for="txtTamanhoAleatorio">Tam. Parte Aleatória</label><input type="number" id="txtTamanhoAleatorio" value="8" min="1" max="20" style="width:80px;"><span style="color:#64748b;font-size:0.85em;">caracteres</span></div></div>
+                        <div id="configHibridoAleatorio">
+                            <div class="form-group"><label>Tipo de Caractere</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbApenasNumeros" name="tipoCaractere" checked><label for="rbApenasNumeros"><i class="fas fa-calculator"></i> Números</label></span><span class="radio-option"><input type="radio" id="rbApenasLetras" name="tipoCaractere"><label for="rbApenasLetras"><i class="fas fa-font"></i> Letras</label></span><span class="radio-option"><input type="radio" id="rbNumeroLetra" name="tipoCaractere"><label for="rbNumeroLetra"><i class="fas fa-font"></i> Números+Letras</label></span></div></div>
+                            <div class="form-group tamanho-parte-aleatoria"><label for="txtTamanhoAleatorio">Tamanho Parte Aleatória</label><input type="number" id="txtTamanhoAleatorio" value="8" min="1" max="20" style="width:80px;"><span style="color:#64748b;font-size:0.85em;">caracteres</span></div>
+                            <div class="form-group" id="hybridPositionGroup" style="margin-top:12px;">
+                                <label>Posição da Parte Sequencial:</label>
+                                <div class="radio-group">
+                                    <span class="radio-option"><input type="radio" id="rbSeqInicio" name="seqPosition" checked><label for="rbSeqInicio"><i class="fas fa-arrow-left"></i> Início</label></span>
+                                    <span class="radio-option"><input type="radio" id="rbSeqMeio" name="seqPosition"><label for="rbSeqMeio"><i class="fas fa-code-branch"></i> Meio (divide aleatório)</label></span>
+                                    <span class="radio-option"><input type="radio" id="rbSeqFim" name="seqPosition"><label for="rbSeqFim"><i class="fas fa-arrow-right"></i> Fim</label></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group"><label>Opção de Quantidade</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbQuantidade" name="opcao" checked><label for="rbQuantidade"><i class="fas fa-hashtag"></i> Quantidade</label></span><span class="radio-option"><input type="radio" id="rbNumeroFinal" name="opcao"><label for="rbNumeroFinal"><i class="fas fa-flag-checkered"></i> Nº Final</label></span><span class="radio-option"><input type="radio" id="rbFolhas" name="opcao"><label for="rbFolhas"><i class="fas fa-file-alt"></i> Folhas</label></span></div></div>
                         <div class="form-group" id="divFinalOuQuantidade"><label for="txtFinalOuQuantidade" id="lblFinalOuQuantidade">Quantidade de Códigos</label><input type="text" id="txtFinalOuQuantidade" value="10" style="width:120px;"><span id="resultadoQuantidade" class="quantidade-resultado"><i class="fas fa-calculator"></i> 10 códigos</span></div>
                         <div class="form-group" id="divLinhasPorFolha" style="display:none;"><label for="txtLinhasPorFolha">Nº de Folhas</label><input type="text" id="txtLinhasPorFolha" value="10" style="width:120px;"><span id="resultadoFolhas" class="quantidade-resultado"><i class="fas fa-calculator"></i> 10 códigos</span></div>
                         
-                        <!-- Caixa para continuar sequência -->
                         <div id="continuarSequenciaBox" class="continuar-sequencia-box" style="display:none;">
                             <span class="checkbox-option" style="margin:0;background:white;">
                                 <input type="checkbox" id="cbContinuarSequencia">
                                 <label for="cbContinuarSequencia"><i class="fas fa-forward"></i> Continuar do último número gerado</label>
                             </span>
-                            <span class="continuar-info">
-                                <i class="fas fa-database"></i> Último número: <strong id="ultimoNumeroDisplay">-</strong>
-                            </span>
-                            <span class="ultimo-numero-badge" id="proxNumeroDisplay">
-                                <i class="fas fa-arrow-right"></i> Próximo: -
-                            </span>
+                            <span class="continuar-info"><i class="fas fa-database"></i> Último número: <strong id="ultimoNumeroDisplay">-</strong></span>
+                            <span class="ultimo-numero-badge" id="proxNumeroDisplay"><i class="fas fa-arrow-right"></i> Próximo: -</span>
                         </div>
                     </section>
-                    <section class="form-section">
-                        <h2><i class="fas fa-layer-group"></i> Configurações de Layout</h2>
+                    <section class="form-section" id="section-layout">
+                        <h2><i class="fas fa-layer-group"></i> Configurações de Layout <span class="section-scroll-btn" data-next="section-end"><i class="fas fa-arrow-down"></i></span></h2>
                         <div class="form-group"><label>Direção de Preenchimento</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbVertical" name="preenchimento" checked><label for="rbVertical"><i class="fas fa-arrows-alt-v"></i> Vertical</label></span><span class="radio-option"><input type="radio" id="rbHorizontal" name="preenchimento"><label for="rbHorizontal"><i class="fas fa-arrows-alt-h"></i> Horizontal</label></span></div></div>
                         <div class="form-group"><label>Modo de Distribuição</label><div class="radio-group"><span class="radio-option"><input type="radio" id="rbDistNormal" name="modoDistribuicao" checked><label for="rbDistNormal"><i class="fas fa-th"></i> Normal (Sequencial)</label></span><span class="radio-option"><input type="radio" id="rbDistInteligente" name="modoDistribuicao"><label for="rbDistInteligente"><i class="fas fa-brain"></i> Inteligente (Blocos Contíguos)</label></span></div></div>
                         <div id="configBlocoContainer" style="display:none; margin-top:8px;">
@@ -397,31 +460,26 @@
                                     <option value="500">500 itens</option>
                                     <option value="1000">1000 itens</option>
                                 </select>
-                                <span style="font-size:0.75em;color:#64748b;margin-left:8px;">
-                                    <i class="fas fa-info-circle"></i> Blocos contíguos por coluna
-                                </span>
+                                <span style="font-size:0.75em;color:#64748b;margin-left:8px;"><i class="fas fa-info-circle"></i> Blocos contíguos por coluna</span>
                             </div>
                         </div>
                         <div id="distribuicaoPreview" class="distribuicao-preview" style="display:none;"></div>
-                        
-                        <!-- Botões organizados profissionalmente -->
-                        <div class="button-container">
-                            <div class="button-group-primary">
-                                <button id="btnGerar" class="btn-primary" title="Gerar Números (F2)"><i class="fas fa-table"></i> <span id="btnGerarText">Gerar Números</span><span class="badge">F2</span></button>
-                                <button id="btnVisualizarModal" class="btn-secondary" title="Visualizar Tabela"><i class="fas fa-eye"></i> Visualizar</button>
-                                <button id="btnSalvarTXT" class="btn-purple" title="Salvar como TXT"><i class="fas fa-file-export"></i> Exportar TXT</button>
-                                <button id="btnSalvarCSV" class="btn-purple" title="Salvar como CSV (DataMerge)"><i class="fas fa-file-csv"></i> Exportar CSV</button>
-                                <button id="btnLimparDados" class="btn-danger" title="Limpar Dados (F1)"><i class="fas fa-trash-alt"></i> Limpar Dados<span class="badge">F1</span></button>
-                            </div>
-                            <div class="button-group-secondary">
-                                <button id="btnSalvarConfig" class="btn-warning" title="Salvar Configuração"><i class="fas fa-save"></i> Salvar Config</button>
-                                <button id="btnCarregarConfig" class="btn-warning" title="Carregar Configuração"><i class="fas fa-folder-open"></i> Carregar Config</button>
-                                <button id="btnRelatorioCompleto" class="btn-inteligente" title="Relatório Completo em PDF"><i class="fas fa-file-pdf"></i> PDF Completo</button>
-                                <button id="btnRelatorioResumido" class="btn-inteligente" title="Relatório Resumido em PDF"><i class="fas fa-file-pdf"></i> PDF Resumido</button>
-                            </div>
+                        <div class="export-options" id="exportOptions" style="margin-top: 16px;">
+                            <i class="fas fa-globe"></i>
+                            <label>Codificação:</label>
+                            <select id="csvEncodingSelect">
+                                <option value="utf8">UTF-8 sem BOM (recomendado)</option>
+                                <option value="utf8bom">UTF-8 com BOM</option>
+                                <option value="utf16le">UTF-16 LE (Little Endian)</option>
+                            </select>
+                            <label style="margin-left:auto;">Delimitador CSV:</label>
+                            <select id="csvDelimiterSelect">
+                                <option value=",">Vírgula ( , )</option>
+                                <option value=";" selected>Ponto e vírgula ( ; ) - InDesign</option>
+                                <option value="\t">Tabulação ( \\t )</option>
+                            </select>
                         </div>
                     </section>
-                    <div id="logOperacoes"><h3><i class="fas fa-clipboard-list"></i> Registro de Operações</h3><div id="logEntries"></div><div style="margin-top:10px;display:flex;gap:8px;"><button id="btnSalvarLog" class="btn-secondary btn-sm"><i class="fas fa-save"></i> Salvar Log</button><button id="btnLimparLog" class="btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Limpar Log</button></div></div>
                 </div>
             </div>
             <div class="preview-sidebar">
@@ -431,31 +489,73 @@
                 </div>
             </div>
         </div>
-        <div id="modalTabela" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-table"></i> Visualização da Tabela</h3><span class="close-modal">&times;</span></div><div class="modal-body"><table id="modalTabelaConteudo"></table></div></div></div>
+        <div id="logOperacoes"><h3><i class="fas fa-clipboard-list"></i> Registro de Operações</h3><div id="logEntries"></div><div style="margin-top:10px;display:flex;gap:8px;"><button id="btnSalvarLog" class="btn-secondary btn-sm"><i class="fas fa-save"></i> Salvar Log</button><button id="btnLimparLog" class="btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Limpar Log</button></div></div>
+        
+        <!-- Botões flutuantes discretos na lateral direita -->
+        <div class="floating-buttons">
+            <button id="btnGerarFloat" title="Gerar Números (F2)"><i class="fas fa-table"></i></button>
+            <button id="btnVisualizarModalFloat" title="Visualizar Tabela"><i class="fas fa-eye"></i></button>
+            <button id="btnSalvarTXTFloat" title="Exportar TXT"><i class="fas fa-file-export"></i></button>
+            <button id="btnSalvarCSVFloat" title="Exportar CSV"><i class="fas fa-file-csv"></i></button>
+            <button id="btnSalvarCSVInDesignFloat" title="CSV InDesign"><i class="fab fa-adobe"></i></button>
+            <button id="btnLimparDadosFloat" title="Limpar Dados (F1)"><i class="fas fa-trash-alt"></i></button>
+            <button id="btnSalvarConfigFloat" title="Salvar Config"><i class="fas fa-save"></i></button>
+            <button id="btnCarregarConfigFloat" title="Carregar Config"><i class="fas fa-folder-open"></i></button>
+            <button id="btnRelatorioCompletoFloat" title="PDF Completo"><i class="fas fa-file-pdf"></i></button>
+            <button id="btnRelatorioResumidoFloat" title="PDF Resumido"><i class="fas fa-file-pdf"></i></button>
+        </div>
+        
+        <!-- Barra de botões estilo Dock no rodapé -->
+        <div class="dock-footer">
+            <button id="btnGerarDock"><i class="fas fa-table"></i><span>Gerar</span></button>
+            <button id="btnVisualizarModalDock"><i class="fas fa-eye"></i><span>Visualizar</span></button>
+            <button id="btnSalvarTXTDock"><i class="fas fa-file-export"></i><span>TXT</span></button>
+            <button id="btnSalvarCSVDock"><i class="fas fa-file-csv"></i><span>CSV</span></button>
+            <button id="btnSalvarCSVInDesignDock"><i class="fab fa-adobe"></i><span>InDesign</span></button>
+            <button id="btnLimparDadosDock"><i class="fas fa-trash-alt"></i><span>Limpar</span></button>
+            <button id="btnSalvarConfigDock"><i class="fas fa-save"></i><span>Salvar Config</span></button>
+            <button id="btnCarregarConfigDock"><i class="fas fa-folder-open"></i><span>Carregar Config</span></button>
+            <button id="btnRelatorioCompletoDock"><i class="fas fa-file-pdf"></i><span>PDF Completo</span></button>
+            <button id="btnRelatorioResumidoDock"><i class="fas fa-file-pdf"></i><span>PDF Resumido</span></button>
+        </div>
+        
+        <!-- Seta flutuante para voltar ao topo -->
+        <div id="backToTop" class="back-to-top"><i class="fas fa-arrow-up"></i></div>
     </div>
+    <div id="modalTabela" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-table"></i> Visualização da Tabela</h3><span class="close-modal">&times;</span></div><div class="modal-body"><table id="modalTabelaConteudo"></table></div></div></div>
     <div id="notification" class="notification hidden"><i class="fas fa-check-circle"></i><span id="notification-message"></span></div>
 
     <script>
         // ==================== VARIÁVEIS GLOBAIS ====================
         let currentUser = null, timeoutTimer = null, warningTimer = null;
         const TIMEOUT_MINUTES = 10, WARNING_SECONDS = 30;
-        let dadosTabela = [], valoresGerados = [], primeiroNumero = null, ultimoNumero = null, fileInput, sequencialAtivo = true;
+        let dadosTabela = [], valoresGerados = [], primeiroNumero = null, ultimoNumero = null, sequencialAtivo = true;
         let rawData = [], fullData = [], originalHeaders = [], numberingData = [], processedData = [], currentFileName = null, selectedColumns = [], uploadEnabled = false, hasHeaderRow = true;
         let updateNeeded = false, primeiraGeracaoRealizada = false;
         let ultimoNumeroSequencial = null;
+        let seqPosition = 'inicio'; // 'inicio', 'meio', 'fim'
 
-        // ==================== SALVAR/CARREGAR ESTADO DA SESSÃO ====================
+        // ==================== SCROLL SUAVE ====================
+        function initScrollArrows() {
+            document.querySelectorAll('.section-scroll-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetId = btn.getAttribute('data-next');
+                    if (targetId) {
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        // ==================== SALVAR/CARREGAR ESTADO ====================
         function salvarEstadoSessao() {
             if (!primeiraGeracaoRealizada) return;
-            const estado = {
-                ultimoNumeroSequencial: ultimoNumeroSequencial,
-                primeiraGeracaoRealizada: true,
-                timestamp: new Date().toISOString()
-            };
+            const estado = { ultimoNumeroSequencial, primeiraGeracaoRealizada: true, timestamp: new Date().toISOString() };
             localStorage.setItem('numeroDataMergeState', JSON.stringify(estado));
             adicionarLog('Estado da sessão salvo (último número: ' + (ultimoNumeroSequencial || 'N/A') + ')', false);
         }
-
         function carregarEstadoSessao() {
             const estadoSalvo = localStorage.getItem('numeroDataMergeState');
             if (estadoSalvo) {
@@ -464,7 +564,7 @@
                     if (estado.ultimoNumeroSequencial && estado.primeiraGeracaoRealizada) {
                         ultimoNumeroSequencial = estado.ultimoNumeroSequencial;
                         primeiraGeracaoRealizada = true;
-                        adicionarLog('✅ Estado da sessão restaurado. Último número: ' + ultimoNumeroSequencial, true);
+                        adicionarLog('✅ Estado restaurado. Último número: ' + ultimoNumeroSequencial, true);
                         mostrarContinuarSequenciaBox();
                         atualizarUltimoNumeroDisplay();
                         return true;
@@ -473,7 +573,6 @@
             }
             return false;
         }
-
         function limparEstadoSessao() {
             localStorage.removeItem('numeroDataMergeState');
             ultimoNumeroSequencial = null;
@@ -481,20 +580,11 @@
             ocultarContinuarSequenciaBox();
             adicionarLog('Estado da sessão limpo', false);
         }
-
         function mostrarContinuarSequenciaBox() {
             const box = document.getElementById('continuarSequenciaBox');
-            if (box && primeiraGeracaoRealizada && ultimoNumeroSequencial) {
-                box.style.display = 'flex';
-                atualizarUltimoNumeroDisplay();
-            }
+            if (box && primeiraGeracaoRealizada && ultimoNumeroSequencial) { box.style.display = 'flex'; atualizarUltimoNumeroDisplay(); }
         }
-
-        function ocultarContinuarSequenciaBox() {
-            const box = document.getElementById('continuarSequenciaBox');
-            if (box) box.style.display = 'none';
-        }
-
+        function ocultarContinuarSequenciaBox() { const box = document.getElementById('continuarSequenciaBox'); if (box) box.style.display = 'none'; }
         function atualizarUltimoNumeroDisplay() {
             if (ultimoNumeroSequencial) {
                 document.getElementById('ultimoNumeroDisplay').innerHTML = ultimoNumeroSequencial;
@@ -502,8 +592,6 @@
                 document.getElementById('proxNumeroDisplay').innerHTML = '<i class="fas fa-arrow-right"></i> Próximo: ' + proximo;
             }
         }
-
-        // Função para aplicar continuar sequência (chamada quando o checkbox é marcado)
         function aplicarContinuarSequencia() {
             const cbContinuar = document.getElementById('cbContinuarSequencia');
             if (cbContinuar && cbContinuar.checked && ultimoNumeroSequencial) {
@@ -518,279 +606,131 @@
             }
         }
 
-        // ==================== FUNÇÃO PARA ATUALIZAR QUANTIDADE TOTAL (CORRIGIDA) ====================
         function calcularQuantidadeTotal() {
             const nc = parseInt(document.getElementById('txtColunas').value) || 1;
             const tg = document.querySelector('input[name="tipoGeracao"]:checked').id;
             let ni = 1, iv = 1;
-            
             if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) {
                 ni = parseInt(document.getElementById('txtInicial').value) || 1;
                 iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
             }
-            
             const iq = document.getElementById('rbQuantidade').checked;
             const inf = document.getElementById('rbNumeroFinal').checked;
             const iff = document.getElementById('rbFolhas').checked;
-            
             let total = 0;
-            
-            if (uploadEnabled && rawData.length > 0) {
-                total = rawData.length;
-            } else if (inf) {
-                let nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
-                total = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : 0;
-            } else if (iq) {
-                total = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
-            } else if (iff) {
-                let fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
-                total = (!isNaN(fh) && fh > 0) ? fh * nc : 0;
-            }
-            
+            if (uploadEnabled && rawData.length > 0) total = rawData.length;
+            else if (inf) { let nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); total = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : 0; }
+            else if (iq) total = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+            else if (iff) { let fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value); total = (!isNaN(fh) && fh > 0) ? fh * nc : 0; }
             return total;
         }
-
-        // Função para recalcular quando o número de colunas muda
-        function onNumeroColunasChange() {
-            atualizarResultadoQuantidade();
-            atualizarPreviewDistribuicao();
-            setUpdateNeeded();
-        }
-
-        // ==================== FUNÇÃO PARA ATIVAR O MODO "ATUALIZAR" ====================
+        function onNumeroColunasChange() { atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); setUpdateNeeded(); }
         function setUpdateNeeded() {
             if (primeiraGeracaoRealizada && !updateNeeded) {
                 updateNeeded = true;
-                const btnGerar = document.getElementById('btnGerar');
-                const btnText = document.getElementById('btnGerarText');
-                if (btnGerar) {
-                    btnGerar.classList.add('btn-update-needed');
-                    if (btnText) btnText.textContent = '⚠️ ATUALIZAR DADOS ⚠️';
-                    adicionarLog('⚠️ Alteração detectada - Botão "Gerar" agora é "ATUALIZAR"', false);
-                }
+                const btnGerar = document.getElementById('btnGerarFloat');
+                if (btnGerar) btnGerar.classList.add('btn-update-needed');
+                adicionarLog('⚠️ Alteração detectada - Botão "Gerar" agora é "ATUALIZAR"', false);
             }
         }
-
         function resetUpdateNeeded() {
             if (updateNeeded) {
                 updateNeeded = false;
-                const btnGerar = document.getElementById('btnGerar');
-                const btnText = document.getElementById('btnGerarText');
-                if (btnGerar) {
-                    btnGerar.classList.remove('btn-update-needed');
-                    if (btnText) btnText.textContent = 'Gerar Números';
-                }
+                const btnGerar = document.getElementById('btnGerarFloat');
+                if (btnGerar) btnGerar.classList.remove('btn-update-needed');
             }
         }
-
-        // ==================== FUNÇÃO PARA GERAR NOME DE ARQUIVO INTELIGENTE ====================
-        function gerarNomeArquivo(extensao, tipoExportacao = 'txt') {
+        function gerarNomeArquivo(extensao) {
             const nomeColuna = document.getElementById('txtNomeColunas').value.trim() || 'numeracao';
             const dataAtual = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-            
             let nomeBase = '';
-            
-            if (uploadEnabled && currentFileName && rawData.length > 0) {
-                const nomeArquivoOriginal = currentFileName.replace(/\.[^/.]+$/, '');
-                nomeBase = `${nomeArquivoOriginal}_${nomeColuna}`;
-            } else {
-                nomeBase = nomeColuna;
-            }
-            
-            if (primeiroNumero && ultimoNumero) {
-                const primeiroNum = extrairNumeroSequencial(primeiroNumero);
-                const ultimoNum = extrairNumeroSequencial(ultimoNumero);
-                nomeBase += `_${primeiroNum}-${ultimoNum}`;
-            }
-            
-            if (valoresGerados && valoresGerados.length > 0) {
-                nomeBase += `_${valoresGerados.length}itens`;
-            }
-            
+            if (uploadEnabled && currentFileName && rawData.length > 0) nomeBase = currentFileName.replace(/\.[^/.]+$/, '') + '_' + nomeColuna;
+            else nomeBase = nomeColuna;
+            if (primeiroNumero && ultimoNumero) nomeBase += `_${extrairNumeroSequencial(primeiroNumero)}-${extrairNumeroSequencial(ultimoNumero)}`;
+            if (valoresGerados && valoresGerados.length > 0) nomeBase += `_${valoresGerados.length}itens`;
             nomeBase = nomeBase.replace(/[\\/:*?"<>|]/g, '_');
-            
             return `${nomeBase}_${dataAtual}.${extensao}`;
         }
-        
         function extrairNumeroSequencial(codigoCompleto) {
-            const codigoStr = String(codigoCompleto);
-            const matchNumerico = codigoStr.match(/\d+/g);
-            if (matchNumerico && matchNumerico.length > 0) {
-                return matchNumerico[matchNumerico.length - 1];
-            }
-            return codigoStr;
+            const matchNumerico = String(codigoCompleto).match(/\d+/g);
+            return matchNumerico ? matchNumerico[matchNumerico.length - 1] : String(codigoCompleto);
         }
 
-        // ==================== FUNÇÃO INTELIGENTE DE DISTRIBUIÇÃO POR BLOCOS CONTÍGUOS ====================
+        // ==================== DISTRIBUIÇÃO INTELIGENTE ====================
         function distribuirBlocosContiguos(totalItens, numColunas, tamanhoBloco) {
             if (totalItens <= 0 || numColunas <= 0) return { distribuicao: new Array(numColunas).fill(0), blocos: [], descricao: '' };
-            
             if (tamanhoBloco === 'auto' || !tamanhoBloco) {
                 const opcoes = [1000, 500, 300, 200, 100, 50];
                 tamanhoBloco = opcoes.find(b => totalItens >= b * numColunas) || Math.max(1, Math.floor(totalItens / numColunas));
-            } else {
-                tamanhoBloco = parseInt(tamanhoBloco);
-            }
-            
-            let resultado = new Array(numColunas).fill(0);
-            let blocos = [];
-            let restante = totalItens;
-            let numeroBloco = 1;
-            let descricao = '';
-            let inicioGlobal = 1;
-            
+            } else tamanhoBloco = parseInt(tamanhoBloco);
+            let resultado = new Array(numColunas).fill(0), blocos = [], restante = totalItens, numeroBloco = 1, descricao = '', inicioGlobal = 1;
             while (restante >= tamanhoBloco * numColunas) {
-                let bloco = {
-                    numero: numeroBloco,
-                    tipo: 'completo',
-                    tamanho: tamanhoBloco,
-                    itensPorColuna: new Array(numColunas).fill(tamanhoBloco),
-                    inicio: inicioGlobal,
-                    fim: inicioGlobal + (tamanhoBloco * numColunas) - 1
-                };
+                let bloco = { numero: numeroBloco, tipo: 'completo', tamanho: tamanhoBloco, itensPorColuna: new Array(numColunas).fill(tamanhoBloco), inicio: inicioGlobal, fim: inicioGlobal + (tamanhoBloco * numColunas) - 1 };
                 blocos.push(bloco);
-                
-                for (let i = 0; i < numColunas; i++) {
-                    resultado[i] += tamanhoBloco;
-                }
-                
+                for (let i = 0; i < numColunas; i++) resultado[i] += tamanhoBloco;
                 restante -= tamanhoBloco * numColunas;
                 inicioGlobal += tamanhoBloco * numColunas;
                 numeroBloco++;
             }
-            
             if (restante > 0) {
-                let blocoRestante = {
-                    numero: numeroBloco,
-                    tipo: 'parcial',
-                    tamanho: restante,
-                    itensPorColuna: new Array(numColunas).fill(0),
-                    inicio: inicioGlobal,
-                    fim: inicioGlobal + restante - 1
-                };
-                
-                let porColuna = Math.floor(restante / numColunas);
-                let sobra = restante % numColunas;
-                
-                for (let i = 0; i < numColunas; i++) {
-                    let qtd = porColuna + (i < sobra ? 1 : 0);
-                    resultado[i] += qtd;
-                    blocoRestante.itensPorColuna[i] = qtd;
-                }
-                
+                let blocoRestante = { numero: numeroBloco, tipo: 'parcial', tamanho: restante, itensPorColuna: new Array(numColunas).fill(0), inicio: inicioGlobal, fim: inicioGlobal + restante - 1 };
+                let porColuna = Math.floor(restante / numColunas), sobra = restante % numColunas;
+                for (let i = 0; i < numColunas; i++) { let qtd = porColuna + (i < sobra ? 1 : 0); resultado[i] += qtd; blocoRestante.itensPorColuna[i] = qtd; }
                 blocos.push(blocoRestante);
             }
-            
-            descricao = `<strong>📊 Distribuição Inteligente por Blocos Contíguos</strong>\n`;
-            descricao += `<span style="font-size:0.7em;color:#64748b;">Bloco base: ${tamanhoBloco} itens | Total: ${totalItens} itens em ${numColunas} colunas</span>\n`;
-            
+            descricao = `<strong>📊 Distribuição Inteligente por Blocos Contíguos</strong>\n<span style="font-size:0.7em;color:#64748b;">Bloco base: ${tamanhoBloco} itens | Total: ${totalItens} itens em ${numColunas} colunas</span>\n`;
             blocos.forEach(bloco => {
                 if (bloco.tipo === 'completo') {
                     descricao += `\n🔹 <strong>Bloco ${bloco.numero}</strong> (Completo): Itens ${bloco.inicio}-${bloco.fim}\n`;
-                    for (let i = 0; i < numColunas; i++) {
-                        let iniCol = bloco.inicio + (i * bloco.tamanho);
-                        let fimCol = iniCol + bloco.tamanho - 1;
-                        descricao += `   📍 Col ${i+1}: ${iniCol}-${fimCol} (${bloco.tamanho} itens)\n`;
-                    }
+                    for (let i = 0; i < numColunas; i++) { let iniCol = bloco.inicio + (i * bloco.tamanho), fimCol = iniCol + bloco.tamanho - 1; descricao += `   📍 Col ${i+1}: ${iniCol}-${fimCol} (${bloco.tamanho} itens)\n`; }
                 } else {
                     descricao += `\n🔸 <strong>Bloco ${bloco.numero}</strong> (Restante): Itens ${bloco.inicio}-${bloco.fim}\n`;
                     let ini = bloco.inicio;
                     for (let i = 0; i < numColunas; i++) {
-                        if (bloco.itensPorColuna[i] > 0) {
-                            let fim = ini + bloco.itensPorColuna[i] - 1;
-                            descricao += `   📍 Col ${i+1}: ${ini}-${fim} (${bloco.itensPorColuna[i]} itens)\n`;
-                            ini = fim + 1;
-                        } else {
-                            descricao += `   📍 Col ${i+1}: — (0 itens)\n`;
-                        }
+                        if (bloco.itensPorColuna[i] > 0) { let fim = ini + bloco.itensPorColuna[i] - 1; descricao += `   📍 Col ${i+1}: ${ini}-${fim} (${bloco.itensPorColuna[i]} itens)\n`; ini = fim + 1; }
+                        else descricao += `   📍 Col ${i+1}: — (0 itens)\n`;
                     }
                 }
             });
-            
             descricao += `\n<span style="font-size:0.7em;color:#10b981;">✅ Total distribuído: ${totalItens} itens ✓</span>`;
-            
-            return {
-                distribuicao: resultado,
-                blocos: blocos,
-                descricao: descricao,
-                tamanhoBloco: tamanhoBloco
-            };
+            return { distribuicao: resultado, blocos: blocos, descricao: descricao, tamanhoBloco: tamanhoBloco };
         }
-
-        function gerarPreviewDistribuicaoInteligente(totalItens, numColunas) {
-            const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
-            const resultado = distribuirBlocosContiguos(totalItens, numColunas, tamanhoBloco);
-            return resultado;
-        }
-
+        function gerarPreviewDistribuicaoInteligente(totalItens, numColunas) { return distribuirBlocosContiguos(totalItens, numColunas, document.getElementById('selectTamanhoBloco')?.value || 'auto'); }
         function atualizarPreviewDistribuicao() {
             const modoInteligente = document.getElementById('rbDistInteligente').checked;
-            const previewDiv = document.getElementById('smartDistPreview');
-            const configBloco = document.getElementById('configBlocoContainer');
-            
-            if (!modoInteligente) {
-                previewDiv.style.display = 'none';
-                if (configBloco) configBloco.style.display = 'none';
-                return;
-            }
-            
+            const previewDiv = document.getElementById('smartDistPreview'), configBloco = document.getElementById('configBlocoContainer');
+            if (!modoInteligente) { previewDiv.style.display = 'none'; if (configBloco) configBloco.style.display = 'none'; return; }
             if (configBloco) configBloco.style.display = 'block';
-            
-            let totalItens = calcularQuantidadeTotal();
-            const nc = parseInt(document.getElementById('txtColunas').value) || 1;
-            
-            if (totalItens > 0 && totalItens <= 100000) {
-                const resultado = gerarPreviewDistribuicaoInteligente(totalItens, nc);
-                previewDiv.innerHTML = resultado.descricao.replace(/\n/g, '<br>');
-                previewDiv.style.display = 'block';
-            } else {
-                previewDiv.style.display = 'none';
-            }
+            let totalItens = calcularQuantidadeTotal(), nc = parseInt(document.getElementById('txtColunas').value) || 1;
+            if (totalItens > 0 && totalItens <= 100000) { const resultado = gerarPreviewDistribuicaoInteligente(totalItens, nc); previewDiv.innerHTML = resultado.descricao.replace(/\n/g, '<br>'); previewDiv.style.display = 'block'; }
+            else previewDiv.style.display = 'none';
         }
-
         function preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, dadosAdicionais) {
             const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
             const resultado = distribuirBlocosContiguos(itens.length, nc, tamanhoBloco);
-            
-            let tabela = [];
-            let idxItem = 0;
-            
-            resultado.blocos.forEach(bloco => {
+            let tabela = [], idxItem = 0;
+            for (let b = 0; b < resultado.blocos.length; b++) {
+                const bloco = resultado.blocos[b];
+                const isLastBlock = (b === resultado.blocos.length - 1);
                 if (bloco.tipo === 'completo') {
                     let blocoItens = itens.slice(idxItem, idxItem + (bloco.tamanho * nc));
                     idxItem += bloco.tamanho * nc;
-                    
                     let numLinhas = bloco.tamanho;
                     for (let linha = 0; linha < numLinhas; linha++) {
                         let linhaDados = [];
                         for (let col = 0; col < nc; col++) {
                             let itemIdx = (col * numLinhas) + linha;
-                            if (itemIdx < blocoItens.length) {
-                                adicionarItemLinha(linhaDados, blocoItens[itemIdx], gq, gc, udc, cci, dadosAdicionais ? dadosAdicionais[idxItem - bloco.tamanho * nc + itemIdx] : null);
-                            }
+                            if (itemIdx < blocoItens.length) adicionarItemLinha(linhaDados, blocoItens[itemIdx], gq, gc, udc, cci, dadosAdicionais ? dadosAdicionais[idxItem - bloco.tamanho * nc + itemIdx] : null);
                         }
                         if (linhaDados.length > 0) tabela.push(linhaDados);
                     }
                 } else {
                     let blocoItens = itens.slice(idxItem);
                     idxItem = itens.length;
-                    
-                    let itensPorColuna = bloco.itensPorColuna;
-                    let colunasItens = [];
-                    let offset = 0;
-                    
-                    for (let col = 0; col < nc; col++) {
-                        colunasItens.push(blocoItens.slice(offset, offset + itensPorColuna[col]));
-                        offset += itensPorColuna[col];
-                    }
-                    
-                    if (tabela.length > 0) {
-                        tabela.push([]);
-                    }
-                    
-                    let maxLinhas = Math.max(...itensPorColuna);
-                    let dadosOffset = itens.length - blocoItens.length;
-                    
+                    let itensPorColuna = bloco.itensPorColuna, colunasItens = [], offset = 0;
+                    for (let col = 0; col < nc; col++) { colunasItens.push(blocoItens.slice(offset, offset + itensPorColuna[col])); offset += itensPorColuna[col]; }
+                    if (tabela.length > 0) tabela.push([]);
+                    let maxLinhas = Math.max(...itensPorColuna), dadosOffset = itens.length - blocoItens.length;
                     for (let linha = 0; linha < maxLinhas; linha++) {
                         let linhaDados = [];
                         for (let col = 0; col < nc; col++) {
@@ -803,11 +743,10 @@
                         if (linhaDados.length > 0) tabela.push(linhaDados);
                     }
                 }
-            });
-            
+                if (!isLastBlock) { tabela.push([]); tabela.push([]); }
+            }
             return tabela;
         }
-        
         function adicionarItemLinha(linhaDados, item, gq, gc, udc, cci, dadosAdicionais) {
             if (Array.isArray(item)) {
                 let num = item[0];
@@ -820,38 +759,188 @@
                 linhaDados.push(item);
                 if (gq) linhaDados.push(item);
                 if (gc) linhaDados.push('(' + item + ')');
-                if (dadosAdicionais && Array.isArray(dadosAdicionais)) {
-                    linhaDados.push.apply(linhaDados, dadosAdicionais.slice(1));
-                }
+                if (dadosAdicionais && Array.isArray(dadosAdicionais)) linhaDados.push.apply(linhaDados, dadosAdicionais.slice(1));
             }
         }
 
-        // ==================== TIMEOUT ====================
+        // ==================== TIMEOUT / LOGIN ====================
         function resetTimeout(){ if(!currentUser)return; if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); warningTimer=setTimeout(showTimeoutWarning,(TIMEOUT_MINUTES*60-WARNING_SECONDS)*1000); timeoutTimer=setTimeout(performLogout,TIMEOUT_MINUTES*60*1000); }
         function showTimeoutWarning(){ if(!currentUser)return; const w=document.querySelector('.timeout-warning'); if(w)w.remove(); const d=document.createElement('div'); d.className='timeout-warning'; d.innerHTML='<i class="fas fa-hourglass-half"></i><span>Sessão expirará em '+WARNING_SECONDS+'s</span><button onclick="resetTimeout()">Continuar</button>'; document.body.appendChild(d); setTimeout(function(){if(d.parentNode)d.remove();},(WARNING_SECONDS-5)*1000); }
         function performLogout(){ if(!currentUser)return; if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); sessionStorage.removeItem('currentUser'); currentUser=null; document.getElementById('appContent').style.display='none'; document.getElementById('authModal').style.display='flex'; document.getElementById('loginUsername').value=''; document.getElementById('loginPassword').value=''; document.getElementById('loginErrorMessage').style.display='none'; adicionarLog('Sessão expirada'); showNotification('Sessão expirada','warning'); }
-
-        // ==================== LOGIN ====================
-        function checkLogin(){ const u=sessionStorage.getItem('currentUser'); if(u){ currentUser=JSON.parse(u); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent=currentUser.nome||currentUser.username; adicionarLog('Usuário '+currentUser.username+' logado'); resetTimeout(); carregarEstadoSessao(); return true; }else{ document.getElementById('authModal').style.display='flex'; document.getElementById('appContent').style.display='none'; return false; } }
-        function attemptLogin(){ const u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value, e=document.getElementById('loginErrorMessage'); if(u==='admin'&&p==='admin123'){ currentUser={id:1,nome:'Administrador',username:'admin',email:'admin@system.com'}; sessionStorage.setItem('currentUser',JSON.stringify(currentUser)); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent='Administrador'; e.style.display='none'; toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); adicionarLog('Login realizado'); showNotification('Bem-vindo!','success'); resetTimeout(); carregarEstadoSessao(); }else{ e.style.display='block'; document.getElementById('loginPassword').value=''; document.getElementById('loginPassword').focus(); } }
+        function checkLogin(){ const u=sessionStorage.getItem('currentUser'); if(u){ currentUser=JSON.parse(u); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent=currentUser.nome||currentUser.username; adicionarLog('Usuário '+currentUser.username+' logado'); resetTimeout(); carregarEstadoSessao(); initScrollArrows(); return true; }else{ document.getElementById('authModal').style.display='flex'; document.getElementById('appContent').style.display='none'; return false; } }
+        function attemptLogin(){ const u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value, e=document.getElementById('loginErrorMessage'); if(u==='admin'&&p==='admin123'){ currentUser={id:1,nome:'Administrador',username:'admin',email:'admin@system.com'}; sessionStorage.setItem('currentUser',JSON.stringify(currentUser)); document.getElementById('authModal').style.display='none'; document.getElementById('appContent').style.display='block'; document.getElementById('currentUserDisplay').textContent='Administrador'; e.style.display='none'; toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); adicionarLog('Login realizado'); showNotification('Bem-vindo!','success'); resetTimeout(); carregarEstadoSessao(); initScrollArrows(); }else{ e.style.display='block'; document.getElementById('loginPassword').value=''; document.getElementById('loginPassword').focus(); } }
         function logout(){ if(timeoutTimer)clearTimeout(timeoutTimer); if(warningTimer)clearTimeout(warningTimer); const w=document.querySelector('.timeout-warning'); if(w)w.remove(); sessionStorage.removeItem('currentUser'); currentUser=null; document.getElementById('appContent').style.display='none'; document.getElementById('authModal').style.display='flex'; document.getElementById('loginUsername').value=''; document.getElementById('loginPassword').value=''; document.getElementById('loginErrorMessage').style.display='none'; adicionarLog('Usuário desconectado'); }
         function showNotification(m,t){ t=t||'success'; const n=document.getElementById('notification'); n.className='notification '+t; document.getElementById('notification-message').textContent=m; n.classList.add('show'); setTimeout(function(){n.classList.remove('show');},3000); }
         function adicionarLog(m,s){ const le=document.getElementById('logEntries'), now=new Date(), ts=now.toLocaleTimeString('pt-BR'), de=document.createElement('div'); de.className='log-entry'; de.innerHTML='<span class="log-timestamp">['+ts+']</span><span class="log-message">'+m+'</span>'; if(s){de.style.fontWeight='600';de.style.backgroundColor='#f8fafc';de.style.padding='8px';de.style.borderRadius='6px';} le.prepend(de); if(le.children.length>50)le.removeChild(le.lastChild); localStorage.setItem('logOperacoes',le.innerHTML); }
         function calcularExpressao(e){ try{ e=e.replace(/\s+/g,''); if(!/^[\d+\-*/().]+$/.test(e))return NaN; if((e.match(/\(/g)||[]).length!==(e.match(/\)/g)||[]).length)return NaN; e=e.replace(/,/g,'.'); if(/(\+|\*|\/){2,}/.test(e))return NaN; const r=eval(e); return(typeof r==='number'&&!isNaN(r)&&isFinite(r))?Math.floor(Math.abs(r)):NaN; }catch(ex){return NaN;} }
 
-        // ==================== UPLOAD ====================
-        function processarArquivo(f){ if(!f)return; const ext=f.name.split('.').pop().toLowerCase(); if(!['xlsx','xls','csv','txt','tsv'].includes(ext)){showNotification('Formato não suportado','error');return;} currentFileName=f.name; const r=new FileReader(); r.onload=function(e){try{if(ext==='xlsx'||ext==='xls')processarExcel(e.target.result);else processarTexto(e.target.result,ext);}catch(err){showNotification('Erro ao processar','error');}}; if(ext==='xlsx'||ext==='xls')r.readAsArrayBuffer(f); else r.readAsText(f); }
-        function processarExcel(d){ try{ const wb=XLSX.read(d,{type:'array'}); const ws=wb.Sheets[wb.SheetNames[0]]; const jd=XLSX.utils.sheet_to_json(ws,{header:1}); if(!jd||jd.length===0){showNotification('Arquivo vazio','error');return;} hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=jd[0].length; if(hasHeaderRow&&jd.length>1){ originalHeaders=jd[0].map(function(h){return String(h||'');}); rawData=jd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?jd.slice(1):[].concat(jd); } fullData=[].concat(jd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }catch(err){showNotification('Erro ao processar Excel','error');} }
-        function processarTexto(d,ext){ try{ const delim=ext==='tsv'?'\t':ext==='csv'?',':'\t'; const lines=d.split(/\r?\n/).filter(function(l){return l.trim();}); if(lines.length===0){showNotification('Arquivo vazio','error');return;} const pd=lines.map(function(l){return l.split(delim);}); hasHeaderRow=document.getElementById('cbHasHeader').checked; const nc=pd[0].length; if(hasHeaderRow&&pd.length>1){ originalHeaders=pd[0].map(function(h){return String(h||'').trim();}); rawData=pd.slice(1); }else{ originalHeaders=[]; for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1)); rawData=hasHeaderRow?pd.slice(1):[].concat(pd); } fullData=[].concat(pd); if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} mostrarInfoArquivo(); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); sincronizarQuantidadeComArquivo(); adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }catch(err){showNotification('Erro ao processar','error');} }
-        function mostrarInfoArquivo(){ const fi=document.getElementById('fileInfo'); document.getElementById('fileNameDisplay').textContent=currentFileName; document.getElementById('fileRowCount').textContent=rawData.length+' linhas × '+originalHeaders.length+' colunas'; fi.classList.add('show'); document.getElementById('codeSourceSelector').classList.add('show'); }
-        function atualizarCodeSourceColumns(){ const s=document.getElementById('selectCodeSourceColumn'); s.innerHTML=''; originalHeaders.forEach(function(h,i){var o=document.createElement('option');o.value=i;o.textContent=h;s.appendChild(o);}); }
-        function atualizarSelecaoColunas(){ if(originalHeaders.length===0)return; const cs=document.getElementById('columnSelector'), cc=document.getElementById('columnCheckboxes'), sa=document.getElementById('cbSelectAll'); cs.classList.add('show'); cc.innerHTML=''; selectedColumns=originalHeaders.map(function(_,i){return i;}); originalHeaders.forEach(function(h,i){ var d=document.createElement('div'); d.className='column-checkbox-item selected'; d.dataset.columnIndex=i; var cb=document.createElement('input'); cb.type='checkbox';cb.id='col_'+i;cb.checked=true;cb.style.marginRight='4px'; cb.addEventListener('change',function(){ if(this.checked){d.classList.add('selected');d.classList.remove('removed');if(selectedColumns.indexOf(i)===-1)selectedColumns.push(i);}else{d.classList.remove('selected');d.classList.add('removed');selectedColumns=selectedColumns.filter(function(j){return j!==i;});} atualizarEstadoSelectAll(); setUpdateNeeded(); }); var l=document.createElement('label');l.htmlFor='col_'+i;l.textContent=h;l.style.cursor='pointer';l.style.fontSize='0.8em'; d.appendChild(cb);d.appendChild(l);cc.appendChild(d); }); sa.checked=true; sa.onchange=function(){ var cbs=cc.querySelectorAll('input[type="checkbox"]'), its=cc.querySelectorAll('.column-checkbox-item'); cbs.forEach(function(cb,i){cb.checked=this.checked;if(this.checked){its[i].classList.add('selected');its[i].classList.remove('removed');}else{its[i].classList.remove('selected');its[i].classList.add('removed');}}.bind(this)); selectedColumns=this.checked?originalHeaders.map(function(_,i){return i;}):[]; setUpdateNeeded(); }; }
+        // ==================== UPLOAD (CORRIGIDO) ====================
+        function processarArquivo(f){ 
+            if(!f) return;
+            removerArquivo(true);
+            const ext=f.name.split('.').pop().toLowerCase(); 
+            if(!['xlsx','xls','csv','txt','tsv'].includes(ext)){showNotification('Formato não suportado','error');return;} 
+            currentFileName=f.name; 
+            const r=new FileReader(); 
+            r.onload=function(e){try{if(ext==='xlsx'||ext==='xls')processarExcel(e.target.result);else processarTexto(e.target.result,ext);}catch(err){showNotification('Erro ao processar','error');}}; 
+            if(ext==='xlsx'||ext==='xls')r.readAsArrayBuffer(f); 
+            else r.readAsText(f,'UTF-8'); 
+        }
+        function processarExcel(d){ 
+            try{ 
+                const wb=XLSX.read(d,{type:'array'}); 
+                const ws=wb.Sheets[wb.SheetNames[0]]; 
+                const jd=XLSX.utils.sheet_to_json(ws,{header:1}); 
+                if(!jd||jd.length===0){showNotification('Arquivo vazio','error');return;} 
+                hasHeaderRow=document.getElementById('cbHasHeader').checked; 
+                const nc=jd[0].length; 
+                if(hasHeaderRow&&jd.length>1){ 
+                    originalHeaders=jd[0].map(h=>String(h||'')); 
+                    rawData=jd.slice(1); 
+                }else{ 
+                    originalHeaders=Array(nc).fill().map((_,i)=>'Coluna_'+(i+1)); 
+                    rawData=hasHeaderRow?jd.slice(1):jd.slice(); 
+                } 
+                fullData=jd.slice(); 
+                if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} 
+                mostrarInfoArquivo(); 
+                atualizarSelecaoColunas(); 
+                atualizarCodeSourceColumns(); 
+                sincronizarQuantidadeComArquivo(); 
+                adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); 
+                showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); 
+                atualizarPreviewDistribuicao(); 
+                setUpdateNeeded(); 
+            }catch(err){showNotification('Erro ao processar Excel','error');} 
+        }
+        function processarTexto(d,ext){ 
+            try{ 
+                const delim=ext==='tsv'?'\t':','; 
+                const lines=d.split(/\r?\n/).filter(l=>l.trim()); 
+                if(lines.length===0){showNotification('Arquivo vazio','error');return;} 
+                const pd=lines.map(l=>l.split(delim)); 
+                hasHeaderRow=document.getElementById('cbHasHeader').checked; 
+                const nc=pd[0].length; 
+                if(hasHeaderRow&&pd.length>1){ 
+                    originalHeaders=pd[0].map(h=>String(h||'').trim()); 
+                    rawData=pd.slice(1); 
+                }else{ 
+                    originalHeaders=Array(nc).fill().map((_,i)=>'Coluna_'+(i+1)); 
+                    rawData=hasHeaderRow?pd.slice(1):pd.slice(); 
+                } 
+                fullData=pd.slice(); 
+                if(rawData.length>100000){showNotification('Apenas 100.000 linhas processadas','warning');rawData=rawData.slice(0,100000);} 
+                mostrarInfoArquivo(); 
+                atualizarSelecaoColunas(); 
+                atualizarCodeSourceColumns(); 
+                sincronizarQuantidadeComArquivo(); 
+                adicionarLog('Arquivo carregado: '+currentFileName+' ('+rawData.length+' linhas, '+originalHeaders.length+' colunas)',true); 
+                showNotification('Arquivo carregado: '+rawData.length+' linhas','success'); 
+                atualizarPreviewDistribuicao(); 
+                setUpdateNeeded(); 
+            }catch(err){showNotification('Erro ao processar','error');} 
+        }
+        function mostrarInfoArquivo(){ 
+            const fi=document.getElementById('fileInfo'); 
+            document.getElementById('fileNameDisplay').textContent=currentFileName; 
+            document.getElementById('fileRowCount').textContent=rawData.length+' linhas × '+originalHeaders.length+' colunas'; 
+            fi.classList.add('show'); 
+            document.getElementById('codeSourceSelector').classList.add('show'); 
+        }
+        function atualizarCodeSourceColumns(){ 
+            const s=document.getElementById('selectCodeSourceColumn'); 
+            s.innerHTML=''; 
+            originalHeaders.forEach((h,i)=>{let o=document.createElement('option');o.value=i;o.textContent=h;s.appendChild(o);}); 
+        }
+        function atualizarSelecaoColunas(){ 
+            if(originalHeaders.length===0)return; 
+            const cs=document.getElementById('columnSelector'), cc=document.getElementById('columnCheckboxes'), sa=document.getElementById('cbSelectAll'); 
+            cs.classList.add('show'); 
+            cc.innerHTML=''; 
+            selectedColumns=originalHeaders.map((_,i)=>i); 
+            originalHeaders.forEach((h,i)=>{ 
+                let d=document.createElement('div'); 
+                d.className='column-checkbox-item selected'; 
+                d.dataset.columnIndex=i; 
+                let cb=document.createElement('input'); 
+                cb.type='checkbox';cb.id='col_'+i;cb.checked=true;cb.style.marginRight='4px'; 
+                cb.addEventListener('change',function(){ 
+                    if(this.checked){ 
+                        d.classList.add('selected');d.classList.remove('removed'); 
+                        if(selectedColumns.indexOf(i)===-1) selectedColumns.push(i); 
+                    } else { 
+                        d.classList.remove('selected');d.classList.add('removed'); 
+                        selectedColumns=selectedColumns.filter(j=>j!==i); 
+                    } 
+                    atualizarEstadoSelectAll(); 
+                    setUpdateNeeded(); 
+                }); 
+                let l=document.createElement('label');l.htmlFor='col_'+i;l.textContent=h;l.style.cursor='pointer';l.style.fontSize='0.8em'; 
+                d.appendChild(cb);d.appendChild(l);cc.appendChild(d); 
+            }); 
+            sa.checked=true; 
+            sa.onchange=function(){ 
+                let cbs=cc.querySelectorAll('input[type="checkbox"]'), its=cc.querySelectorAll('.column-checkbox-item'); 
+                cbs.forEach((cb,i)=>{cb.checked=this.checked; if(this.checked){ its[i].classList.add('selected');its[i].classList.remove('removed'); } else { its[i].classList.remove('selected');its[i].classList.add('removed'); } }); 
+                selectedColumns=this.checked?originalHeaders.map((_,i)=>i):[]; 
+                setUpdateNeeded(); 
+            }; 
+        }
         function atualizarEstadoSelectAll(){document.getElementById('cbSelectAll').checked=selectedColumns.length===originalHeaders.length;}
-        function aplicarSelecaoColunas(){ if(rawData.length===0){showNotification('Nenhum arquivo','warning');return;} if(selectedColumns.length===0){showNotification('Selecione ao menos uma coluna','warning');return;} rawData=rawData.map(function(l){return selectedColumns.map(function(i){return l[i]||'';});}); originalHeaders=selectedColumns.map(function(i){return originalHeaders[i];}); selectedColumns=originalHeaders.map(function(_,i){return i;}); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); mostrarInfoArquivo(); adicionarLog('Seleção aplicada: '+originalHeaders.length+' colunas'); showNotification('Seleção aplicada!','success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }
-        function removerArquivo(){ rawData=[];fullData=[];originalHeaders=[];numberingData=[];processedData=[];currentFileName=null;selectedColumns=[]; document.getElementById('fileInfo').classList.remove('show'); document.getElementById('columnSelector').classList.remove('show'); document.getElementById('columnCheckboxes').innerHTML=''; document.getElementById('codeSourceSelector').classList.remove('show'); document.getElementById('codeSourceDataColumn').style.display='none'; document.getElementById('txtFinalOuQuantidade').value='10'; document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; atualizarResultadoQuantidade(); atualizarPreview(); atualizarPreviewDistribuicao(); adicionarLog('Arquivo removido'); showNotification('Arquivo removido'); setUpdateNeeded(); }
-        function sincronizarQuantidadeComArquivo(){ if(rawData.length>0){ document.getElementById('rbQuantidade').checked=true; document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display='flex'; document.getElementById('divLinhasPorFolha').style.display='none'; document.getElementById('txtFinalOuQuantidade').value=rawData.length.toString(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); setUpdateNeeded(); } }
+        function aplicarSelecaoColunas(){ 
+            if(rawData.length===0){showNotification('Nenhum arquivo','warning');return;} 
+            if(selectedColumns.length===0){showNotification('Selecione ao menos uma coluna','warning');return;} 
+            rawData=rawData.map(l=>selectedColumns.map(i=>l[i]||'')); 
+            originalHeaders=selectedColumns.map(i=>originalHeaders[i]); 
+            selectedColumns=originalHeaders.map((_,i)=>i); 
+            atualizarSelecaoColunas(); 
+            atualizarCodeSourceColumns(); 
+            mostrarInfoArquivo(); 
+            adicionarLog('Seleção aplicada: '+originalHeaders.length+' colunas'); 
+            showNotification('Seleção aplicada!','success'); 
+            atualizarPreviewDistribuicao(); 
+            setUpdateNeeded(); 
+        }
+        function removerArquivo(keepUploadEnabled = false) { 
+            rawData=[]; fullData=[]; originalHeaders=[]; numberingData=[]; processedData=[]; 
+            currentFileName=null; selectedColumns=[]; 
+            const fileInputElement = document.getElementById('fileInput');
+            if (fileInputElement) fileInputElement.value = '';
+            document.getElementById('fileInfo').classList.remove('show'); 
+            document.getElementById('columnSelector').classList.remove('show'); 
+            document.getElementById('columnCheckboxes').innerHTML=''; 
+            document.getElementById('codeSourceSelector').classList.remove('show'); 
+            document.getElementById('codeSourceDataColumn').style.display='none'; 
+            if (!keepUploadEnabled) {
+                const cb = document.getElementById('cbEnableUpload');
+                if (cb && cb.checked) { cb.checked = false; uploadEnabled = false; document.getElementById('uploadContent').classList.remove('expanded'); document.getElementById('uploadToggleHeader').classList.remove('expanded'); }
+            }
+            document.getElementById('txtFinalOuQuantidade').value='10'; 
+            document.getElementById('rbQuantidade').checked=true; 
+            document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; 
+            document.getElementById('divFinalOuQuantidade').style.display='flex'; 
+            document.getElementById('divLinhasPorFolha').style.display='none'; 
+            atualizarResultadoQuantidade(); 
+            atualizarPreview(); 
+            atualizarPreviewDistribuicao(); 
+            adicionarLog('Arquivo removido' + (keepUploadEnabled ? ' (reset interno)' : '')); 
+            showNotification('Arquivo removido'); 
+            setUpdateNeeded(); 
+        }
+        function sincronizarQuantidadeComArquivo(){ 
+            if(rawData.length>0){ 
+                document.getElementById('rbQuantidade').checked=true; 
+                document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:'; 
+                document.getElementById('divFinalOuQuantidade').style.display='flex'; 
+                document.getElementById('divLinhasPorFolha').style.display='none'; 
+                document.getElementById('txtFinalOuQuantidade').value=rawData.length.toString(); 
+                atualizarResultadoQuantidade(); 
+                atualizarPreviewDistribuicao(); 
+                setUpdateNeeded(); 
+            } 
+        }
 
-        // ==================== QUANTIDADE ====================
+        // ==================== QUANTIDADE DINÂMICA ====================
         function atualizarResultadoQuantidade(){ 
             const nc = parseInt(document.getElementById('txtColunas').value) || 1;
             const iq = document.getElementById('rbQuantidade').checked;
@@ -859,132 +948,225 @@
             const iff = document.getElementById('rbFolhas').checked;
             const tg = document.querySelector('input[name="tipoGeracao"]:checked').id;
             let ni = 1, iv = 1;
-            if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) {
-                ni = parseInt(document.getElementById('txtInicial').value) || 1;
-                iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
-            }
-            
+            if ((tg === 'rbTipoSequencial' || tg === 'rbTipoHibrido') && sequencialAtivo) { ni = parseInt(document.getElementById('txtInicial').value) || 1; iv = parseInt(document.getElementById('txtIntervalo').value) || 1; }
             let r = 0;
-            if (uploadEnabled && rawData.length > 0) {
-                r = rawData.length;
-            } else if (iq) {
-                r = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
-            } else if (inf) {
-                var nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
-                r = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : NaN;
-            } else if (iff) {
-                var fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value);
-                r = (!isNaN(fh) && fh > 0) ? fh * nc : NaN;
-            }
-            
-            const rs = document.getElementById('resultadoQuantidade');
-            const rfs = document.getElementById('resultadoFolhas');
-            
-            if (iff) {
-                rfs.style.display = 'inline-flex';
-                if (!isNaN(r) && r > 0 && r <= 100000) {
-                    rfs.className = 'quantidade-resultado';
-                    rfs.innerHTML = '<i class="fas fa-calculator"></i> ' + r + ' códigos';
-                } else {
-                    rfs.className = 'quantidade-resultado error';
-                    rfs.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Inválido';
-                }
-            } else {
-                rs.style.display = 'inline-flex';
-                if (!isNaN(r) && r > 0 && r <= 100000) {
-                    rs.className = 'quantidade-resultado';
-                    rs.innerHTML = '<i class="fas fa-calculator"></i> ' + r + ' códigos';
-                } else {
-                    rs.className = 'quantidade-resultado error';
-                    rs.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Inválido';
-                }
-            }
-            atualizarPreviewDistribuicao();
-            setUpdateNeeded();
+            if (uploadEnabled && rawData.length > 0) r = rawData.length;
+            else if (iq) r = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value);
+            else if (inf) { let nf = calcularExpressao(document.getElementById('txtFinalOuQuantidade').value); r = (!isNaN(nf) && nf >= ni) ? Math.floor((nf - ni) / iv) + 1 : NaN; }
+            else if (iff) { let fh = calcularExpressao(document.getElementById('txtLinhasPorFolha').value); r = (!isNaN(fh) && fh > 0) ? fh * nc : NaN; }
+            const rs = document.getElementById('resultadoQuantidade'), rfs = document.getElementById('resultadoFolhas');
+            if (iff) { rfs.style.display = 'inline-flex'; if (!isNaN(r) && r > 0 && r <= 100000) { rfs.className = 'quantidade-resultado'; rfs.innerHTML = '<i class="fas fa-calculator"></i> ' + r + ' códigos'; } else { rfs.className = 'quantidade-resultado error'; rfs.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Inválido'; } }
+            else { rs.style.display = 'inline-flex'; if (!isNaN(r) && r > 0 && r <= 100000) { rs.className = 'quantidade-resultado'; rs.innerHTML = '<i class="fas fa-calculator"></i> ' + r + ' códigos'; } else { rs.className = 'quantidade-resultado error'; rs.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Inválido'; } }
+            atualizarPreviewDistribuicao(); setUpdateNeeded();
         }
         
-        function validarCampos(){ let v=true; document.querySelectorAll('.mensagem-erro').forEach(function(e){e.remove();}); document.querySelectorAll('.campo-obrigatorio').forEach(function(e){e.classList.remove('campo-obrigatorio');}); if(!document.getElementById('txtNomeColunas').value.trim()){marcarCampoInvalido('txtNomeColunas','Informe o nome');v=false;} const nc=parseInt(document.getElementById('txtColunas').value); if(isNaN(nc)||nc<1||nc>10){marcarCampoInvalido('txtColunas','Entre 1 e 10');v=false;} const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; const nd=parseInt(document.getElementById('txtDigitos').value); if(isNaN(nd)||nd<1||nd>10){marcarCampoInvalido('txtDigitos','Entre 1 e 10');v=false;} if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ if(isNaN(parseInt(document.getElementById('txtInicial').value))||parseInt(document.getElementById('txtInicial').value)<0){marcarCampoInvalido('txtInicial','Inválido');v=false;} if(isNaN(parseInt(document.getElementById('txtIntervalo').value))||parseInt(document.getElementById('txtIntervalo').value)<=0){marcarCampoInvalido('txtIntervalo','>0');v=false;} } if(tg==='rbTipoHibrido'||tg==='rbTipoAleatorio'){var ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);if(isNaN(ta)||ta<1||ta>20){marcarCampoInvalido('txtTamanhoAleatorio','Entre 1 e 20');v=false;}} if(!(uploadEnabled&&rawData.length>0)){var iq=document.getElementById('rbQuantidade').checked,inf=document.getElementById('rbNumeroFinal').checked; if(iq||inf){var ex=document.getElementById('txtFinalOuQuantidade').value.trim(); if(!ex){marcarCampoInvalido('txtFinalOuQuantidade','Obrigatório');v=false;}else{var r=calcularExpressao(ex);if(isNaN(r)||r<=0||r>100000){marcarCampoInvalido('txtFinalOuQuantidade','Inválido ou >100.000');v=false;}}} } if(document.getElementById('rbFolhas').checked){var ef=document.getElementById('txtLinhasPorFolha').value.trim(); if(!ef){marcarCampoInvalido('txtLinhasPorFolha','Obrigatório');v=false;}else{var r=calcularExpressao(ef);if(isNaN(r)||r<=0||r*nc>100000){marcarCampoInvalido('txtLinhasPorFolha','Inválido ou >100.000');v=false;}} } return v; }
+        function validarCampos(){ 
+            let v=true; 
+            document.querySelectorAll('.mensagem-erro').forEach(e=>e.remove()); 
+            document.querySelectorAll('.campo-obrigatorio').forEach(e=>e.classList.remove('campo-obrigatorio')); 
+            if(!document.getElementById('txtNomeColunas').value.trim()){marcarCampoInvalido('txtNomeColunas','Informe o nome');v=false;} 
+            const nc=parseInt(document.getElementById('txtColunas').value); 
+            if(isNaN(nc)||nc<1||nc>10){marcarCampoInvalido('txtColunas','Entre 1 e 10');v=false;} 
+            const tg=document.querySelector('input[name="tipoGeracao"]:checked').id; 
+            const nd=parseInt(document.getElementById('txtDigitos').value); 
+            if(isNaN(nd)||nd<1||nd>10){marcarCampoInvalido('txtDigitos','Entre 1 e 10');v=false;} 
+            if((tg==='rbTipoSequencial'||tg==='rbTipoHibrido')&&sequencialAtivo){ 
+                if(isNaN(parseInt(document.getElementById('txtInicial').value))||parseInt(document.getElementById('txtInicial').value)<0){marcarCampoInvalido('txtInicial','Inválido');v=false;} 
+                if(isNaN(parseInt(document.getElementById('txtIntervalo').value))||parseInt(document.getElementById('txtIntervalo').value)<=0){marcarCampoInvalido('txtIntervalo','>0');v=false;} 
+            } 
+            if(tg==='rbTipoHibrido'||tg==='rbTipoAleatorio'){var ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);if(isNaN(ta)||ta<1||ta>20){marcarCampoInvalido('txtTamanhoAleatorio','Entre 1 e 20');v=false;}} 
+            if(!(uploadEnabled&&rawData.length>0)){var iq=document.getElementById('rbQuantidade').checked,inf=document.getElementById('rbNumeroFinal').checked; 
+                if(iq||inf){var ex=document.getElementById('txtFinalOuQuantidade').value.trim(); 
+                    if(!ex){marcarCampoInvalido('txtFinalOuQuantidade','Obrigatório');v=false;}else{var r=calcularExpressao(ex);if(isNaN(r)||r<=0||r>100000){marcarCampoInvalido('txtFinalOuQuantidade','Inválido ou >100.000');v=false;}}} 
+            } 
+            if(document.getElementById('rbFolhas').checked){var ef=document.getElementById('txtLinhasPorFolha').value.trim(); 
+                if(!ef){marcarCampoInvalido('txtLinhasPorFolha','Obrigatório');v=false;}else{var r=calcularExpressao(ef);if(isNaN(r)||r<=0||r*nc>100000){marcarCampoInvalido('txtLinhasPorFolha','Inválido ou >100.000');v=false;}} 
+            } 
+            if (!v) {
+                let firstInvalid = document.querySelector('.campo-obrigatorio');
+                if (firstInvalid) { firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' }); firstInvalid.focus(); }
+            }
+            return v; 
+        }
         function marcarCampoInvalido(id,m){ var c=document.getElementById(id); c.classList.add('campo-obrigatorio'); var d=document.createElement('div');d.className='mensagem-erro';d.textContent=m;c.insertAdjacentElement('afterend',d); }
 
-        // ==================== GERAÇÃO ====================
+        // ==================== GERAÇÃO HÍBRIDA CORRIGIDA (MEIO DIVIDE ALEATÓRIO) ====================
         function gerarCaractereAleatorio(t){ var map={apenasNumeros:'0123456789',apenasLetras:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',numeroLetra:'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'}; var c=map[t]||map['apenasNumeros']; return c[Math.floor(Math.random()*c.length)]; }
         function gerarParteAleatoria(tm,tp){ var r=''; for(var i=0;i<tm;i++)r+=gerarCaractereAleatorio(tp); return r; }
-        function formatarNumeroCompleto(ps,pa){ pa=pa||''; var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked; var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value); var sfmt=ps.toString().padStart(dg,'0'); var cd=tp==='rbTipoHibrido'?(sequencialAtivo?pa+sfmt:pa):tp==='rbTipoAleatorio'?pa:sfmt; var pff=pf?(pe?pf+' ':pf):'',sff=sf?(se?' '+sf:sf):''; return pff+cd+sff; }
-        function atualizarPreview(){ var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked; var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value),ta=parseInt(document.getElementById('txtTamanhoAleatorio').value); var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked; var tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra'; var ft=tp==='rbTipoSequencial'?pf+(pe?' ':'')+'['+dg+' dígitos]'+(se?' ':'')+sf:tp==='rbTipoAleatorio'?pf+(pe?' ':'')+'['+ta+' '+(tc==='apenasNumeros'?'num':tc==='apenasLetras'?'alpha':'alnum')+']'+(se?' ':'')+sf:(sequencialAtivo?pf+(pe?' ':'')+'['+ta+']['+dg+']'+(se?' ':'')+sf:pf+(pe?' ':'')+'['+ta+']'+(se?' ':'')+sf+' (sem seq)'); document.getElementById('demoFormatText').textContent=ft; var g=document.getElementById('demoCodeGrid');g.innerHTML=''; var e1=tp==='rbTipoSequencial'?formatarNumeroCompleto(1):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(1,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); var e2=tp==='rbTipoSequencial'?formatarNumeroCompleto(2):tp==='rbTipoAleatorio'?formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc)):(sequencialAtivo?formatarNumeroCompleto(2,gerarParteAleatoria(ta,tc)):formatarNumeroCompleto(0,gerarParteAleatoria(ta,tc))); [e1,e2].forEach(function(ex){var s=document.createElement('span');s.className='preview-code-item';s.innerHTML='<i class="fas fa-hashtag"></i> '+ex;g.appendChild(s);}); if(gq){var s=document.createElement('span');s.className='preview-code-item qr';s.innerHTML='<i class="fas fa-qrcode"></i> QR: '+e1.substring(0,12)+'...';g.appendChild(s);} if(gc){var s=document.createElement('span');s.className='preview-code-item barcode';s.innerHTML='<i class="fas fa-barcode"></i> '+(e2.replace(/\D/g,'').substring(0,8)||'12345678');g.appendChild(s);} var mt=document.getElementById('demoMetadataContainer');mt.innerHTML=''; var tl=tp==='rbTipoSequencial'?'Sequencial':tp==='rbTipoAleatorio'?'Aleatório':(sequencialAtivo?'Híbrido (com seq)':'Híbrido (sem seq)'); mt.appendChild(createMetadataItem('fa-tag','Tipo',tl)); mt.appendChild(createMetadataItem('fa-sort-numeric-up','Dígitos',dg)); if(uploadEnabled&&rawData.length>0){mt.appendChild(createMetadataItem('fa-file-excel','Arquivo',currentFileName+' ('+rawData.length+' linhas)'));mt.appendChild(createMetadataItem('fa-columns','Colunas dados',originalHeaders.length));} atualizarResultadoQuantidade(); setUpdateNeeded(); }
+        
+        // Nova função para gerar código híbrido com posição "meio" dividindo a parte aleatória
+        function gerarCodigoHibrido(parteSeq, tamanhoAleatorio, tipoCaractere) {
+            let totalAleatorio = tamanhoAleatorio;
+            if (seqPosition === 'meio') {
+                let metade1 = Math.floor(totalAleatorio / 2);
+                let metade2 = totalAleatorio - metade1;
+                let parteAleatoria1 = gerarParteAleatoria(metade1, tipoCaractere);
+                let parteAleatoria2 = gerarParteAleatoria(metade2, tipoCaractere);
+                let codigoInterno = parteAleatoria1 + parteSeq + parteAleatoria2;
+                var pf = document.getElementById('txtPrefixo').value, sf = document.getElementById('txtSufixo').value, pe = document.getElementById('rbPrefixoComEspaco').checked, se = document.getElementById('rbSufixoComEspaco').checked;
+                var pff = pf?(pe?pf+' ':pf):'', sff = sf?(se?' '+sf:sf):'';
+                return pff + codigoInterno + sff;
+            } else if (seqPosition === 'inicio') {
+                let parteAleatoria = gerarParteAleatoria(totalAleatorio, tipoCaractere);
+                let codigoInterno = parteSeq + parteAleatoria;
+                var pf = document.getElementById('txtPrefixo').value, sf = document.getElementById('txtSufixo').value, pe = document.getElementById('rbPrefixoComEspaco').checked, se = document.getElementById('rbSufixoComEspaco').checked;
+                var pff = pf?(pe?pf+' ':pf):'', sff = sf?(se?' '+sf:sf):'';
+                return pff + codigoInterno + sff;
+            } else { // fim
+                let parteAleatoria = gerarParteAleatoria(totalAleatorio, tipoCaractere);
+                let codigoInterno = parteAleatoria + parteSeq;
+                var pf = document.getElementById('txtPrefixo').value, sf = document.getElementById('txtSufixo').value, pe = document.getElementById('rbPrefixoComEspaco').checked, se = document.getElementById('rbSufixoComEspaco').checked;
+                var pff = pf?(pe?pf+' ':pf):'', sff = sf?(se?' '+sf:sf):'';
+                return pff + codigoInterno + sff;
+            }
+        }
+        
+        // Função de formatação geral (chamada durante geração)
+        function formatarNumeroCompleto(ps, pa){ 
+            // Para compatibilidade, ps pode ser número sequencial ou 0, pa é parte aleatória (caso já gerada)
+            var tp = document.querySelector('input[name="tipoGeracao"]:checked').id;
+            if (tp === 'rbTipoHibrido') {
+                if (!sequencialAtivo) {
+                    // Apenas aleatório puro (sem sequencial)
+                    var pf = document.getElementById('txtPrefixo').value, sf = document.getElementById('txtSufixo').value, pe = document.getElementById('rbPrefixoComEspaco').checked, se = document.getElementById('rbSufixoComEspaco').checked;
+                    var pff = pf?(pe?pf+' ':pf):'', sff = sf?(se?' '+sf:sf):'';
+                    return pff + pa + sff;
+                } else {
+                    // Híbrido com sequencial ativo - usa a nova função gerarCodigoHibrido
+                    // 'ps' é o número sequencial já com padding (ou string)
+                    let parteSeq = ps.toString();
+                    let tamanhoAleatorio = parseInt(document.getElementById('txtTamanhoAleatorio').value);
+                    let tipoCaractere = document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';
+                    return gerarCodigoHibrido(parteSeq, tamanhoAleatorio, tipoCaractere);
+                }
+            } else if (tp === 'rbTipoSequencial') {
+                var pf = document.getElementById('txtPrefixo').value, sf = document.getElementById('txtSufixo').value, pe = document.getElementById('rbPrefixoComEspaco').checked, se = document.getElementById('rbSufixoComEspaco').checked;
+                var dg = parseInt(document.getElementById('txtDigitos').value);
+                var sfmt = ps.toString().padStart(dg, '0');
+                var pff = pf?(pe?pf+' ':pf):'', sff = sf?(se?' '+sf:sf):'';
+                return pff + sfmt + sff;
+            } else { // aleatório puro
+                var pf = document.getElementById('txtPrefixo').value, sf = document.getElementById('txtSufixo').value, pe = document.getElementById('rbPrefixoComEspaco').checked, se = document.getElementById('rbSufixoComEspaco').checked;
+                var pff = pf?(pe?pf+' ':pf):'', sff = sf?(se?' '+sf:sf):'';
+                return pff + pa + sff;
+            }
+        }
+        
+        function atualizarPreview(){
+            var pf=document.getElementById('txtPrefixo').value,sf=document.getElementById('txtSufixo').value,pe=document.getElementById('rbPrefixoComEspaco').checked,se=document.getElementById('rbSufixoComEspaco').checked;
+            var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,dg=parseInt(document.getElementById('txtDigitos').value),ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);
+            var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
+            var tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';
+            if (document.getElementById('rbSeqInicio').checked) seqPosition = 'inicio';
+            else if (document.getElementById('rbSeqMeio').checked) seqPosition = 'meio';
+            else seqPosition = 'fim';
+            var ft = '';
+            if(tp==='rbTipoSequencial') ft = pf+(pe?' ':'')+'['+dg+' dígitos]'+(se?' ':'')+sf;
+            else if(tp==='rbTipoAleatorio') ft = pf+(pe?' ':'')+'['+ta+' '+(tc==='apenasNumeros'?'num':tc==='apenasLetras'?'alpha':'alnum')+']'+(se?' ':'')+sf;
+            else {
+                if(sequencialAtivo) ft = pf+(pe?' ':'')+ (seqPosition==='inicio'?'[seq]': (seqPosition==='meio'?'[seq]':'') )+'['+ta+']'+(seqPosition==='fim'?'[seq]': (seqPosition==='meio'?'[seq]':'') )+(se?' ':'')+sf;
+                else ft = pf+(pe?' ':'')+'['+ta+']'+(se?' ':'')+sf+' (sem seq)';
+            }
+            document.getElementById('demoFormatText').textContent=ft;
+            var g=document.getElementById('demoCodeGrid');g.innerHTML='';
+            var e1, e2;
+            if(tp==='rbTipoSequencial') { e1=formatarNumeroCompleto(1); e2=formatarNumeroCompleto(2); }
+            else if(tp==='rbTipoAleatorio') { 
+                let parte1 = gerarParteAleatoria(ta, tc);
+                let parte2 = gerarParteAleatoria(ta, tc);
+                e1=formatarNumeroCompleto(0, parte1); 
+                e2=formatarNumeroCompleto(0, parte2);
+            }
+            else {
+                if(sequencialAtivo) {
+                    let parteSeq1 = "1".padStart(dg,'0');
+                    let parteSeq2 = "2".padStart(dg,'0');
+                    // Usar a mesma lógica de geração para preview
+                    e1 = gerarCodigoHibrido(parteSeq1, ta, tc);
+                    e2 = gerarCodigoHibrido(parteSeq2, ta, tc);
+                } else {
+                    let parte1 = gerarParteAleatoria(ta, tc);
+                    let parte2 = gerarParteAleatoria(ta, tc);
+                    e1=formatarNumeroCompleto(0, parte1);
+                    e2=formatarNumeroCompleto(0, parte2);
+                }
+            }
+            [e1,e2].forEach(function(ex){var s=document.createElement('span');s.className='preview-code-item';s.innerHTML='<i class="fas fa-hashtag"></i> '+ex;g.appendChild(s);});
+            if(gq){var s=document.createElement('span');s.className='preview-code-item qr';s.innerHTML='<i class="fas fa-qrcode"></i> QR: '+e1.substring(0,12)+'...';g.appendChild(s);}
+            if(gc){var s=document.createElement('span');s.className='preview-code-item barcode';s.innerHTML='<i class="fas fa-barcode"></i> '+(e2.replace(/\D/g,'').substring(0,8)||'12345678');g.appendChild(s);}
+            var mt=document.getElementById('demoMetadataContainer');mt.innerHTML='';
+            var tl=tp==='rbTipoSequencial'?'Sequencial':tp==='rbTipoAleatorio'?'Aleatório':(sequencialAtivo?'Híbrido (com seq)':'Híbrido (sem seq)');
+            mt.appendChild(createMetadataItem('fa-tag','Tipo',tl)); mt.appendChild(createMetadataItem('fa-sort-numeric-up','Dígitos',dg));
+            if(uploadEnabled&&rawData.length>0){mt.appendChild(createMetadataItem('fa-file-excel','Arquivo',currentFileName+' ('+rawData.length+' linhas)'));mt.appendChild(createMetadataItem('fa-columns','Colunas dados',originalHeaders.length));}
+            if(tp==='rbTipoHibrido' && sequencialAtivo) mt.appendChild(createMetadataItem('fa-sort','Posição Seq',seqPosition==='inicio'?'Início':seqPosition==='meio'?'Meio (dividido)':'Fim'));
+            atualizarResultadoQuantidade(); setUpdateNeeded();
+        }
         function createMetadataItem(ic,lb,vl){ var i=document.createElement('div');i.className='preview-metadata-item';i.innerHTML='<i class="fas '+ic+'" style="color:var(--azul-escuro);"></i><span class="preview-metadata-label">'+lb+':</span><span class="preview-metadata-value">'+vl+'</span>'; return i; }
 
-        // ==================== GERAR NÚMEROS COM CONTINUAÇÃO INTELIGENTE ====================
+        // ==================== GERAR NÚMEROS ====================
         function gerarNumeros(){
             if(!validarCampos()){adicionarLog('Erro: Campos obrigatórios');showNotification('Campos obrigatórios não preenchidos','error');return;}
-            
             var nc=parseInt(document.getElementById('txtColunas').value),gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
-            var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,iv_=document.getElementById('rbVertical').checked,iq=document.getElementById('rbQuantidade').checked,inf=document.getElementById('rbNumeroFinal').checked,iff=document.getElementById('rbFolhas').checked;
-            
-            // Verificar se deve continuar do último número
+            var tp=document.querySelector('input[name="tipoGeracao"]:checked').id,iv_=document.getElementById('rbVertical').checked;
             var continuarSequencia = document.getElementById('cbContinuarSequencia') && document.getElementById('cbContinuarSequencia').checked;
             var ni=1,iv=1;
-            
             if ((tp==='rbTipoSequencial'||tp==='rbTipoHibrido') && sequencialAtivo) {
                 if (continuarSequencia && ultimoNumeroSequencial) {
                     ni = parseInt(ultimoNumeroSequencial) + (parseInt(document.getElementById('txtIntervalo').value) || 1);
                     document.getElementById('txtInicial').value = ni;
                     adicionarLog(`🔄 Continuando sequência do último número: ${ultimoNumeroSequencial} → próximo: ${ni}`, true);
                     showNotification(`Continuando do número ${ni}`, 'success');
-                } else {
-                    ni = parseInt(document.getElementById('txtInicial').value) || 1;
-                }
+                } else { ni = parseInt(document.getElementById('txtInicial').value) || 1; }
                 iv = parseInt(document.getElementById('txtIntervalo').value) || 1;
             }
-            
-            var ta=8,tc='apenasNumeros'; 
-            if(tp==='rbTipoHibrido'||tp==='rbTipoAleatorio'){
-                ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);
-                tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';
-            }
-            
+            var ta=parseInt(document.getElementById('txtTamanhoAleatorio').value);
+            var tc=document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra';
             var total = calcularQuantidadeTotal();
-            
             if(total>100000||total<=0||isNaN(total)){showNotification('Quantidade inválida ou excede 100.000','error');return;}
-            
             var valores=[]; var pu=new Set(); var vs=ni;
             if(tp==='rbTipoSequencial'){for(var i=0;i<total;i++){valores.push(formatarNumeroCompleto(vs));vs+=iv;}adicionarLog('Gerados '+total+' números sequenciais',true);}
             else if(tp==='rbTipoAleatorio'){var t=0;while(valores.length<total&&t<total*20){var p=gerarParteAleatoria(ta,tc);if(!pu.has(p)){pu.add(p);valores.push(formatarNumeroCompleto(0,p));}t++;}adicionarLog('Gerados '+valores.length+' números aleatórios',true);}
-            else{var t=0;while(valores.length<total&&t<total*20){var p=gerarParteAleatoria(ta,tc);if(!pu.has(p)){pu.add(p);valores.push(sequencialAtivo?formatarNumeroCompleto(vs,p):formatarNumeroCompleto(0,p));if(sequencialAtivo)vs+=iv;}t++;}adicionarLog('Gerados '+valores.length+' números híbridos',true);}
-            
+            else{
+                var t=0;
+                while(valores.length<total&&t<total*20){
+                    if(sequencialAtivo){
+                        let parteSeq = vs.toString().padStart(parseInt(document.getElementById('txtDigitos').value), '0');
+                        let codigo = gerarCodigoHibrido(parteSeq, ta, tc);
+                        if(!pu.has(codigo)){
+                            pu.add(codigo);
+                            valores.push(codigo);
+                            vs += iv;
+                        }
+                    } else {
+                        let p = gerarParteAleatoria(ta,tc);
+                        if(!pu.has(p)){
+                            pu.add(p);
+                            valores.push(formatarNumeroCompleto(0,p));
+                        }
+                    }
+                    t++;
+                }
+                adicionarLog('Gerados '+valores.length+' números híbridos'+(sequencialAtivo?' com sequencial na posição '+seqPosition:''),true);
+            }
             valoresGerados=[].concat(valores); numberingData=[].concat(valores);
-            
-            // Atualizar último número sequencial
             if (sequencialAtivo && valores.length > 0 && (tp==='rbTipoSequencial'||tp==='rbTipoHibrido')) {
                 const ultimoValor = valores[valores.length-1];
-                const matchNumero = ultimoValor.match(/\d+/g);
-                if (matchNumero && matchNumero.length > 0) {
-                    ultimoNumeroSequencial = matchNumero[matchNumero.length - 1];
+                const matchNumerico = ultimoValor.match(/\d+/g);
+                if (matchNumerico && matchNumerico.length > 0) {
+                    ultimoNumeroSequencial = matchNumerico[matchNumerico.length - 1];
                     adicionarLog(`📌 Último número sequencial salvo: ${ultimoNumeroSequencial}`, true);
                     salvarEstadoSessao();
                 }
             }
-            
-            if(uploadEnabled&&rawData.length>0){processedData=valores.map(function(n,i){var l=rawData[i]||[];return[n].concat(l);});adicionarLog('Dados combinados: '+processedData.length+' linhas',true);}else processedData=[];
-            
+            if(uploadEnabled&&rawData.length>0){processedData=valores.map((n,i)=>[n].concat(rawData[i]||[]));adicionarLog('Dados combinados: '+processedData.length+' linhas',true);}else processedData=[];
             var udc=uploadEnabled&&rawData.length>0&&document.getElementById('rbCodeSourceData').checked;
             var cci=udc?parseInt(document.getElementById('selectCodeSourceColumn').value):-1;
-            
             dadosTabela=[];
             const modoInteligente = document.getElementById('rbDistInteligente').checked;
-            
             if (modoInteligente && nc > 1 && valores.length > 0) {
-                let itens;
-                if (uploadEnabled && rawData.length > 0) {
-                    itens = processedData;
-                } else {
-                    itens = valores;
-                }
-                
-                dadosTabela = preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, 
-                    uploadEnabled && rawData.length > 0 ? processedData : null);
-                
-                const tamanhoBloco = document.getElementById('selectTamanhoBloco')?.value || 'auto';
-                adicionarLog(`Modo Inteligente aplicado: Blocos de ${tamanhoBloco} itens | ${dadosTabela.length} linhas geradas`, true);
+                let itens = (uploadEnabled && rawData.length > 0) ? processedData : valores;
+                dadosTabela = preencherTabelaBlocosContiguos(itens, nc, gq, gc, udc, cci, (uploadEnabled && rawData.length > 0) ? processedData : null);
+                adicionarLog(`Modo Inteligente aplicado: ${dadosTabela.length} linhas geradas (com linhas vazias entre blocos)`, true);
             } else {
                 if(uploadEnabled&&rawData.length>0){
                     var dp = processedData;
@@ -1003,23 +1185,13 @@
                     }
                 }
             }
-            
             if(valores.length>0){primeiroNumero=valores[0];ultimoNumero=valores[valores.length-1];}
-            
-            // Marcar primeira geração realizada
-            if (!primeiraGeracaoRealizada) {
-                primeiraGeracaoRealizada = true;
-                mostrarContinuarSequenciaBox();
-                salvarEstadoSessao();
-            }
-            
+            if (!primeiraGeracaoRealizada) { primeiraGeracaoRealizada = true; mostrarContinuarSequenciaBox(); salvarEstadoSessao(); }
             showNotification('Tabela gerada com '+valores.length+' números!','success');
-            atualizarPreview();
-            atualizarPreviewDistribuicao();
-            resetUpdateNeeded();
+            atualizarPreview(); atualizarPreviewDistribuicao(); resetUpdateNeeded();
         }
 
-        // ==================== MODAL COM CABEÇALHOS CORRETOS ====================
+        // ==================== MODAL ====================
         function abrirModalVisualizacao(){
             if(dadosTabela.length===0){showNotification('Nenhuma tabela gerada','error');return;}
             var modal=document.getElementById('modalTabela'),tbl=document.getElementById('modalTabelaConteudo'); tbl.innerHTML='';
@@ -1031,66 +1203,104 @@
                 var thN=document.createElement('th');thN.textContent=nomeCol+'_'+i;thN.style.backgroundColor='#0077cc';hr.appendChild(thN);
                 if(gq){var thQ=document.createElement('th');thQ.textContent='#QR_'+i;thQ.style.backgroundColor='#8e44ad';hr.appendChild(thQ);}
                 if(gc){var thC=document.createElement('th');thC.textContent='CB_'+i;thC.style.backgroundColor='#e67e22';hr.appendChild(thC);}
-                if(numColsDados>0){
-                    for(var j=0;j<numColsDados;j++){
-                        var thD=document.createElement('th');
-                        thD.textContent='Coluna '+(j+1);
-                        thD.style.backgroundColor='#2c3e50';
-                        hr.appendChild(thD);
-                    }
-                }
+                if(numColsDados>0){ for(var j=0;j<numColsDados;j++){ var thD=document.createElement('th'); thD.textContent=originalHeaders[j]||'Coluna '+(j+1); thD.style.backgroundColor='#2c3e50'; hr.appendChild(thD); } }
             }
             thead.appendChild(hr);tbl.appendChild(thead);
             var tbody=document.createElement('tbody');
-            dadosTabela.forEach(function(l){var tr=document.createElement('tr');l.forEach(function(v){var td=document.createElement('td');td.textContent=v;tr.appendChild(td);});tbody.appendChild(tr);});
-            tbl.appendChild(tbody);modal.style.display='block';adicionarLog('Modal de visualização aberto');
+            dadosTabela.forEach(l=>{var tr=document.createElement('tr'); l.forEach(v=>{var td=document.createElement('td'); td.textContent=v; tr.appendChild(td);}); tbody.appendChild(tr);});
+            tbl.appendChild(tbody); modal.style.display='block'; adicionarLog('Modal de visualização aberto');
         }
 
-        // ==================== EXPORTAÇÃO COM CABEÇALHOS CORRETOS E NOME INTELIGENTE ====================
-        function gerarCabecalhosExportacao(delimitador,aspas){
-            var nomeCol=document.getElementById('txtNomeColunas').value,nc=parseInt(document.getElementById('txtColunas').value);
-            var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
-            var numColsDados=uploadEnabled&&rawData.length>0?originalHeaders.length:0;
-            var cab='';
-            for(var i=1;i<=nc;i++){
-                if(aspas)cab+='"'+nomeCol+'_'+i+'"'+delimitador; else cab+=nomeCol+'_'+i+delimitador;
-                if(gq){if(aspas)cab+='"#QR_'+i+'"'+delimitador; else cab+='#QR_'+i+delimitador;}
-                if(gc){if(aspas)cab+='"CB_'+i+'"'+delimitador; else cab+='CB_'+i+delimitador;}
-                if(numColsDados>0){
-                    for(var j=0;j<numColsDados;j++){
-                        if(aspas)cab+='"Coluna '+(j+1)+'"'+delimitador; else cab+='Coluna '+(j+1)+delimitador;
-                    }
+        // ==================== EXPORTAÇÃO ====================
+        function gerarCabecalhosExportacao(delimitador, usarAspas) {
+            var nomeCol = document.getElementById('txtNomeColunas').value;
+            var nc = parseInt(document.getElementById('txtColunas').value);
+            var gq = document.getElementById('cbQRCode').checked;
+            var gc = document.getElementById('cbCodigoBarras').checked;
+            var numColsDados = (uploadEnabled && rawData.length > 0) ? originalHeaders.length : 0;
+            var cab = '';
+            for (var i = 1; i <= nc; i++) {
+                cab += (usarAspas ? '"' + nomeCol + '_' + i + '"' : nomeCol + '_' + i) + delimitador;
+                if (gq) cab += (usarAspas ? '"#QR_' + i + '"' : '#QR_' + i) + delimitador;
+                if (gc) cab += (usarAspas ? '"CB_' + i + '"' : 'CB_' + i) + delimitador;
+                if (numColsDados > 0) {
+                    for (var j = 0; j < numColsDados; j++) cab += (usarAspas ? '"' + (originalHeaders[j] || 'Coluna_'+(j+1)) + '"' : (originalHeaders[j] || 'Coluna_'+(j+1))) + delimitador;
                 }
             }
-            return cab.replace(new RegExp(delimitador+'$'),'')+'\r\n';
+            return cab.replace(new RegExp(delimitador + '$'), '') + '\r\n';
+        }
+        function stringToUtf16LE(str) {
+            const buf = new ArrayBuffer(str.length * 2);
+            const view = new DataView(buf);
+            for (let i = 0; i < str.length; i++) view.setUint16(i * 2, str.charCodeAt(i), true);
+            return new Uint8Array(buf);
+        }
+        function exportarArquivo(conteudoStr, extensao, nomeSufixo, tipoMimeBase) {
+            const encoding = document.getElementById('csvEncodingSelect') ? document.getElementById('csvEncodingSelect').value : 'utf8';
+            let blob, mimeType = tipoMimeBase || 'text/plain';
+            if (encoding === 'utf16le') {
+                const bom = new Uint8Array([0xFF, 0xFE]);
+                const data = stringToUtf16LE(conteudoStr);
+                const combined = new Uint8Array(bom.length + data.length);
+                combined.set(bom, 0); combined.set(data, bom.length);
+                blob = new Blob([combined], { type: mimeType + ';charset=utf-16le' });
+            } else if (encoding === 'utf8bom') blob = new Blob(["\uFEFF" + conteudoStr], { type: mimeType + ';charset=utf-8' });
+            else blob = new Blob([conteudoStr], { type: mimeType + ';charset=utf-8' });
+            let nomeArquivo = gerarNomeArquivo(extensao);
+            if (nomeSufixo) nomeArquivo = nomeArquivo.replace('.' + extensao, '_' + nomeSufixo + '.' + extensao);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = nomeArquivo;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            adicionarLog(`Arquivo exportado: ${nomeArquivo} (codif: ${encoding})`);
+            showNotification(`Exportado: ${nomeArquivo}`, 'success');
+        }
+        function salvarComoTXT() {
+            if (dadosTabela.length === 0) { showNotification('Nenhum dado gerado', 'error'); return; }
+            let conteudo = gerarCabecalhosExportacao('\t', false);
+            for (let i = 0; i < dadosTabela.length; i++) {
+                let linha = dadosTabela[i];
+                let linhaStr = linha.map(cel => String(cel).replace(/[\r\n\t]+/g, ' ')).join('\t');
+                conteudo += linhaStr + '\r\n';
+            }
+            exportarArquivo(conteudo, 'txt', null, 'text/plain');
+        }
+        function salvarComoCSV() {
+            if (dadosTabela.length === 0) { showNotification('Nenhum dado gerado', 'error'); return; }
+            let delimiter = document.getElementById('csvDelimiterSelect') ? document.getElementById('csvDelimiterSelect').value : ';';
+            if (delimiter === '\\t') delimiter = '\t';
+            let usarAspas = (delimiter !== '\t');
+            let conteudo = gerarCabecalhosExportacao(delimiter, usarAspas);
+            for (let i = 0; i < dadosTabela.length; i++) {
+                let linha = dadosTabela[i];
+                let linhaStr = linha.map(cel => {
+                    let campo = String(cel);
+                    if (usarAspas) { campo = campo.replace(/"/g, '""'); return '"' + campo + '"'; }
+                    else if (campo.indexOf(delimiter) !== -1 || campo.indexOf('\n') !== -1) { campo = '"' + campo.replace(/"/g, '""') + '"'; }
+                    return campo;
+                }).join(delimiter);
+                conteudo += linhaStr + '\r\n';
+            }
+            exportarArquivo(conteudo, 'csv', null, 'text/csv');
+        }
+        function salvarComoCSVInDesign() {
+            if (dadosTabela.length === 0) { showNotification('Nenhum dado gerado', 'error'); return; }
+            const delimiter = ';';
+            let usarAspas = true;
+            let conteudo = gerarCabecalhosExportacao(delimiter, usarAspas);
+            for (let i = 0; i < dadosTabela.length; i++) {
+                let linha = dadosTabela[i];
+                let linhaStr = linha.map(cel => { let campo = String(cel).replace(/"/g, '""'); return '"' + campo + '"'; }).join(delimiter);
+                conteudo += linhaStr + '\r\n';
+            }
+            const encAtual = document.getElementById('csvEncodingSelect').value;
+            document.getElementById('csvEncodingSelect').value = 'utf8';
+            exportarArquivo(conteudo, 'csv', 'indesign', 'text/csv');
+            document.getElementById('csvEncodingSelect').value = encAtual;
+            adicionarLog('Exportado CSV otimizado para InDesign (ponto e vírgula, UTF-8)');
         }
 
-        function salvarComoTXT(){
-            if(dadosTabela.length===0){showNotification('Nenhum dado','error');return;}
-            var txt=gerarCabecalhosExportacao('\t',false);
-            dadosTabela.forEach(function(l){txt+=l.join('\t')+'\r\n';});
-            var nomeArquivo = gerarNomeArquivo('txt', 'txt');
-            var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
-            var url=URL.createObjectURL(blob),a=document.createElement('a');
-            a.href=url;a.download=nomeArquivo;
-            document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-            adicionarLog('Exportado TXT: '+nomeArquivo);showNotification('TXT salvo!','success');
-        }
-
-        function salvarComoCSV(){
-            if(dadosTabela.length===0){showNotification('Nenhum dado','error');return;}
-            var BOM='\uFEFF';
-            var csv=gerarCabecalhosExportacao(',',true);
-            dadosTabela.forEach(function(l){csv+=l.map(function(v){return'"'+String(v).replace(/"/g,'""')+'"';}).join(',')+'\r\n';});
-            var nomeArquivo = gerarNomeArquivo('csv', 'csv');
-            var blob=new Blob([BOM+csv],{type:'text/csv;charset=utf-8'});
-            var url=URL.createObjectURL(blob),a=document.createElement('a');
-            a.href=url;a.download=nomeArquivo;
-            document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-            adicionarLog('Exportado CSV (DataMerge): '+nomeArquivo);showNotification('CSV DataMerge salvo!','success');
-        }
-
-        // ==================== PDFs ====================
+        // ==================== PDFs resumidos e completos (compatíveis) ====================
         function gerarPDFCompleto(){
             if(dadosTabela.length===0){showNotification('Nenhum dado','error');return;}
             try{
@@ -1109,6 +1319,9 @@
                 doc.setFontSize(12);doc.setTextColor(142,68,173);doc.text('RESUMO',20,y);y+=6;
                 doc.setFontSize(9);doc.setTextColor(0,0,0);
                 doc.text('Total: '+valoresGerados.length+' | Linhas: '+dadosTabela.length+' | Primeiro: '+primeiroNumero+' | Último: '+ultimoNumero,20,y);y+=10;
+                if(tipo.id==='rbTipoHibrido' && sequencialAtivo) {
+                    doc.text('Posição sequencial: '+(seqPosition==='inicio'?'Início':seqPosition==='meio'?'Meio (dividido)':'Fim'),20,y);y+=6;
+                }
                 doc.setFontSize(12);doc.setTextColor(142,68,173);doc.text('DADOS',20,y);y+=6;
                 var headers=[];var nc=parseInt(document.getElementById('txtColunas').value);
                 var gq=document.getElementById('cbQRCode').checked,gc=document.getElementById('cbCodigoBarras').checked;
@@ -1116,16 +1329,15 @@
                 for(var i=1;i<=nc;i++){
                     headers.push(document.getElementById('txtNomeColunas').value+'_'+i);
                     if(gq)headers.push('#QR_'+i); if(gc)headers.push('CB_'+i);
-                    if(numColsDados>0){for(var j=0;j<numColsDados;j++)headers.push('Coluna '+(j+1));}
+                    if(numColsDados>0){for(var j=0;j<numColsDados;j++)headers.push(originalHeaders[j]||'Coluna '+(j+1));}
                 }
-                doc.autoTable({head:[headers],body:dadosTabela.map(function(l){return l;}),startY:y,margin:{top:10,left:20,right:20},styles:{fontSize:7,cellPadding:2},headStyles:{fillColor:[0,119,204],textColor:[255,255,255]},alternateRowStyles:{fillColor:[230,242,255]}});
+                doc.autoTable({head:[headers],body:dadosTabela,startY:y,margin:{top:10,left:20,right:20},styles:{fontSize:7,cellPadding:2},headStyles:{fillColor:[0,119,204],textColor:[255,255,255]},alternateRowStyles:{fillColor:[230,242,255]}});
                 var tp=doc.internal.getNumberOfPages();for(var i=1;i<=tp;i++){doc.setPage(i);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.text('Página '+i+' de '+tp,250,200,{align:'right'});}
-                var nomePDF = gerarNomeArquivo('pdf', 'pdf_completo');
+                var nomePDF = gerarNomeArquivo('pdf');
                 doc.save(nomePDF);
                 adicionarLog('PDF completo gerado: '+nomePDF);showNotification('PDF completo gerado!','success');
             }catch(e){console.error(e);showNotification('Erro ao gerar PDF','error');}
         }
-
         function gerarPDFResumido(){
             if(dadosTabela.length===0){showNotification('Nenhum dado','error');return;}
             try{
@@ -1149,8 +1361,11 @@
                 doc.text('Preenchimento: '+(document.getElementById('rbVertical').checked?'Vertical':'Horizontal'),25,y);y+=10;
                 const modoDist = document.getElementById('rbDistInteligente').checked ? 'Inteligente (Blocos Contíguos)' : 'Normal';
                 doc.text('Distribuição: '+modoDist,25,y);y+=8;
+                if(tipo.id==='rbTipoHibrido' && sequencialAtivo) {
+                    doc.text('Posição sequencial: '+(seqPosition==='inicio'?'Início':seqPosition==='meio'?'Meio (dividido)':'Fim'),25,y);y+=8;
+                }
                 doc.setFontSize(10);doc.setTextColor(100,100,100);doc.text('Sistema de Numeração Híbrida',20,y);
-                var nomePDF = gerarNomeArquivo('pdf', 'pdf_resumido');
+                var nomePDF = gerarNomeArquivo('pdf');
                 doc.save(nomePDF);
                 adicionarLog('PDF resumido gerado: '+nomePDF);showNotification('PDF resumido gerado!','success');
             }catch(e){console.error(e);showNotification('Erro ao gerar PDF','error');}
@@ -1170,6 +1385,7 @@
             document.getElementById('rbVertical').checked=true;document.getElementById('rbApenasNumeros').checked=true;
             document.getElementById('rbPrefixoComEspaco').checked=true;document.getElementById('rbSufixoSemEspaco').checked=true;
             document.getElementById('rbDistNormal').checked=true;
+            document.getElementById('rbSeqInicio').checked=true; seqPosition = 'inicio';
             document.getElementById('configBlocoContainer').style.display='none';
             document.getElementById('smartDistPreview').style.display='none';
             sequencialAtivo=true;document.getElementById('btnSeqAtivo').classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');
@@ -1180,28 +1396,25 @@
             document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';
             document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';
             toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();
-            document.querySelectorAll('.mensagem-erro').forEach(function(e){e.remove();});document.querySelectorAll('.campo-obrigatorio').forEach(function(e){e.classList.remove('campo-obrigatorio');});
+            document.querySelectorAll('.mensagem-erro').forEach(e=>e.remove());document.querySelectorAll('.campo-obrigatorio').forEach(e=>e.classList.remove('campo-obrigatorio'));
             adicionarLog('Dados limpos');showNotification('Dados limpos!','success');
-            limparEstadoSessao();
-            resetUpdateNeeded();
+            limparEstadoSessao(); resetUpdateNeeded();
         }
-
         function toggleConfiguracoes(){
             var tp=document.querySelector('input[name="tipoGeracao"]:checked').id;
             document.getElementById('configSequencial').style.display=tp==='rbTipoAleatorio'?'none':'block';
             document.getElementById('configHibridoAleatorio').style.display=tp==='rbTipoSequencial'?'none':'block';
             document.getElementById('configSequencialToggle').style.display=tp==='rbTipoHibrido'?'flex':'none';
-            atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();
-            setUpdateNeeded();
+            var posGroup = document.getElementById('hybridPositionGroup');
+            if (posGroup) posGroup.style.display = (tp==='rbTipoHibrido' && sequencialAtivo) ? 'block' : 'none';
+            atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao(); setUpdateNeeded();
         }
-
         function salvarConfiguracao(){
-            var c={nomeColuna:document.getElementById('txtNomeColunas').value,prefixo:document.getElementById('txtPrefixo').value,sufixo:document.getElementById('txtSufixo').value,prefixoComEspaco:document.getElementById('rbPrefixoComEspaco').checked,sufixoComEspaco:document.getElementById('rbSufixoComEspaco').checked,numColunas:parseInt(document.getElementById('txtColunas').value),gerarQRCode:document.getElementById('cbQRCode').checked,gerarCodigoBarras:document.getElementById('cbCodigoBarras').checked,tipoGeracao:document.querySelector('input[name="tipoGeracao"]:checked').id,sequencialAtivo:sequencialAtivo,numDigitos:parseInt(document.getElementById('txtDigitos').value),numInicial:parseInt(document.getElementById('txtInicial').value),intervalo:parseInt(document.getElementById('txtIntervalo').value),tamanhoAleatorio:parseInt(document.getElementById('txtTamanhoAleatorio').value),tipoCaractere:document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra',opcaoNumerica:document.getElementById('rbNumeroFinal').checked?'final':document.getElementById('rbFolhas').checked?'folhas':'quantidade',finalOuQuantidade:document.getElementById('txtFinalOuQuantidade').value,linhasPorFolha:document.getElementById('txtLinhasPorFolha').value,preenchimento:document.getElementById('rbHorizontal').checked?'horizontal':'vertical',modoDistribuicao:document.getElementById('rbDistInteligente').checked?'inteligente':'normal',tamanhoBloco:document.getElementById('selectTamanhoBloco')?.value||'auto'};
+            var c={nomeColuna:document.getElementById('txtNomeColunas').value,prefixo:document.getElementById('txtPrefixo').value,sufixo:document.getElementById('txtSufixo').value,prefixoComEspaco:document.getElementById('rbPrefixoComEspaco').checked,sufixoComEspaco:document.getElementById('rbSufixoComEspaco').checked,numColunas:parseInt(document.getElementById('txtColunas').value),gerarQRCode:document.getElementById('cbQRCode').checked,gerarCodigoBarras:document.getElementById('cbCodigoBarras').checked,tipoGeracao:document.querySelector('input[name="tipoGeracao"]:checked').id,sequencialAtivo:sequencialAtivo,numDigitos:parseInt(document.getElementById('txtDigitos').value),numInicial:parseInt(document.getElementById('txtInicial').value),intervalo:parseInt(document.getElementById('txtIntervalo').value),tamanhoAleatorio:parseInt(document.getElementById('txtTamanhoAleatorio').value),tipoCaractere:document.getElementById('rbApenasNumeros').checked?'apenasNumeros':document.getElementById('rbApenasLetras').checked?'apenasLetras':'numeroLetra',opcaoNumerica:document.getElementById('rbNumeroFinal').checked?'final':document.getElementById('rbFolhas').checked?'folhas':'quantidade',finalOuQuantidade:document.getElementById('txtFinalOuQuantidade').value,linhasPorFolha:document.getElementById('txtLinhasPorFolha').value,preenchimento:document.getElementById('rbHorizontal').checked?'horizontal':'vertical',modoDistribuicao:document.getElementById('rbDistInteligente').checked?'inteligente':'normal',tamanhoBloco:document.getElementById('selectTamanhoBloco')?.value||'auto',seqPosition:seqPosition};
             var blob=new Blob([JSON.stringify(c,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
             a.href=url;a.download='config_'+c.nomeColuna.toLowerCase().replace(/\s+/g,'_')+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
             adicionarLog('Configuração salva');showNotification('Configuração salva!','success');
         }
-
         function carregarConfiguracao(e){
             var f=e.target.files[0];if(!f)return;var r=new FileReader();
             r.onload=function(ev){try{var c=JSON.parse(ev.target.result);
@@ -1219,29 +1432,20 @@
             else{document.getElementById('rbQuantidade').checked=true;document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';}
             document.getElementById('txtFinalOuQuantidade').value=c.finalOuQuantidade||'10';document.getElementById('txtLinhasPorFolha').value=c.linhasPorFolha||'10';
             if(c.preenchimento==='horizontal')document.getElementById('rbHorizontal').checked=true;else document.getElementById('rbVertical').checked=true;
-            if(c.modoDistribuicao==='inteligente'){
-                document.getElementById('rbDistInteligente').checked=true;
-                document.getElementById('configBlocoContainer').style.display='block';
-                if(c.tamanhoBloco && document.getElementById('selectTamanhoBloco')) {
-                    document.getElementById('selectTamanhoBloco').value = c.tamanhoBloco;
-                }
-            } else {
-                document.getElementById('rbDistNormal').checked=true;
-                document.getElementById('configBlocoContainer').style.display='none';
-            }
+            if(c.modoDistribuicao==='inteligente'){ document.getElementById('rbDistInteligente').checked=true; document.getElementById('configBlocoContainer').style.display='block'; if(c.tamanhoBloco && document.getElementById('selectTamanhoBloco')) document.getElementById('selectTamanhoBloco').value=c.tamanhoBloco; }
+            else{ document.getElementById('rbDistNormal').checked=true; document.getElementById('configBlocoContainer').style.display='none'; }
+            if(c.seqPosition){ if(c.seqPosition==='inicio') document.getElementById('rbSeqInicio').checked=true; else if(c.seqPosition==='meio') document.getElementById('rbSeqMeio').checked=true; else if(c.seqPosition==='fim') document.getElementById('rbSeqFim').checked=true; seqPosition = c.seqPosition; }
             toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();adicionarLog('Configuração carregada: '+f.name);showNotification('Configuração carregada!','success');
             setUpdateNeeded();
             }catch(err){showNotification('Erro ao carregar','error');}};r.readAsText(f);
         }
-
         function salvarLogComoTXT(){
-            var es=document.getElementById('logEntries').children;var t="=== LOG ===\n";
-            for(var i=es.length-1;i>=0;i--)t+=es[i].querySelector('.log-timestamp').textContent+' '+es[i].querySelector('.log-message').textContent+'\n';
-            var b=new Blob([t],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+            var es=document.getElementById('logEntries').children;var t="=== LOG OPERAÇÕES ===\r\n";
+            for(var i=es.length-1;i>=0;i--)t+=es[i].querySelector('.log-timestamp').textContent+' '+es[i].querySelector('.log-message').textContent+'\r\n';
+            var blob=new Blob([t],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(blob),a=document.createElement('a');
             a.href=u;a.download='log_'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
             adicionarLog('Log salvo');showNotification('Log salvo!','success');
         }
-
         function limparLog(){if(confirm('Limpar todo o registro?')){document.getElementById('logEntries').innerHTML='';localStorage.removeItem('logOperacoes');adicionarLog('Log limpo');}}
 
         // ==================== INIT ====================
@@ -1249,92 +1453,87 @@
             checkLogin();
             document.getElementById('loginButton').addEventListener('click',attemptLogin);
             document.getElementById('btnLogout').addEventListener('click',logout);
-            document.getElementById('loginUsername').addEventListener('keypress',function(e){if(e.key==='Enter')document.getElementById('loginPassword').focus();});
-            document.getElementById('loginPassword').addEventListener('keypress',function(e){if(e.key==='Enter')attemptLogin();});
+            document.getElementById('loginUsername').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('loginPassword').focus();});
+            document.getElementById('loginPassword').addEventListener('keypress',e=>{if(e.key==='Enter')attemptLogin();});
             var ls=localStorage.getItem('logOperacoes');if(ls)document.getElementById('logEntries').innerHTML=ls;
 
-            // Eventos para número de colunas - CORRIGIDO
             const txtColunas = document.getElementById('txtColunas');
             txtColunas.addEventListener('change', onNumeroColunasChange);
             txtColunas.addEventListener('input', onNumeroColunasChange);
-
-            document.getElementById('rbDistNormal').addEventListener('change', function() {
-                document.getElementById('configBlocoContainer').style.display = 'none';
-                atualizarPreviewDistribuicao();
-                setUpdateNeeded();
-            });
-            document.getElementById('rbDistInteligente').addEventListener('change', function() {
-                document.getElementById('configBlocoContainer').style.display = 'block';
-                atualizarPreviewDistribuicao();
-                setUpdateNeeded();
-            });
-            
-            const selectBloco = document.getElementById('selectTamanhoBloco');
-            if (selectBloco) {
-                selectBloco.addEventListener('change', function() {
-                    atualizarPreviewDistribuicao();
-                    setUpdateNeeded();
-                });
-            }
-            
-            // Eventos para continuar sequência - CORRIGIDO
-            const cbContinuarSequencia = document.getElementById('cbContinuarSequencia');
-            if (cbContinuarSequencia) {
-                cbContinuarSequencia.addEventListener('change', aplicarContinuarSequencia);
-            }
-            
-            ['txtFinalOuQuantidade', 'txtLinhasPorFolha', 'txtInicial', 'txtIntervalo', 'txtNomeColunas', 'txtPrefixo', 'txtSufixo', 'txtDigitos', 'txtTamanhoAleatorio'].forEach(function(id) {
-                var el = document.getElementById(id);
-                if (el) el.addEventListener('input', function() { atualizarPreviewDistribuicao(); setUpdateNeeded(); });
-            });
-            document.querySelectorAll('input[name="opcao"], input[name="tipoGeracao"], input[name="prefixoEspaco"], input[name="sufixoEspaco"], input[name="tipoCaractere"], #cbQRCode, #cbCodigoBarras, input[name="preenchimento"]').forEach(function(el) {
-                el.addEventListener('change', function() { atualizarPreviewDistribuicao(); setUpdateNeeded(); });
-            });
+            document.getElementById('rbDistNormal').addEventListener('change', function() { document.getElementById('configBlocoContainer').style.display = 'none'; atualizarPreviewDistribuicao(); setUpdateNeeded(); });
+            document.getElementById('rbDistInteligente').addEventListener('change', function() { document.getElementById('configBlocoContainer').style.display = 'block'; atualizarPreviewDistribuicao(); setUpdateNeeded(); });
+            const selectBloco = document.getElementById('selectTamanhoBloco'); if (selectBloco) selectBloco.addEventListener('change', function() { atualizarPreviewDistribuicao(); setUpdateNeeded(); });
+            const cbContinuar = document.getElementById('cbContinuarSequencia'); if(cbContinuar) cbContinuar.addEventListener('change', aplicarContinuarSequencia);
+            ['txtFinalOuQuantidade','txtLinhasPorFolha','txtInicial','txtIntervalo','txtNomeColunas','txtPrefixo','txtSufixo','txtDigitos','txtTamanhoAleatorio'].forEach(id=>{let el=document.getElementById(id); if(el) el.addEventListener('input',()=>{ atualizarPreviewDistribuicao(); setUpdateNeeded(); });});
+            document.querySelectorAll('input[name="opcao"], input[name="tipoGeracao"], input[name="prefixoEspaco"], input[name="sufixoEspaco"], input[name="tipoCaractere"], #cbQRCode, #cbCodigoBarras, input[name="preenchimento"]').forEach(el=>el.addEventListener('change',()=>{ atualizarPreviewDistribuicao(); setUpdateNeeded(); }));
+            document.querySelectorAll('input[name="seqPosition"]').forEach(el=>el.addEventListener('change',()=>{ atualizarPreview(); setUpdateNeeded(); }));
             
             var uth=document.getElementById('uploadToggleHeader'),uc=document.getElementById('uploadContent'),cbu=document.getElementById('cbEnableUpload');
             cbu.addEventListener('change',function(){uploadEnabled=this.checked;uc.classList.toggle('expanded',uploadEnabled);uth.classList.toggle('expanded',uploadEnabled);if(!uploadEnabled)removerArquivo();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
             uth.addEventListener('click',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='LABEL')return;if(uploadEnabled){uc.classList.toggle('expanded');uth.classList.toggle('expanded');}});
-            document.getElementById('cbHasHeader').addEventListener('change',function(){hasHeaderRow=this.checked;if(uploadEnabled&&currentFileName&&fullData.length>0){var nc=fullData[0].length;if(hasHeaderRow&&fullData.length>1){originalHeaders=fullData[0].map(function(h){return String(h||'');});rawData=fullData.slice(1);}else{originalHeaders=[];for(var i=0;i<nc;i++)originalHeaders.push('Coluna_'+(i+1));rawData=hasHeaderRow?fullData.slice(1):[].concat(fullData);}mostrarInfoArquivo();atualizarSelecaoColunas();atualizarCodeSourceColumns();sincronizarQuantidadeComArquivo();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();}});
-
+            document.getElementById('cbHasHeader').addEventListener('change',function(){hasHeaderRow=this.checked;if(uploadEnabled&&currentFileName&&fullData.length>0){var nc=fullData[0].length;if(hasHeaderRow&&fullData.length>1){originalHeaders=fullData[0].map(h=>String(h||''));rawData=fullData.slice(1);}else{originalHeaders=Array(nc).fill().map((_,i)=>'Coluna_'+(i+1));rawData=hasHeaderRow?fullData.slice(1):fullData.slice();}mostrarInfoArquivo();atualizarSelecaoColunas();atualizarCodeSourceColumns();sincronizarQuantidadeComArquivo();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();}});
             var fua=document.getElementById('fileUploadArea'),fie=document.getElementById('fileInput');
-            fua.addEventListener('click',function(){if(uploadEnabled)fie.click();});
-            fie.addEventListener('change',function(e){if(e.target.files[0]&&uploadEnabled)processarArquivo(e.target.files[0]);});
-            fua.addEventListener('dragover',function(e){e.preventDefault();if(uploadEnabled)fua.classList.add('dragover');});
-            fua.addEventListener('dragleave',function(){fua.classList.remove('dragover');});
-            fua.addEventListener('drop',function(e){e.preventDefault();fua.classList.remove('dragover');if(uploadEnabled&&e.dataTransfer.files[0])processarArquivo(e.dataTransfer.files[0]);});
-            document.getElementById('removeFileBtn').addEventListener('click',function(e){e.stopPropagation();removerArquivo();});
+            fua.addEventListener('click',()=>{if(uploadEnabled)fie.click();});
+            fie.addEventListener('change',e=>{if(e.target.files[0]&&uploadEnabled)processarArquivo(e.target.files[0]);});
+            fua.addEventListener('dragover',e=>{e.preventDefault();if(uploadEnabled)fua.classList.add('dragover');});
+            fua.addEventListener('dragleave',()=>{fua.classList.remove('dragover');});
+            fua.addEventListener('drop',e=>{e.preventDefault();fua.classList.remove('dragover');if(uploadEnabled&&e.dataTransfer.files[0])processarArquivo(e.dataTransfer.files[0]);});
+            document.getElementById('removeFileBtn').addEventListener('click',e=>{e.stopPropagation();removerArquivo(false);});
             document.getElementById('btnApplySelection').addEventListener('click',aplicarSelecaoColunas);
-
             document.getElementById('rbCodeSourceData').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display=this.checked?'flex':'none';setUpdateNeeded();});
             document.getElementById('rbCodeSourceNumbering').addEventListener('change',function(){document.getElementById('codeSourceDataColumn').style.display='none';setUpdateNeeded();});
-
-            document.getElementById('btnSeqAtivo').addEventListener('click',function(){sequencialAtivo=true;this.classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';document.getElementById('configSequencial').style.display='block';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();setUpdateNeeded();});
-            document.getElementById('btnSeqInativo').addEventListener('click',function(){sequencialAtivo=false;this.classList.add('active');document.getElementById('btnSeqAtivo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial inativo';document.getElementById('configSequencial').style.display='none';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();setUpdateNeeded();});
-
-            document.querySelectorAll('input[name="tipoGeracao"]').forEach(function(r){r.addEventListener('change',toggleConfiguracoes);});
+            document.getElementById('btnSeqAtivo').addEventListener('click',function(){sequencialAtivo=true;this.classList.add('active');document.getElementById('btnSeqInativo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial ativo';document.getElementById('configSequencial').style.display='block';toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();setUpdateNeeded();});
+            document.getElementById('btnSeqInativo').addEventListener('click',function(){sequencialAtivo=false;this.classList.add('active');document.getElementById('btnSeqAtivo').classList.remove('active');document.getElementById('seqInfoMessage').innerHTML='<i class="fas fa-info-circle"></i> Sequencial inativo';document.getElementById('configSequencial').style.display='none';document.getElementById('hybridPositionGroup').style.display='none';atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();setUpdateNeeded();});
+            document.querySelectorAll('input[name="tipoGeracao"]').forEach(r=>r.addEventListener('change',toggleConfiguracoes));
             document.getElementById('rbNumeroFinal').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Número Final:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
             document.getElementById('rbQuantidade').addEventListener('change',function(){document.getElementById('lblFinalOuQuantidade').textContent='Quantidade de Códigos:';document.getElementById('divFinalOuQuantidade').style.display='flex';document.getElementById('divLinhasPorFolha').style.display='none';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
             document.getElementById('rbFolhas').addEventListener('change',function(){document.getElementById('divFinalOuQuantidade').style.display='none';document.getElementById('divLinhasPorFolha').style.display='flex';atualizarResultadoQuantidade();atualizarPreview();atualizarPreviewDistribuicao();setUpdateNeeded();});
-
-            document.getElementById('btnGerar').addEventListener('click',gerarNumeros);
-            document.getElementById('btnVisualizarModal').addEventListener('click',abrirModalVisualizacao);
-            document.getElementById('btnSalvarTXT').addEventListener('click',salvarComoTXT);
-            document.getElementById('btnSalvarCSV').addEventListener('click',salvarComoCSV);
-            document.getElementById('btnLimparDados').addEventListener('click',limparDados);
-            document.getElementById('btnSalvarConfig').addEventListener('click',salvarConfiguracao);
-            document.getElementById('btnRelatorioCompleto').addEventListener('click',gerarPDFCompleto);
-            document.getElementById('btnRelatorioResumido').addEventListener('click',gerarPDFResumido);
-
+            
+            // Botões flutuantes e dock
+            const attachEvent = (id, handler) => {
+                const btn = document.getElementById(id);
+                if (btn) btn.addEventListener('click', handler);
+            };
+            attachEvent('btnGerarFloat', gerarNumeros);
+            attachEvent('btnVisualizarModalFloat', abrirModalVisualizacao);
+            attachEvent('btnSalvarTXTFloat', salvarComoTXT);
+            attachEvent('btnSalvarCSVFloat', salvarComoCSV);
+            attachEvent('btnSalvarCSVInDesignFloat', salvarComoCSVInDesign);
+            attachEvent('btnLimparDadosFloat', limparDados);
+            attachEvent('btnSalvarConfigFloat', salvarConfiguracao);
+            attachEvent('btnCarregarConfigFloat', ()=>fileInput.click());
+            attachEvent('btnRelatorioCompletoFloat', gerarPDFCompleto);
+            attachEvent('btnRelatorioResumidoFloat', gerarPDFResumido);
+            
+            attachEvent('btnGerarDock', gerarNumeros);
+            attachEvent('btnVisualizarModalDock', abrirModalVisualizacao);
+            attachEvent('btnSalvarTXTDock', salvarComoTXT);
+            attachEvent('btnSalvarCSVDock', salvarComoCSV);
+            attachEvent('btnSalvarCSVInDesignDock', salvarComoCSVInDesign);
+            attachEvent('btnLimparDadosDock', limparDados);
+            attachEvent('btnSalvarConfigDock', salvarConfiguracao);
+            attachEvent('btnCarregarConfigDock', ()=>fileInput.click());
+            attachEvent('btnRelatorioCompletoDock', gerarPDFCompleto);
+            attachEvent('btnRelatorioResumidoDock', gerarPDFResumido);
+            
             fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='.json';fileInput.style.display='none';fileInput.addEventListener('change',carregarConfiguracao);document.body.appendChild(fileInput);
-            document.getElementById('btnCarregarConfig').addEventListener('click',function(){fileInput.click();});
-
-            document.querySelector('.close-modal').addEventListener('click',function(){document.getElementById('modalTabela').style.display='none';});
-            window.addEventListener('click',function(e){if(e.target===document.getElementById('modalTabela'))document.getElementById('modalTabela').style.display='none';});
-            document.addEventListener('keydown',function(e){if(e.key==='F1'){e.preventDefault();limparDados();}if(e.key==='F2'){e.preventDefault();gerarNumeros();}if(e.key==='Escape')document.getElementById('modalTabela').style.display='none';});
+            document.querySelector('.close-modal').addEventListener('click',()=>document.getElementById('modalTabela').style.display='none');
+            window.addEventListener('click',e=>{if(e.target===document.getElementById('modalTabela'))document.getElementById('modalTabela').style.display='none';});
+            document.addEventListener('keydown',e=>{if(e.key==='F1'){e.preventDefault();limparDados();}if(e.key==='F2'){e.preventDefault();gerarNumeros();}if(e.key==='Escape')document.getElementById('modalTabela').style.display='none';});
             document.getElementById('btnSalvarLog').addEventListener('click',salvarLogComoTXT);
             document.getElementById('btnLimparLog').addEventListener('click',limparLog);
-            ['mousedown','mousemove','keypress','scroll','touchstart','click'].forEach(function(ev){document.addEventListener(ev,resetTimeout);});
-            toggleConfiguracoes();atualizarPreview();atualizarResultadoQuantidade();atualizarPreviewDistribuicao();adicionarLog('Aplicação iniciada - Distribuição por Blocos Contíguos');
+            ['mousedown','mousemove','keypress','scroll','touchstart','click'].forEach(ev=>document.addEventListener(ev,resetTimeout));
+            
+            // Seta flutuante voltar ao topo
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) backToTop.classList.add('show');
+                else backToTop.classList.remove('show');
+            });
+            backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            
+            toggleConfiguracoes(); atualizarPreview(); atualizarResultadoQuantidade(); atualizarPreviewDistribuicao(); adicionarLog('Aplicação iniciada - Distribuição por Blocos Contíguos');
+            initScrollArrows();
         });
     </script>
 </body>

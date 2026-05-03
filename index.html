@@ -793,6 +793,22 @@
         .photo-column-config .remove-column-btn:hover { background: #dc2626; transform: scale(1.1); }
         .btn-add-photo { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #8e44ad, #6c3483); color: white; border: none; padding: 8px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: all 0.3s; }
         .btn-add-photo:hover { background: linear-gradient(135deg, #6c3483, #4a235a); transform: translateY(-2px); }
+        /* Estilo para edição de nomes de cabeçalhos */
+        .header-edit-input {
+            padding: 4px 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-family: 'Inter', 'Poppins', sans-serif;
+            width: 140px;
+            background: white;
+            transition: border-color 0.2s;
+        }
+        .header-edit-input:focus {
+            border-color: var(--azul-escuro);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0,119,204,0.1);
+        }
         @media (max-width: 1024px) {
             .app-layout { flex-direction: column; }
             .preview-sidebar { position: static; max-width: 100%; width: 100%; }
@@ -1349,7 +1365,38 @@
             function mostrarInfoArquivo() { const fi = document.getElementById('fileInfo'); document.getElementById('fileNameDisplay').textContent = currentFileName; document.getElementById('fileRowCount').textContent = rawData.length + ' linhas × ' + originalHeaders.length + ' colunas'; fi.classList.add('show'); document.getElementById('codeSourceSelector').classList.add('show'); }
             function atualizarCodeSourceColumns() { const s = document.getElementById('selectCodeSourceColumn'); s.innerHTML = ''; originalHeaders.forEach((h, i) => { let o = document.createElement('option'); o.value = i; o.textContent = h; s.appendChild(o); }); }
             function atualizarPhotoMatchDropdown() { const sel = document.getElementById('selectPhotoMatchColumn'); if (!sel) return; sel.innerHTML = ''; if (!originalHeaders || originalHeaders.length === 0) return; originalHeaders.forEach((h, i) => { const opt = document.createElement('option'); opt.value = i; opt.textContent = h; sel.appendChild(opt); }); document.querySelectorAll('.photo-match-select').forEach(select => { select.innerHTML = ''; if (originalHeaders.length > 0) { originalHeaders.forEach((h, i) => { const opt = document.createElement('option'); opt.value = i; opt.textContent = h; select.appendChild(opt); }); } else { select.innerHTML = '<option value="">-- sem colunas --</option>'; } }); }
-            function atualizarSelecaoColunas() { if (originalHeaders.length === 0) return; const cs = document.getElementById('columnSelector'), cc = document.getElementById('columnCheckboxes'), sa = document.getElementById('cbSelectAll'); cs.classList.add('show'); cc.innerHTML = ''; selectedColumns = originalHeaders.map((_, i) => i); originalHeaders.forEach((h, i) => { let d = document.createElement('div'); d.className = 'column-checkbox-item selected'; d.dataset.columnIndex = i; let cb = document.createElement('input'); cb.type = 'checkbox'; cb.id = 'col_' + i; cb.checked = true; cb.style.marginRight = '4px'; cb.addEventListener('change', function() { if (this.checked) { d.classList.add('selected'); d.classList.remove('removed'); if (selectedColumns.indexOf(i) === -1) selectedColumns.push(i); } else { d.classList.remove('selected'); d.classList.add('removed'); selectedColumns = selectedColumns.filter(j => j !== i); } atualizarEstadoSelectAll(); setUpdateNeeded(); }); let l = document.createElement('label'); l.htmlFor = 'col_' + i; l.textContent = h; l.style.cursor = 'pointer'; l.style.fontSize = '0.8em'; d.appendChild(cb); d.appendChild(l); cc.appendChild(d); }); sa.checked = true; sa.onchange = function() { let cbs = cc.querySelectorAll('input[type="checkbox"]'), its = cc.querySelectorAll('.column-checkbox-item'); cbs.forEach((cb, i) => { cb.checked = this.checked; if (this.checked) { its[i].classList.add('selected'); its[i].classList.remove('removed'); } else { its[i].classList.remove('selected'); its[i].classList.add('removed'); } }); selectedColumns = this.checked ? originalHeaders.map((_, i) => i) : []; setUpdateNeeded(); }; }
+            function atualizarSelecaoColunas() { if (originalHeaders.length === 0) return; const cs = document.getElementById('columnSelector'), cc = document.getElementById('columnCheckboxes'), sa = document.getElementById('cbSelectAll'); cs.classList.add('show'); cc.innerHTML = ''; selectedColumns = originalHeaders.map((_, i) => i); originalHeaders.forEach((h, i) => { 
+                let d = document.createElement('div'); 
+                d.className = 'column-checkbox-item selected'; 
+                d.dataset.columnIndex = i; 
+                let cb = document.createElement('input'); 
+                cb.type = 'checkbox'; 
+                cb.id = 'col_' + i; 
+                cb.checked = true; 
+                cb.style.marginRight = '4px'; 
+                cb.addEventListener('change', function() { 
+                    if (this.checked) { d.classList.add('selected'); d.classList.remove('removed'); if (selectedColumns.indexOf(i) === -1) selectedColumns.push(i); } 
+                    else { d.classList.remove('selected'); d.classList.add('removed'); selectedColumns = selectedColumns.filter(j => j !== i); } 
+                    atualizarEstadoSelectAll(); setUpdateNeeded(); 
+                }); 
+                // Input para renomear cabeçalho
+                let inp = document.createElement('input'); 
+                inp.type = 'text'; 
+                inp.value = h; 
+                inp.className = 'header-edit-input'; 
+                inp.style.marginLeft = '6px'; 
+                inp.addEventListener('click', function(e) { e.stopPropagation(); }); // para não disparar toggle do checkbox
+                inp.addEventListener('input', function() { 
+                    originalHeaders[i] = this.value; 
+                    atualizarCodeSourceColumns(); 
+                    atualizarPhotoMatchDropdown(); 
+                    setUpdateNeeded(); 
+                }); 
+                d.appendChild(cb); 
+                d.appendChild(inp); 
+                cc.appendChild(d); 
+            }); 
+            sa.checked = true; sa.onchange = function() { let cbs = cc.querySelectorAll('input[type="checkbox"]'), its = cc.querySelectorAll('.column-checkbox-item'); cbs.forEach((cb, i) => { cb.checked = this.checked; if (this.checked) { its[i].classList.add('selected'); its[i].classList.remove('removed'); } else { its[i].classList.remove('selected'); its[i].classList.add('removed'); } }); selectedColumns = this.checked ? originalHeaders.map((_, i) => i) : []; setUpdateNeeded(); }; }
             function atualizarEstadoSelectAll() { document.getElementById('cbSelectAll').checked = selectedColumns.length === originalHeaders.length; }
             function aplicarSelecaoColunas() { if (rawData.length === 0) { showNotification('Nenhum arquivo', 'warning'); return; } if (selectedColumns.length === 0) { showNotification('Selecione ao menos uma coluna', 'warning'); return; } rawData = rawData.map(l => selectedColumns.map(i => l[i] || '')); originalHeaders = selectedColumns.map(i => originalHeaders[i]); selectedColumns = originalHeaders.map((_, i) => i); atualizarSelecaoColunas(); atualizarCodeSourceColumns(); atualizarPhotoMatchDropdown(); mostrarInfoArquivo(); adicionarLog('Seleção aplicada: ' + originalHeaders.length + ' colunas'); showNotification('Seleção aplicada!', 'success'); atualizarPreviewDistribuicao(); setUpdateNeeded(); }
             function removerArquivo(keepUploadEnabled = false) { rawData = []; fullData = []; originalHeaders = []; processedData = []; currentFileName = null; selectedColumns = []; const fileInputElement = document.getElementById('fileInput'); if (fileInputElement) fileInputElement.value = ''; document.getElementById('fileInfo').classList.remove('show'); document.getElementById('columnSelector').classList.remove('show'); document.getElementById('columnCheckboxes').innerHTML = ''; document.getElementById('codeSourceSelector').classList.remove('show'); document.getElementById('codeSourceDataColumn').style.display = 'none'; document.getElementById('rowRemovalSection').classList.remove('show'); if (!keepUploadEnabled) { const cb = document.getElementById('cbEnableUpload'); if (cb && cb.checked) { cb.checked = false; uploadEnabled = false; document.getElementById('uploadContent').classList.remove('expanded'); document.getElementById('uploadToggleHeader').classList.remove('expanded'); } } document.getElementById('txtFinalOuQuantidade').value = '10'; document.getElementById('rbQuantidade').checked = true; document.getElementById('lblFinalOuQuantidade').textContent = 'Quantidade de Códigos:'; document.getElementById('divFinalOuQuantidade').style.display = 'flex'; document.getElementById('divLinhasPorFolha').style.display = 'none'; atualizarResultadoQuantidade(); atualizarPreview(); atualizarPreviewDistribuicao(); adicionarLog('Arquivo removido' + (keepUploadEnabled ? ' (reset interno)' : '')); showNotification('Arquivo removido'); setUpdateNeeded(); if (photoEnabled) assignPhotos(); }
@@ -1583,7 +1630,7 @@
                 atualizarPreview();
                 atualizarResultadoQuantidade();
                 atualizarPreviewDistribuicao();
-                adicionarLog('Aplicação iniciada – com seleção manual de linhas a remover');
+                adicionarLog('Aplicação iniciada – com edição de cabeçalhos e remoção manual de linhas');
                 initScrollArrows();
             });
         })();
